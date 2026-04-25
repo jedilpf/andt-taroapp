@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>前端开发工程师面试试卷</title>
+    <style>
+        @page { size: A4; margin: 15mm; }
+        body { font-family: 'SimSun', serif; font-size: 12pt; line-height: 1.6; max-width: 210mm; margin: 0 auto; padding: 20px; }
+        h1 { text-align: center; font-size: 18pt; margin-bottom: 5px; }
+        h2 { font-size: 14pt; margin-top: 15px; border-bottom: 1px solid #333; padding-bottom: 3px; }
+        .company { text-align: center; font-size: 14pt; font-weight: bold; margin-bottom: 10px; }
+        table.info { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+        table.info td { border: 1px solid #333; padding: 5px 10px; }
+        table.choice { width: 100%; margin-bottom: 10px; }
+        table.choice td { padding: 3px 0; }
+        .question { margin: 10px 0; font-weight: bold; }
+        .answer-box { border: 1px solid #999; min-height: 80px; padding: 10px; margin: 10px 0; }
+        .code-box { border: 1px solid #999; background: #f5f5f5; padding: 10px; font-family: 'Consolas', monospace; margin: 10px 0; }
+        .footer { text-align: center; margin-top: 20px; font-size: 10pt; }
+        .rubric { background: #f9f9f9; padding: 10px; margin-top: 15px; }
+        hr { border: none; border-top: 2px solid #333; margin: 10px 0; }
+        @media print { body { padding: 0; } }
+    </style>
+</head>
+<body>
+    <h1>前端开发工程师面试试卷</h1>
+    <p class="company">未来申活（上海）数字科技有限公司</p>
+    <hr>
+
+    <table class="info">
+        <tr>
+            <td width="15%">姓名</td><td width="35%">____________</td>
+            <td width="15%">应聘岗位</td><td width="35%">前端开发工程师</td>
+        </tr>
+        <tr>
+            <td>面试日期</td><td>____________</td>
+            <td>面试官</td><td>____________</td>
+        </tr>
+        <tr>
+            <td>总分</td><td>______ / 100</td>
+            <td>评定等级</td><td>□优秀 □良好 □合格 □不合格</td>
+        </tr>
+    </table>
+    <hr>
+
+    <h2>一、选择题（每题3分，共15分）</h2>
+    <p><strong>请将正确答案填写在括号内</strong></p>
+
+    <p class="question">1. React中，以下哪个Hook用于处理副作用？（   ）</p>
+    <table class="choice">
+        <tr><td>A. useState</td><td>B. useEffect</td><td>C. useContext</td><td>D. useRef</td></tr>
+    </table>
+
+    <p class="question">2. 以下哪个不是JavaScript的数据类型？（   ）</p>
+    <table class="choice">
+        <tr><td>A. undefined</td><td>B. null</td><td>C. symbol</td><td>D. array</td></tr>
+    </table>
+
+    <p class="question">3. CSS中，以下哪个属性用于设置弹性布局？（   ）</p>
+    <table class="choice">
+        <tr><td>A. display: block</td><td>B. display: flex</td><td>C. display: inline</td><td>D. display: grid</td></tr>
+    </table>
+
+    <p class="question">4. 在React中，以下哪种方式可以阻止事件冒泡？（   ）</p>
+    <table class="choice">
+        <tr><td>A. event.stop()</td><td>B. event.preventDefault()</td><td>C. event.stopPropagation()</td><td>D. event.cancel()</td></tr>
+    </table>
+
+    <p class="question">5. 以下哪个是正确的React组件命名？（   ）</p>
+    <table class="choice">
+        <tr><td>A. myComponent</td><td>B. MyComponent</td><td>C. my-component</td><td>D. my_component</td></tr>
+    </table>
+
+    <h2>二、填空题（每空2分，共20分）</h2>
+
+    <p class="question">6. React中使用<code>__________</code>来创建状态，使用<code>__________</code>来修改状态。</p>
+
+    <p class="question">7. JavaScript中，<code>var</code>、<code>let</code>、<code>const</code>三者的主要区别是<code>var</code>是<code>__________</code>作用域，<code>let</code>和<code>const</code>是<code>__________</code>作用域。</p>
+
+    <p class="question">8. CSS选择器优先级从高到低：<code>!important</code> > <code>__________</code> > ID选择器 > <code>__________</code> > 元素选择器。</p>
+
+    <p class="question">9. 数组方法中，<code>map()</code>用于<code>__________</code>，<code>filter()</code>用于<code>__________</code>。</p>
+
+    <p class="question">10. React中的key属性主要用于帮助<code>__________</code>识别列表元素的变化。</p>
+
+    <h2>三、简答题（每题8分，共40分）</h2>
+    <p><strong>请在下方答题区域作答</strong></p>
+
+    <p class="question">11. 什么是React的虚拟DOM？它有什么优势？</p>
+    <div class="answer-box">
+        答：<br><br><br><br>
+    </div>
+
+    <p class="question">12. useEffect的依赖数组有几种用法？分别是什么效果？</p>
+    <div class="answer-box">
+        答：<br><br><br><br>
+    </div>
+
+    <p class="question">13. 什么是防抖（debounce）？它有什么应用场景？</p>
+    <div class="answer-box">
+        答：<br><br><br><br>
+    </div>
+
+    <p class="question">14. 简述Tailwind CSS的优缺点。</p>
+    <div class="answer-box">
+        答：<br><br><br><br>
+    </div>
+
+    <p class="question">15. 什么是响应式设计？如何实现移动端适配？</p>
+    <div class="answer-box">
+        答：<br><br><br><br>
+    </div>
+
+    <h2>四、编程题（共25分）</h2>
+
+    <p class="question">16. 实现一个简单的计数器组件（10分）</p>
+    <p>要求：显示当前数字，有+1、-1、重置三个按钮</p>
+    <div class="code-box">
+function Counter() {<br>
+  // 请补充代码<br>
+  <br>
+  <br>
+  <br>
+  <br>
+}
+    </div>
+
+    <p class="question">17. 实现防抖函数（15分）</p>
+    <p>要求：输入框连续输入时，只在停止输入500ms后才执行搜索</p>
+    <div class="code-box">
+function debounce(fn, delay) {<br>
+  // 请补充代码<br>
+  <br>
+  <br>
+  <br>
+  <br>
+}
+    </div>
+
+    <h2>五、AI工具应用题（附加题10分）</h2>
+
+    <p class="question">18. 请写一个提示词，让AI帮你生成一个登录表单组件（要求：手机号+验证码，使用Tailwind CSS）</p>
+    <div class="answer-box">
+        <br><br><br><br><br>
+    </div>
+
+    <div class="rubric">
+        <strong>阅卷说明：</strong><br>
+        - 选择题：每题3分，选错不得分<br>
+        - 填空题：每空2分，意思对即可给分<br>
+        - 简答题：每题8分，要点清晰给6分以上<br>
+        - 编程题：代码正确给满分，逻辑正确有小错给一半分
+    </div>
+
+    <hr>
+    <div class="footer">
+        <strong>未来申活（上海）数字科技有限公司</strong><br>
+        编制日期：2026年4月8日
+    </div>
+</body>
+</html>

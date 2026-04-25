@@ -1,0 +1,153 @@
+.profile-page {
+  min-height: 100vh;
+  background-color: #F7F8FA;
+  padding-bottom: 32PX;
+
+  /* 头部用户信息 */
+  .profile-header {
+    position: relative;
+    padding: 48PX 24PX 64PX;
+    overflow: hidden;
+
+    .header-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(160deg, #E60012 0%, #9e000c 100%);
+      z-index: 0;
+    }
+
+    .user-info {
+      position: relative;
+      z-index: 1;
+
+      .avatar-section {
+        display: flex;
+        align-items: center;
+
+        .user-avatar {
+          width: 72PX !important;
+          height: 72PX !important;
+          border: 3PX solid rgba(255, 255, 255, 0.3);
+          margin-right: 16PX;
+          flex-shrink: 0;
+
+          .nut-avatar-text {
+            font-size: 28PX;
+            font-weight: 600;
+          }
+        }
+
+        .user-meta {
+          .username {
+            font-size: 22PX;
+            font-weight: 600;
+            color: #FFFFFF;
+            display: block;
+            margin-bottom: 8PX;
+          }
+
+          .phone {
+            font-size: 14PX;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 300;
+          }
+        }
+      }
+    }
+
+    /* 装饰圆圈 */
+    .decoration-circle {
+      position: absolute;
+      width: 250PX;
+      height: 250PX;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      top: -80PX;
+      right: -60PX;
+      z-index: 0;
+    }
+  }
+
+  /* 功能菜单卡片 */
+  .menu-card {
+    margin: -32PX 24PX 24PX;
+    background: #FFFFFF;
+    border-radius: 20PX;
+    padding: 8PX 0;
+    box-shadow: 0 16PX 40PX rgba(0, 0, 0, 0.06), 0 8PX 16PX rgba(230, 0, 18, 0.04);
+    position: relative;
+    z-index: 2;
+
+    .profile-cell-group {
+      background: transparent;
+
+      .profile-cell {
+        padding: 20PX 24PX;
+
+        .cell-icon-wrap {
+          width: 24PX;
+          height: 24PX;
+          margin-right: 12PX;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .nut-cell__title {
+          font-size: 15PX;
+          color: #333333;
+        }
+
+        &::after {
+          left: 60PX;
+          right: 24PX;
+          background-color: #F2F2F2;
+        }
+
+        &:last-child::after {
+          display: none;
+        }
+
+        &:active {
+          background-color: #F7F8FA;
+        }
+      }
+    }
+  }
+
+  /* 退出登录按钮 */
+  .logout-section {
+    padding: 0 24PX;
+    margin-top: 32PX;
+
+    .logout-btn {
+      height: 48PX !important;
+      width: 100% !important;
+      font-size: 16PX !important;
+      font-weight: 500;
+      background: #FFFFFF !important;
+      color: #E60012 !important;
+      border: 1PX solid #E60012 !important;
+      border-radius: 24PX !important;
+      transition: all 0.2s;
+
+      &:active {
+        background: #FFF2F2 !important;
+      }
+    }
+  }
+
+  /* 版本信息 */
+  .version-info {
+    text-align: center;
+    padding: 24PX;
+
+    .version-text {
+      font-size: 12PX;
+      color: #999999;
+    }
+  }
+}

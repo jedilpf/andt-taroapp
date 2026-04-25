@@ -1,0 +1,10 @@
+
+{
+  "name": "安电通 - 上门电工",
+  "description": "连接业主与专业电工的双端平台。支持AI故障诊断、实时地图找人、全流程订单追踪。包含实名认证与统一消息中心。",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}

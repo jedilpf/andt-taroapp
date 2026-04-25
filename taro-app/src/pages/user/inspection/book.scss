@@ -1,0 +1,156 @@
+.book-page {
+  min-height: 100vh;
+  background-color: #F7F8FA;
+  padding-bottom: 32PX;
+
+  /* 头部 Banner */
+  .header-section {
+    position: relative;
+    padding: 40PX 24PX 56PX;
+    overflow: hidden;
+
+    .header-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(160deg, #E60012 0%, #9e000c 100%);
+      z-index: 0;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+
+      .title {
+        font-size: 28PX;
+        font-weight: 800;
+        color: #FFFFFF;
+        letter-spacing: 4PX;
+        display: block;
+        margin-bottom: 8PX;
+        text-shadow: 0 2PX 4PX rgba(0, 0, 0, 0.1);
+      }
+
+      .subtitle {
+        font-size: 14PX;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 300;
+        letter-spacing: 4PX;
+      }
+    }
+
+    .decoration-circle {
+      position: absolute;
+      width: 200PX;
+      height: 200PX;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      bottom: -60PX;
+      right: -40PX;
+      z-index: 0;
+    }
+  }
+
+  .form-section {
+    margin: -24PX 24PX 0;
+    background: #FFFFFF;
+    border-radius: 20PX;
+    padding: 24PX;
+    box-shadow: 0 16PX 40PX rgba(0, 0, 0, 0.06), 0 8PX 16PX rgba(230, 0, 18, 0.04);
+    position: relative;
+    z-index: 2;
+
+    .form-item {
+      margin-bottom: 20PX;
+
+      .label-wrap {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10PX;
+
+        .label {
+          font-size: 14PX;
+          color: #333333;
+          font-weight: 500;
+          margin-left: 8PX;
+        }
+      }
+
+      .picker-input {
+        width: 100%;
+        height: 48PX;
+        padding: 0 16PX;
+        background: #F7F8FA;
+        border-radius: 12PX;
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        border: 1PX solid transparent;
+        transition: all 0.2s;
+
+        &:active {
+          border-color: #E60012;
+          background: #FFF8F8;
+        }
+
+        .picker-text {
+          font-size: 15PX;
+          color: #333333;
+        }
+
+        .picker-placeholder {
+          font-size: 15PX;
+          color: #C0C4CC;
+        }
+      }
+
+      .nut-input-book {
+        background: #F7F8FA;
+        border-radius: 12PX;
+        padding: 0 16PX;
+        height: 48PX;
+        border: 1PX solid transparent;
+        transition: all 0.2s;
+
+        &:focus-within {
+          border-color: #E60012;
+          background: #FFF8F8;
+        }
+
+        .nut-input-inner {
+          background: transparent;
+        }
+
+        .nut-input-native {
+          font-size: 15PX !important;
+          color: #333333 !important;
+          background: transparent !important;
+
+          &::placeholder {
+            color: #C0C4CC !important;
+            font-size: 15PX !important;
+          }
+        }
+      }
+    }
+
+    .submit-btn {
+      height: 48PX !important;
+      font-size: 16PX !important;
+      font-weight: 600;
+      background: linear-gradient(135deg, #ff6b6b 0%, #E60012 100%) !important;
+      border: none !important;
+      border-radius: 24PX !important;
+      box-shadow: 0 8PX 20PX rgba(230, 0, 18, 0.15);
+      letter-spacing: 4PX;
+      margin-top: 32PX;
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
+}

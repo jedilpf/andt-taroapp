@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安电通项目 - 简要汇报2.0</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; max-width: 900px; margin: 0 auto; padding: 40px 30px; color: #333; line-height: 1.8; }
+        h1 { text-align: center; font-size: 24pt; color: #1E3A8A; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 4px solid #1E3A8A; }
+        h2 { font-size: 15pt; color: #1E3A8A; margin-top: 30px; margin-bottom: 15px; padding-left: 10px; border-left: 4px solid #3B82F6; }
+        .header { text-align: center; padding: 20px; background: linear-gradient(135deg, #EFF6FF, #F0FDF4); border-radius: 10px; margin-bottom: 25px; }
+        .metric-row { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin: 20px 0; }
+        .metric { background: linear-gradient(135deg, #1E3A8A, #3B82F6); color: white; padding: 12px 20px; border-radius: 8px; text-align: center; min-width: 100px; }
+        .metric.green { background: linear-gradient(135deg, #166534, #22C55E); }
+        .metric.orange { background: linear-gradient(135deg, #9A3412, #F97316); }
+        .metric .num { font-size: 18pt; font-weight: bold; }
+        .metric .lab { font-size: 9pt; opacity: 0.9; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 10pt; }
+        th, td { border: 1px solid #d1d5db; padding: 10px 12px; text-align: left; }
+        th { background: #EFF6FF; color: #1E40AF; }
+        ul { margin: 10px 0; padding-left: 25px; }
+        li { margin: 5px 0; }
+        .box { padding: 12px 15px; margin: 15px 0; border-radius: 8px; }
+        .box-info { background: #EFF6FF; border-left: 4px solid #3B82F6; }
+        .box-success { background: #F0FDF4; border-left: 4px solid #22C55E; }
+        .box-warn { background: #FEF2F2; border-left: 4px solid #EF4444; }
+        .page-break { page-break-after: always; margin: 30px 0; }
+        .highlight { font-weight: bold; color: #1E3A8A; }
+        .text-center { text-align: center; }
+        .icon-svg { width: 30px; height: 30px; display: inline-block; vertical-align: middle; margin-right: 8px; }
+        .icon-svg svg { width: 100%; height: 100%; stroke: #3B82F6; stroke-width: 2; fill: none; stroke-linecap: round; }
+        .icon-svg.green svg { stroke: #22C55E; }
+        .icon-svg.orange svg { stroke: #F97316; }
+        .org-grid { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 15px 0; }
+        .org-item { text-align: center; min-width: 80px; }
+        .org-item .icon { width: 40px; height: 40px; margin: 0 auto 5px; }
+        .org-item .icon svg { width: 100%; height: 100%; stroke: #3B82F6; stroke-width: 2; fill: none; stroke-linecap: round; }
+        .org-item .name { font-size: 10pt; font-weight: bold; color: #1E3A8A; }
+        .ai-grid { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 10px 0; }
+        .ai-item { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 8px 12px; text-align: center; min-width: 70px; }
+        .ai-item .icon { width: 25px; height: 25px; margin: 0 auto 4px; }
+        .ai-item .icon svg { width: 100%; height: 100%; stroke: #3B82F6; stroke-width: 1.5; fill: none; }
+        .ai-item .name { font-size: 9pt; font-weight: bold; color: #1E3A8A; }
+    </style>
+</head>
+<body>
+
+<h1>安电通项目 - 项目负责人简要汇报2.0</h1>
+
+<div class="header">
+    <p><strong>汇报人：</strong>陆芃非 &nbsp;&nbsp; <strong>日期：</strong>2026年3月</p>
+</div>
+
+<div class="metric-row">
+    <div class="metric">
+        <div class="num">8人</div>
+        <div class="lab">目标团队</div>
+    </div>
+    <div class="metric green">
+        <div class="num">5人</div>
+        <div class="lab">已到位</div>
+    </div>
+    <div class="metric orange">
+        <div class="num">180万</div>
+        <div class="lab">年预算</div>
+    </div>
+    <div class="metric">
+        <div class="num">Demo</div>
+        <div class="lab">演示版本</div>
+    </div>
+</div>
+
+<h2>一、项目定位</h2>
+<div class="box box-info">
+    <strong>安电通</strong>：O2O上门电工服务平台
+    <br>核心闭环：<span class="highlight">安全检测 → 维修联动 → 居民服务</span>
+</div>
+
+<h2>二、技术架构</h2>
+<table>
+    <tr><th>层级</th><th>方案</th><th>说明</th></tr>
+    <tr>
+        <td><span class="icon-svg"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 18h6"/></svg></span>前端</td>
+        <td><strong>Taro框架</strong></td>
+        <td>iOS/Android/鸿蒙多端复用，京东规模化应用</td>
+    </tr>
+    <tr>
+        <td><span class="icon-svg"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4"/></svg></span>后端</td>
+        <td><strong>微服务架构</strong></td>
+        <td>地图等模块拆分，单点故障隔离</td>
+    </tr>
+    <tr>
+        <td><span class="icon-svg"><svg viewBox="0 0 24 24"><path d="M4 19h16M4 15h16M6 11V6a2 2 0 012-2h8a2 2 0 012 2v5"/></svg></span>基础设施</td>
+        <td><strong>云服务器</strong></td>
+        <td>年付模式，放弃自建（成本高、易被攻击）</td>
+    </tr>
+</table>
+
+<h2>三、组织结构</h2>
+
+<div class="org-grid">
+    <div class="org-item">
+        <div class="icon"><svg viewBox="0 0 50 50"><circle cx="25" cy="16" r="8"/><path d="M10 45c0-8 7-14 15-14s15 6 15 14"/></svg></div>
+        <div class="name">项目负责人</div>
+    </div>
+</div>
+<div style="text-align: center; margin: 5px 0;">↓</div>
+<div class="org-grid">
+    <div class="org-item">
+        <div class="icon"><svg viewBox="0 0 50 50"><rect x="8" y="8" width="34" height="34" rx="3"/><path d="M15 20h20M15 28h12"/></svg></div>
+        <div class="name">产品经理</div>
+    </div>
+    <div class="org-item">
+        <div class="icon"><svg viewBox="0 0 50 50"><circle cx="25" cy="18" r="7"/><path d="M15 35c0-5 4-8 10-8s10 3 10 8"/><path d="M35 12l5 5M40 12l-5 5"/></svg></div>
+        <div class="name">UI设计</div>
+    </div>
+    <div class="org-item">
+        <div class="icon"><svg viewBox="0 0 50 50"><rect x="5" y="10" width="40" height="28" rx="3"/><path d="M15 42h20M18 18h14M18 24h10M18 30h12"/></svg></div>
+        <div class="name">前端开发</div>
+    </div>
+    <div class="org-item">
+        <div class="icon orange"><svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="18"/><path d="M25 15v20M15 25h20"/><circle cx="25" cy="25" r="8"/></svg></div>
+        <div class="name">后端开发</div>
+    </div>
+    <div class="org-item">
+        <div class="icon orange"><svg viewBox="0 0 50 50"><path d="M25 5l20 15v20l-20 5-20-5V20l20-15z"/><path d="M25 25v15M15 20l10 5 10-5"/></svg></div>
+        <div class="name">运营专员</div>
+    </div>
+</div>
+
+<div class="box box-success" style="text-align: center;">
+    <strong>目标：8人团队 | 年预算：180万</strong>
+</div>
+
+<h2>四、AI工具应用</h2>
+<div class="box box-success" style="text-align: center;">
+    <strong>策略：1个工程师 + 1套AI = 高效组合</strong>
+</div>
+
+<div class="ai-grid">
+    <div class="ai-item">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <div class="name">Claude Code</div>
+    </div>
+    <div class="ai-item">
+        <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg></div>
+        <div class="name">Gemini</div>
+    </div>
+    <div class="ai-item">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"/></svg></div>
+        <div class="name">Claude</div>
+    </div>
+    <div class="ai-item">
+        <div class="icon"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg></div>
+        <div class="name">Figma AI</div>
+    </div>
+    <div class="ai-item">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg></div>
+        <div class="name">MiniMax</div>
+    </div>
+    <div class="ai-item">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <div class="name">Cloud</div>
+    </div>
+</div>
+
+<table>
+    <tr><th>方案</th><th>年成本</th><th>效率提升</th></tr>
+    <tr><td>资深工程师</td><td>20-30万</td><td>基准</td></tr>
+    <tr><td>AI工具套装</td><td>约1万</td><td>30-50%</td></tr>
+    <tr><td><strong>1工程师+AI</strong></td><td><strong>21-31万</strong></td><td><strong>效率提升30-50%</strong></td></tr>
+</table>
+
+<h2>五、商业化路径</h2>
+<table>
+    <tr><th>阶段</th><th>核心任务</th><th>变现方式</th></tr>
+    <tr><td>前期</td><td>安全检测+维修联动</td><td>服务抽成</td></tr>
+    <tr><td>中期</td><td>居民服务闭环</td><td>增值服务+广告</td></tr>
+    <tr><td>后期</td><td>规模化运营</td><td>生态变现</td></tr>
+</table>
+<div class="box box-warn">
+    <strong>前期原则：</strong>专注刚需闭环，不做广告/情绪类
+</div>
+
+<h2>六、用户粘性策略</h2>
+<ul>
+    <li><strong>核心指标：</strong>日均使用时长 + 半年留存率</li>
+    <li><strong>实用功能：</strong>宠物医院查询、便民电话、社区资讯</li>
+    <li><strong>激励体系：</strong>签到积分、连续打卡奖励</li>
+    <li><strong>信任建立：</strong>诈骗预警、火灾通报、活动通知</li>
+</ul>
+
+<h2>七、推广策略</h2>
+<div class="box box-info">
+    <strong>借鉴早期网约车补贴逻辑：高频低门槛触达</strong>
+</div>
+<ul>
+    <li><strong>切入点：</strong>实用消耗品（插座、灯泡等）</li>
+    <li><strong>渠道：</strong>物业合作、社区活动</li>
+    <li><strong>目标：</strong>从"偶尔用"到"天天用"</li>
+</ul>
+
+<h2>八、项目进度</h2>
+<table>
+    <tr><th>模块</th><th>阶段</th><th>状态</th></tr>
+    <tr><td>用户端APP</td><td>Demo</td><td>✅ 完成</td></tr>
+    <tr><td>电工端小程序</td><td>Demo</td><td>✅ 完成</td></tr>
+    <tr><td>前端框架</td><td>Taro</td><td>✅ 已确定</td></tr>
+    <tr><td>后端架构</td><td>微服务</td><td>🔄 设计中</td></tr>
+    <tr><td>基础设施</td><td>云服务器</td><td>🔄 选型中</td></tr>
+</table>
+
+<h2>九、年度预算（万元/年）</h2>
+<table>
+    <tr><th>成本项</th><th>金额</th><th>占比</th></tr>
+    <tr><td>人力成本（8人）</td><td>180</td><td>67%</td></tr>
+    <tr><td>市场推广</td><td>50</td><td>19%</td></tr>
+    <tr><td>服务器/云服务</td><td>12</td><td>4%</td></tr>
+    <tr><td>办公/行政</td><td>20</td><td>8%</td></tr>
+    <tr><td>其他</td><td>6</td><td>2%</td></tr>
+    <tr><td><strong>合计</strong></td><td><strong>268</strong></td><td><strong>100%</strong></td></tr>
+</table>
+
+<h2>十、下阶段计划</h2>
+<div class="metric-row" style="margin: 15px 0;">
+    <div class="metric">
+        <div class="num">Q1</div>
+        <div class="lab">Demo + 选型</div>
+    </div>
+    <div class="metric">
+        <div class="num">Q2</div>
+        <div class="lab">后端 + 联调</div>
+    </div>
+    <div class="metric">
+        <div class="num">Q3</div>
+        <div class="lab">内测 + 运营</div>
+    </div>
+    <div class="metric green">
+        <div class="num">Q4</div>
+        <div class="lab">V1.0上线</div>
+    </div>
+</div>
+
+<div class="page-break"></div>
+
+<div class="text-center" style="margin-top: 40px; padding: 30px; background: linear-gradient(135deg, #EFF6FF, #F0FDF4); border-radius: 10px;">
+    <p style="font-size: 14pt; font-weight: bold; color: #1E3A8A;">汇报完毕，请各位领导指导！</p>
+    <p style="color: #6B7280; margin-top: 15px;">汇报人：陆芃非</p>
+</div>
+
+</body>
+</html>

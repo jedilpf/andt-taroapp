@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mvn compile *)",
+      "Bash(mvn dependency:tree)",
+      "Bash(npx tsc *)",
+      "Bash(npx taro *)",
+      "Bash(mysql --version)",
+      "Bash(mysql -u root -e \"SELECT 1\")",
+      "Bash(where java *)",
+      "Bash(java -version)",
+      "Bash(mysql -u root -proot -e \"SELECT SCHEMA_NAME FROM information_schema.SCHEMATA WHERE SCHEMA_NAME LIKE 'andt%'\")",
+      "Bash(mysql -u root -p111111 -e \"SHOW DATABASES\")"
+    ]
+  }
+}

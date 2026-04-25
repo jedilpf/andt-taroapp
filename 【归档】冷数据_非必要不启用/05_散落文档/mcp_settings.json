@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "knowledge": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-knowledge"
+      ],
+      "env": {
+        "KNOWLEDGE_STORAGE_PATH": "c:\\Users\\21389\\Downloads\\andt1\\12259\\项目逻辑分析"
+      }
+    }
+  }
+}

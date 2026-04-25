@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI工具使用指南 - 未来申活（上海）数字科技有限公司</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .header .company {
+            font-size: 1.1em;
+            opacity: 0.8;
+        }
+
+        .header .date {
+            margin-top: 20px;
+            font-size: 0.95em;
+            opacity: 0.7;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: #f8f9fa;
+            padding: 30px 40px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .toc h2 {
+            font-size: 1.3em;
+            color: #1a1a2e;
+            margin-bottom: 15px;
+        }
+
+        .toc-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+
+        .toc-list a {
+            color: #4a6cf7;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            display: block;
+        }
+
+        .toc-list a:hover {
+            background: #e8f0fe;
+            color: #1a1a2e;
+        }
+
+        /* Main Content */
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            font-size: 1.8em;
+            color: #1a1a2e;
+            border-left: 5px solid #4a6cf7;
+            padding-left: 20px;
+            margin-bottom: 25px;
+        }
+
+        .section h3 {
+            font-size: 1.3em;
+            color: #2d3748;
+            margin: 25px 0 15px 0;
+        }
+
+        .section h4 {
+            font-size: 1.1em;
+            color: #4a5568;
+            margin: 20px 0 10px 0;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #4a5568;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        tr:hover {
+            background: #e8f0fe;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eee;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h4 {
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+        }
+
+        .card-icon.claude { background: linear-gradient(135deg, #d4a574 0%, #c9956c 100%); }
+        .card-icon.gpt { background: linear-gradient(135deg, #10a37f 0%, #0d8a6b 100%); }
+        .card-icon.qwen { background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%); }
+        .card-icon.deepseek { background: linear-gradient(135deg, #4285f4 0%, #34a853 100%); }
+        .card-icon.doubao { background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%); }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card li {
+            padding: 5px 0;
+            color: #4a5568;
+            font-size: 0.95em;
+        }
+
+        .card li::before {
+            content: "•";
+            color: #4a6cf7;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        /* Code Blocks */
+        pre {
+            background: #1a1a2e;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        code {
+            background: #f1f5f9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+            font-size: 0.9em;
+            color: #e53e3e;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* Highlight boxes */
+        .highlight-box {
+            background: linear-gradient(135deg, #e8f0fe 0%, #d4e5ff 100%);
+            border-left: 4px solid #4a6cf7;
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 20px 0;
+        }
+
+        .highlight-box.warning {
+            background: linear-gradient(135deg, #fff8e6 0%, #ffe4b5 100%);
+            border-left-color: #f59e0b;
+        }
+
+        .highlight-box.success {
+            background: linear-gradient(135deg, #e6ffed 0%, #c6f6d5 100%);
+            border-left-color: #10b981;
+        }
+
+        .highlight-box h4 {
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+
+        /* Provider Badge */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+            margin-right: 5px;
+        }
+
+        .badge-primary { background: #4a6cf7; color: white; }
+        .badge-success { background: #10b981; color: white; }
+        .badge-warning { background: #f59e0b; color: white; }
+        .badge-info { background: #0ea5e9; color: white; }
+
+        /* Star Rating */
+        .stars {
+            color: #f59e0b;
+            letter-spacing: 2px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a2e;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .footer p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 10px;
+        }
+
+        .footer .copyright {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9em;
+            opacity: 0.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.85em;
+            }
+
+            th, td {
+                padding: 8px 10px;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+            }
+
+            .card:hover {
+                transform: none;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>AI工具使用指南</h1>
+            <p class="subtitle">安电通项目技术文档</p>
+            <p class="company">未来申活（上海）数字科技有限公司</p>
+            <p class="date">编制日期：2026年4月8日</p>
+        </header>
+
+        <!-- Table of Contents -->
+        <nav class="toc">
+            <h2>目录</h2>
+            <div class="toc-list">
+                <a href="#section1">一、AI工具选型对比</a>
+                <a href="#section2">二、推荐使用场景</a>
+                <a href="#section3">三、API接入方案</a>
+                <a href="#section4">四、成本控制</a>
+                <a href="#section5">五、安全与合规</a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Section 1 -->
+            <section id="section1" class="section">
+                <h2>一、AI工具选型对比</h2>
+
+                <h3>1.1 工具概览</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>工具</th>
+                            <th>提供商</th>
+                            <th>优势</th>
+                            <th>适用场景</th>
+                            <th>成本</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge badge-primary">Claude</span></td>
+                            <td>Anthropic</td>
+                            <td>长文本处理强、代码能力优秀、安全合规</td>
+                            <td>代码生成、文档编写、架构设计</td>
+                            <td>按token计费</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-success">GPT-4</span></td>
+                            <td>OpenAI</td>
+                            <td>代码生成强、生态完善、社区活跃</td>
+                            <td>代码补全、API调用、复杂推理</td>
+                            <td>按token计费</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-warning">通义千问</span></td>
+                            <td>阿里云</td>
+                            <td>国内合规、中文优化、响应快速</td>
+                            <td>对话交互、简单代码、文本处理</td>
+                            <td>有免费额度</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-info">DeepSeek</span></td>
+                            <td>深度求索</td>
+                            <td>性价比高、代码能力不错、推理强</td>
+                            <td>代码生成、逻辑推理、数学计算</td>
+                            <td>价格便宜</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-primary">豆包</span></td>
+                            <td>字节跳动</td>
+                            <td>多模态支持、国内合规、APP集成</td>
+                            <td>APP内对话、图像理解、日常助手</td>
+                            <td>有免费额度</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>1.2 详细对比</h3>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>
+                            <span class="card-icon claude">🤖</span>
+                            Claude（Anthropic）
+                        </h4>
+                        <p><strong>优势特点</strong></p>
+                        <ul>
+                            <li>超长上下文支持（200K+ tokens）</li>
+                            <li>代码生成质量高，注释清晰</li>
+                            <li>安全性强，拒绝有害内容</li>
+                            <li>文档编写能力强，结构清晰</li>
+                        </ul>
+                        <p><strong>适用场景</strong></p>
+                        <ul>
+                            <li>项目架构设计与规划</li>
+                            <li>复杂代码重构与优化</li>
+                            <li>技术文档编写</li>
+                            <li>代码审查与安全检查</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>
+                            <span class="card-icon gpt">🧠</span>
+                            GPT-4/Codex（OpenAI）
+                        </h4>
+                        <p><strong>优势特点</strong></p>
+                        <ul>
+                            <li>代码补全精准</li>
+                            <li>API生态成熟</li>
+                            <li>Function Calling支持完善</li>
+                            <li>社区资源丰富</li>
+                        </ul>
+                        <p><strong>适用场景</strong></p>
+                        <ul>
+                            <li>IDE代码补全（Copilot）</li>
+                            <li>复杂逻辑推理</li>
+                            <li>API服务集成</li>
+                            <li>数据分析与处理</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>
+                            <span class="card-icon qwen">💬</span>
+                            通义千问（阿里云）
+                        </h4>
+                        <p><strong>优势特点</strong></p>
+                        <ul>
+                            <li>国内服务器部署，合规无忧</li>
+                            <li>中文理解能力强</li>
+                            <li>响应速度快，稳定性高</li>
+                            <li>提供免费调用额度</li>
+                        </ul>
+                        <p><strong>适用场景</strong></p>
+                        <ul>
+                            <li>用户端对话助手</li>
+                            <li>中文内容生成</li>
+                            <li>简单代码任务</li>
+                            <li>企业内部应用</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>
+                            <span class="card-icon deepseek">⚡</span>
+                            DeepSeek（深度求索）
+                        </h4>
+                        <p><strong>优势特点</strong></p>
+                        <ul>
+                            <li>极致性价比</li>
+                            <li>代码能力出色</li>
+                            <li>推理能力强</li>
+                            <li>API调用简单</li>
+                        </ul>
+                        <p><strong>适用场景</strong></p>
+                        <ul>
+                            <li>代码生成与补全</li>
+                            <li>逻辑推理任务</li>
+                            <li>数学计算</li>
+                            <li>成本敏感项目</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>
+                            <span class="card-icon doubao">🎯</span>
+                            豆包（字节跳动）
+                        </h4>
+                        <p><strong>优势特点</strong></p>
+                        <ul>
+                            <li>多模态支持（文本+图像）</li>
+                            <li>APP端使用便捷</li>
+                            <li>国内合规，数据不出境</li>
+                            <li>免费额度充足</li>
+                        </ul>
+                        <p><strong>适用场景</strong></p>
+                        <ul>
+                            <li>APP内AI助手</li>
+                            <li>图像理解与描述</li>
+                            <li>日常对话交互</li>
+                            <li>移动端应用集成</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>1.3 定价对比</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>模型</th>
+                            <th>输入价格</th>
+                            <th>输出价格</th>
+                            <th>100万token成本</th>
+                            <th>性价比评级</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Claude 3.5 Sonnet</td>
+                            <td>¥21.6/百万token</td>
+                            <td>¥108/百万token</td>
+                            <td>中等</td>
+                            <td><span class="stars">★★★☆☆</span></td>
+                        </tr>
+                        <tr>
+                            <td>GPT-4o</td>
+                            <td>¥18/百万token</td>
+                            <td>¥72/百万token</td>
+                            <td>中等</td>
+                            <td><span class="stars">★★★☆☆</span></td>
+                        </tr>
+                        <tr>
+                            <td>通义千问-Max</td>
+                            <td>¥40/百万token</td>
+                            <td>¥120/百万token</td>
+                            <td>中等</td>
+                            <td><span class="stars">★★★☆☆</span></td>
+                        </tr>
+                        <tr>
+                            <td>通义千问-Plus</td>
+                            <td>¥8/百万token</td>
+                            <td>¥20/百万token</td>
+                            <td>低</td>
+                            <td><span class="stars">★★★★☆</span></td>
+                        </tr>
+                        <tr>
+                            <td>通义千问-Turbo</td>
+                            <td>¥3/百万token</td>
+                            <td>¥6/百万token</td>
+                            <td>极低</td>
+                            <td><span class="stars">★★★★★</span></td>
+                        </tr>
+                        <tr>
+                            <td>DeepSeek</td>
+                            <td>¥1/百万token</td>
+                            <td>¥2/百万token</td>
+                            <td>极低</td>
+                            <td><span class="stars">★★★★★</span></td>
+                        </tr>
+                        <tr>
+                            <td>豆包-Pro</td>
+                            <td>¥8/百万token</td>
+                            <td>¥10/百万token</td>
+                            <td>低</td>
+                            <td><span class="stars">★★★★☆</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section 2 -->
+            <section id="section2" class="section">
+                <h2>二、推荐使用场景</h2>
+
+                <h3>2.1 代码开发场景</h3>
+
+                <div class="highlight-box success">
+                    <h4>首选方案：Claude（Claude Code CLI）</h4>
+                    <p><strong>推荐理由：</strong>代码生成质量最高、长上下文支持整个项目分析、安全审查能力强、文档自动生成</p>
+                </div>
+
+                <pre><code># 安装 Claude Code CLI
+npm install -g @anthropic-ai/claude-code
+
+# 项目开发
+claude code "创建用户登录页面，使用React和TypeScript"</code></pre>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>任务类型</th>
+                            <th>推荐模型</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>架构设计</td>
+                            <td>Claude 3.5 Sonnet</td>
+                            <td>全局规划能力强</td>
+                        </tr>
+                        <tr>
+                            <td>代码生成</td>
+                            <td>Claude 3.5 Sonnet</td>
+                            <td>代码质量高</td>
+                        </tr>
+                        <tr>
+                            <td>代码审查</td>
+                            <td>Claude 3.5 Sonnet</td>
+                            <td>能发现潜在问题</td>
+                        </tr>
+                        <tr>
+                            <td>文档编写</td>
+                            <td>Claude 3.5 Haiku</td>
+                            <td>性价比高</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>2.2 APP内AI助手场景</h3>
+
+                <div class="highlight-box">
+                    <h4>首选方案：通义千问/DeepSeek/豆包</h4>
+                    <p><strong>推荐理由：</strong>国内API，合规无忧、响应速度快、中文理解优秀、成本可控</p>
+                </div>
+
+                <h4>技术架构</h4>
+                <pre><code>用户请求 → 后端网关 → AI服务商API → 返回响应
+                ↓
+            敏感词过滤
+                ↓
+            日志记录</code></pre>
+
+                <h4>服务商选择策略</h4>
+                <pre><code>// 智能路由：根据场景选择最优服务商
+function selectAIProvider(task: AITask): AIProvider {
+  switch (task.type) {
+    case 'chat':
+      return 'qwen'; // 通义千问，对话流畅
+    case 'code':
+      return 'deepseek'; // DeepSeek，代码能力强
+    case 'vision':
+      return 'doubao'; // 豆包，多模态支持
+    default:
+      return 'qwen'; // 默认通义千问
+  }
+}</code></pre>
+
+                <h3>2.3 日常办公场景</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>任务类型</th>
+                            <th>首选工具</th>
+                            <th>备选工具</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>文档编写</td>
+                            <td>Claude</td>
+                            <td>DeepSeek</td>
+                            <td>Claude文档结构清晰</td>
+                        </tr>
+                        <tr>
+                            <td>代码补全</td>
+                            <td>Claude Code</td>
+                            <td>Copilot</td>
+                            <td>根据IDE选择</td>
+                        </tr>
+                        <tr>
+                            <td>翻译润色</td>
+                            <td>Claude</td>
+                            <td>DeepSeek</td>
+                            <td>Claude翻译更自然</td>
+                        </tr>
+                        <tr>
+                            <td>会议纪要</td>
+                            <td>Claude</td>
+                            <td>通义千问</td>
+                            <td>Claude总结能力强</td>
+                        </tr>
+                        <tr>
+                            <td>邮件撰写</td>
+                            <td>DeepSeek</td>
+                            <td>通义千问</td>
+                            <td>性价比高</td>
+                        </tr>
+                        <tr>
+                            <td>数据分析</td>
+                            <td>GPT-4</td>
+                            <td>Claude</td>
+                            <td>GPT-4数据分析强</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Section 3 -->
+            <section id="section3" class="section">
+                <h2>三、API接入方案</h2>
+
+                <h3>3.1 Claude API接入示例（后端）</h3>
+
+                <h4>后端服务封装</h4>
+                <pre><code>// src/services/ai/claude.service.ts
+import Anthropic from '@anthropic-ai/sdk';
+
+export class ClaudeService {
+  private client: Anthropic;
+
+  constructor() {
+    this.client = new Anthropic({
+      apiKey: process.env.ANTHROPIC_API_KEY,
+    });
+  }
+
+  async generateCode(prompt: string, context?: string): Promise&lt;string&gt; {
+    const response = await this.client.messages.create({
+      model: 'claude-3-5-sonnet-20241022',
+      max_tokens: 4096,
+      system: `你是一位专业的全栈开发工程师，擅长React、TypeScript、Node.js。
+               请根据用户需求生成高质量的代码，包含适当的注释和类型定义。`,
+      messages: [
+        {
+          role: 'user',
+          content: context
+            ? `背景信息：\n${context}\n\n需求：\n${prompt}`
+            : prompt,
+        },
+      ],
+    });
+
+    return response.content[0].type === 'text'
+      ? response.content[0].text
+      : '';
+  }
+}</code></pre>
+
+                <h4>错误处理与重试</h4>
+                <pre><code>export abstract class AIClientBase {
+  protected async withRetry&lt;T&gt;(
+    fn: () => Promise&lt;T&gt;,
+    maxRetries: number = 3,
+    delay: number = 1000
+  ): Promise&lt;T&gt; {
+    let lastError: Error | null = null;
+
+    for (let i = 0; i &lt; maxRetries; i++) {
+      try {
+        return await fn();
+      } catch (error: any) {
+        lastError = error;
+
+        // 速率限制，等待后重试
+        if (error.status === 429) {
+          const retryAfter = error.headers?.['retry-after']
+            ? parseInt(error.headers['retry-after']) * 1000
+            : delay * (i + 1);
+          await this.sleep(retryAfter);
+          continue;
+        }
+
+        // 服务端错误，重试
+        if (error.status >= 500) {
+          await this.sleep(delay * (i + 1));
+          continue;
+        }
+
+        // 客户端错误，直接抛出
+        throw error;
+      }
+    }
+
+    throw lastError;
+  }
+}</code></pre>
+
+                <h3>3.2 国内API接入示例</h3>
+
+                <h4>通义千问接入</h4>
+                <pre><code>// src/services/ai/qwen.service.ts
+export class QwenService extends AIClientBase {
+  private apiKey: string;
+  private baseUrl = 'https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation';
+
+  constructor() {
+    super();
+    this.apiKey = process.env.QWEN_API_KEY!;
+  }
+
+  async chat(
+    messages: QwenMessage[],
+    model: 'qwen-max' | 'qwen-plus' | 'qwen-turbo' = 'qwen-plus'
+  ): Promise&lt;string&gt; {
+    return this.withRetry(async () => {
+      const response = await fetch(this.baseUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${this.apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model,
+          input: { messages },
+          parameters: {
+            result_format: 'text',
+            max_tokens: 2048,
+            temperature: 0.7,
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`通义千问API错误: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data.output.text;
+    });
+  }
+}</code></pre>
+
+                <h4>DeepSeek接入</h4>
+                <pre><code>// src/services/ai/deepseek.service.ts
+export class DeepSeekService extends AIClientBase {
+  private apiKey: string;
+  private baseUrl = 'https://api.deepseek.com/v1/chat/completions';
+
+  constructor() {
+    super();
+    this.apiKey = process.env.DEEPSEEK_API_KEY!;
+  }
+
+  async generateCode(
+    prompt: string,
+    language: string = 'typescript'
+  ): Promise&lt;string&gt; {
+    return this.withRetry(async () => {
+      const response = await fetch(this.baseUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${this.apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'deepseek-coder',
+          messages: [
+            {
+              role: 'system',
+              content: `你是一位专业的${language}开发工程师。请生成高质量、可维护的代码。`,
+            },
+            { role: 'user', content: prompt },
+          ],
+          max_tokens: 4096,
+          temperature: 0.3,
+        }),
+      });
+
+      const data = await response.json();
+      return data.choices[0].message.content;
+    });
+  }
+}</code></pre>
+
+                <h3>3.3 统一AI服务网关</h3>
+
+                <pre><code>// src/services/ai/ai-gateway.service.ts
+export class AIGatewayService {
+  private claude: ClaudeService;
+  private qwen: QwenService;
+  private deepseek: DeepSeekService;
+
+  // 成本预算控制
+  private dailyBudget = 100; // 元/天
+  private dailySpent = 0;
+
+  // 智能路由
+  async process(task: AITask): Promise&lt;string&gt; {
+    // 检查预算
+    if (this.dailySpent >= this.dailyBudget) {
+      throw new Error('今日AI预算已用完，请明天再试');
+    }
+
+    // 选择服务商
+    const provider = task.provider || this.selectProvider(task);
+
+    try {
+      const result = await this.executeByProvider(provider, task);
+      this.recordUsage(provider, task);
+      return result;
+    } catch (error) {
+      // 降级策略
+      return this.fallback(task, provider, error);
+    }
+  }
+
+  private selectProvider(task: AITask): AIProvider {
+    const strategy: Record&lt;AITaskType, AIProvider&gt; = {
+      code: 'deepseek',     // 代码生成用DeepSeek，性价比高
+      chat: 'qwen',         // 对话用通义千问，中文好
+      review: 'claude',     // 代码审查用Claude，质量高
+      translate: 'qwen',    // 翻译用通义千问
+      vision: 'doubao',     // 图像理解用豆包
+    };
+
+    return strategy[task.type];
+  }
+}</code></pre>
+            </section>
+
+            <!-- Section 4 -->
+            <section id="section4" class="section">
+                <h2>四、成本控制</h2>
+
+                <h3>4.1 Token使用优化建议</h3>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>代码层面优化</h4>
+                        <ul>
+                            <li>使用合适的模型：简单任务用轻量模型</li>
+                            <li>精简Prompt：避免冗长描述</li>
+                            <li>复用上下文：使用会话ID复用历史</li>
+                            <li>批量处理：合并相似请求</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>架构层面优化</h4>
+                        <ul>
+                            <li>缓存层：相同请求返回缓存结果</li>
+                            <li>队列限流：控制调用频率</li>
+                            <li>降级策略：失败时切换服务商</li>
+                            <li>预算监控：实时追踪使用情况</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>4.2 月度预算控制方案</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>场景</th>
+                            <th>月预算</th>
+                            <th>首选服务</th>
+                            <th>备注</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>开发阶段</td>
+                            <td>¥500</td>
+                            <td>DeepSeek</td>
+                            <td>测试为主</td>
+                        </tr>
+                        <tr>
+                            <td>内测阶段</td>
+                            <td>¥2,000</td>
+                            <td>DeepSeek + 通义千问</td>
+                            <td>混合使用</td>
+                        </tr>
+                        <tr>
+                            <td>正式运营</td>
+                            <td>¥5,000</td>
+                            <td>多服务分流</td>
+                            <td>按用户等级分配</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>4.3 预算监控代码</h3>
+
+                <pre><code>// src/services/ai/budget-monitor.ts
+export class BudgetMonitor {
+  private dailyBudget: number;
+  private monthlyBudget: number;
+  private usageLog: UsageEntry[] = [];
+
+  constructor(daily: number, monthly: number) {
+    this.dailyBudget = daily;
+    this.monthlyBudget = monthly;
+  }
+
+  checkBudget(): { allowed: boolean; reason?: string } {
+    const todaySpent = this.getTodaySpent();
+    const monthSpent = this.getMonthSpent();
+
+    if (todaySpent >= this.dailyBudget) {
+      return { allowed: false, reason: '今日预算已用完' };
+    }
+
+    if (monthSpent >= this.monthlyBudget) {
+      return { allowed: false, reason: '本月预算已用完' };
+    }
+
+    return { allowed: true };
+  }
+
+  getUsageReport(): UsageReport {
+    return {
+      today: this.getTodaySpent(),
+      month: this.getMonthSpent(),
+      dailyBudget: this.dailyBudget,
+      monthlyBudget: this.monthlyBudget,
+      dailyUsageRate: this.getTodaySpent() / this.dailyBudget,
+      monthlyUsageRate: this.getMonthSpent() / this.monthlyBudget,
+    };
+  }
+}</code></pre>
+            </section>
+
+            <!-- Section 5 -->
+            <section id="section5" class="section">
+                <h2>五、安全与合规</h2>
+
+                <h3>5.1 敏感数据处理</h3>
+
+                <h4>数据分类</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>级别</th>
+                            <th>数据类型</th>
+                            <th>处理原则</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge badge-warning">绝密</span></td>
+                            <td>用户密码、支付密钥</td>
+                            <td>禁止发送给AI</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-warning">机密</span></td>
+                            <td>身份证号、银行卡号</td>
+                            <td>脱敏后可发送</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-info">敏感</span></td>
+                            <td>手机号、地址</td>
+                            <td>最小化发送</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-success">普通</span></td>
+                            <td>商品信息、评论内容</td>
+                            <td>可正常发送</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>脱敏处理代码</h4>
+                <pre><code>// src/utils/data-mask.ts
+export class DataMasker {
+  // 手机号脱敏：138****8888
+  static maskPhone(phone: string): string {
+    return phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
+  }
+
+  // 身份证脱敏：310***********1234
+  static maskIdCard(idCard: string): string {
+    return idCard.replace(/(.{3}).*(.{4})/, '$1***********$2');
+  }
+
+  // 银行卡脱敏：6222****1234
+  static maskBankCard(card: string): string {
+    return card.replace(/(.{4}).*(.{4})/, '$1****$2');
+  }
+
+  // 敏感词过滤
+  static filterSensitiveWords(text: string): string {
+    const sensitivePatterns = [
+      /密码[：:]\s*\S+/g,
+      /账号[：:]\s*\d+/g,
+      /身份证[：:]\s*\d+/g,
+    ];
+
+    let filtered = text;
+    for (const pattern of sensitivePatterns) {
+      filtered = filtered.replace(pattern, '[已脱敏]');
+    }
+
+    return filtered;
+  }
+}</code></pre>
+
+                <h3>5.2 用户隐私保护</h3>
+
+                <div class="highlight-box warning">
+                    <h4>隐私保护策略</h4>
+                    <ul>
+                        <li><strong>用户授权检查：</strong>使用AI服务前检查用户授权状态</li>
+                        <li><strong>数据最小化：</strong>只发送必要的数据字段</li>
+                        <li><strong>日志脱敏：</strong>日志中移除敏感信息</li>
+                        <li><strong>授权记录：</strong>保存用户授权记录以备审计</li>
+                    </ul>
+                </div>
+
+                <h3>5.3 数据出境合规</h3>
+
+                <h4>合规要点</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>要求</th>
+                            <th>说明</th>
+                            <th>实现方式</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>数据本地化</td>
+                            <td>用户数据存储在国内</td>
+                            <td>使用国内云服务商</td>
+                        </tr>
+                        <tr>
+                            <td>出境评估</td>
+                            <td>大量数据出境需评估</td>
+                            <td>优先使用国内AI服务</td>
+                        </tr>
+                        <tr>
+                            <td>用户告知</td>
+                            <td>明确告知数据用途</td>
+                            <td>隐私协议 + 授权弹窗</td>
+                        </tr>
+                        <tr>
+                            <td>数据加密</td>
+                            <td>传输过程加密</td>
+                            <td>HTTPS + API密钥</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>服务商选择策略</h4>
+                <pre><code>// src/services/ai/compliance-router.ts
+export class ComplianceRouter {
+  // 根据数据敏感度选择服务商
+  static selectProvider(data: any): AIProvider {
+    const sensitivity = this.assessSensitivity(data);
+
+    switch (sensitivity) {
+      case 'high':
+        // 高敏感数据：只用国内服务
+        return 'qwen';
+      case 'medium':
+        // 中敏感数据：优先国内，可降级
+        return 'qwen';
+      case 'low':
+        // 低敏感数据：可用任何服务
+        return 'deepseek';
+      default:
+        return 'qwen';
+    }
+  }
+
+  private static assessSensitivity(data: any): 'high' | 'medium' | 'low' {
+    const dataStr = JSON.stringify(data).toLowerCase();
+
+    // 检测高敏感信息
+    if (this.containsIdCard(dataStr) || this.containsBankCard(dataStr)) {
+      return 'high';
+    }
+
+    // 检测中敏感信息
+    if (this.containsPhone(dataStr) || this.containsAddress(dataStr)) {
+      return 'medium';
+    }
+
+    return 'low';
+  }
+}</code></pre>
+
+                <div class="highlight-box">
+                    <h4>《AI服务隐私授权协议》要点</h4>
+                    <p>为了向您提供智能对话服务，我们需要将您输入的内容发送给AI服务提供商进行处理。</p>
+                    <p><strong>服务提供商：</strong></p>
+                    <ul>
+                        <li>阿里云通义千问（国内）</li>
+                        <li>深度求索DeepSeek（国内）</li>
+                        <li>字节跳动豆包（国内）</li>
+                    </ul>
+                    <p><strong>您的权利：</strong></p>
+                    <ul>
+                        <li>可随时撤销授权</li>
+                        <li>可要求删除数据</li>
+                        <li>可查看数据处理记录</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Appendix -->
+            <section class="section">
+                <h2>附录：快速参考</h2>
+
+                <h3>A. 服务商联系方式</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>服务商</th>
+                            <th>官网</th>
+                            <th>客服</th>
+                            <th>文档</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Anthropic</td>
+                            <td>anthropic.com</td>
+                            <td>support@anthropic.com</td>
+                            <td>docs.anthropic.com</td>
+                        </tr>
+                        <tr>
+                            <td>OpenAI</td>
+                            <td>openai.com</td>
+                            <td>help.openai.com</td>
+                            <td>platform.openai.com/docs</td>
+                        </tr>
+                        <tr>
+                            <td>阿里云通义千问</td>
+                            <td>tongyi.aliyun.com</td>
+                            <td>工单系统</td>
+                            <td>help.aliyun.com/zh/dashscope</td>
+                        </tr>
+                        <tr>
+                            <td>DeepSeek</td>
+                            <td>deepseek.com</td>
+                            <td>support@deepseek.com</td>
+                            <td>platform.deepseek.com/docs</td>
+                        </tr>
+                        <tr>
+                            <td>豆包</td>
+                            <td>doubao.com</td>
+                            <td>在线客服</td>
+                            <td>www.volcengine.com/docs</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>B. 常见问题</h3>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>Q: Claude和GPT-4怎么选？</h4>
+                        <p>A: 代码开发选Claude，复杂推理选GPT-4，日常对话选DeepSeek。</p>
+                    </div>
+
+                    <div class="card">
+                        <h4>Q: 如何降低API成本？</h4>
+                        <p>A: 1) 使用缓存 2) 精简Prompt 3) 选择合适模型 4) 批量处理 5) 设置预算限制</p>
+                    </div>
+
+                    <div class="card">
+                        <h4>Q: 数据出境怎么办？</h4>
+                        <p>A: 优先使用国内AI服务商（通义千问、DeepSeek、豆包），用户敏感数据脱敏后发送。</p>
+                    </div>
+
+                    <div class="card">
+                        <h4>Q: API调用失败怎么办？</h4>
+                        <p>A: 实现重试机制和降级策略，配置多服务商互备。</p>
+                    </div>
+                </div>
+
+                <h3>版本记录</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>版本</th>
+                            <th>日期</th>
+                            <th>修订内容</th>
+                            <th>作者</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>v1.0</td>
+                            <td>2026-04-08</td>
+                            <td>初版发布</td>
+                            <td>技术团队</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p><strong>未来申活（上海）数字科技有限公司</strong></p>
+            <p>本文档仅供内部使用，未经授权不得外传</p>
+            <p class="copyright">© 2026 版权所有</p>
+        </footer>
+    </div>
+</body>
+</html>

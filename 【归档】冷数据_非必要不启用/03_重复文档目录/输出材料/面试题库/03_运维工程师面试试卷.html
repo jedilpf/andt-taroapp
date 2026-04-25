@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>运维工程师面试试卷</title>
+    <style>
+        @page { size: A4; margin: 15mm; }
+        body { font-family: 'SimSun', serif; font-size: 12pt; line-height: 1.6; max-width: 210mm; margin: 0 auto; padding: 20px; }
+        h1 { text-align: center; font-size: 18pt; margin-bottom: 5px; }
+        h2 { font-size: 14pt; margin-top: 15px; border-bottom: 1px solid #333; padding-bottom: 3px; }
+        .company { text-align: center; font-size: 14pt; font-weight: bold; margin-bottom: 10px; }
+        table.info { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+        table.info td { border: 1px solid #333; padding: 5px 10px; }
+        table.choice { width: 100%; margin-bottom: 10px; }
+        table.choice td { padding: 3px 0; }
+        .question { margin: 10px 0; font-weight: bold; }
+        .answer-box { border: 1px solid #999; min-height: 80px; padding: 10px; margin: 10px 0; }
+        .code-box { border: 1px solid #999; background: #f5f5f5; padding: 10px; font-family: 'Consolas', monospace; margin: 10px 0; }
+        .footer { text-align: center; margin-top: 20px; font-size: 10pt; }
+        .rubric { background: #f9f9f9; padding: 10px; margin-top: 15px; }
+        hr { border: none; border-top: 2px solid #333; margin: 10px 0; }
+        @media print { body { padding: 0; } }
+    </style>
+</head>
+<body>
+    <h1>运维工程师面试试卷</h1>
+    <p class="company">未来申活（上海）数字科技有限公司</p>
+    <hr>
+
+    <table class="info">
+        <tr>
+            <td width="15%">姓名</td><td width="35%">____________</td>
+            <td width="15%">应聘岗位</td><td width="35%">运维工程师</td>
+        </tr>
+        <tr>
+            <td>面试日期</td><td>____________</td>
+            <td>面试官</td><td>____________</td>
+        </tr>
+        <tr>
+            <td>总分</td><td>______ / 100</td>
+            <td>评定等级</td><td>□优秀 □良好 □合格 □不合格</td>
+        </tr>
+    </table>
+    <hr>
+
+    <h2>一、选择题（每题3分，共15分）</h2>
+    <p><strong>请将正确答案填写在括号内</strong></p>
+
+    <p class="question">1. Linux中查看文件内容的命令是？（   ）</p>
+    <table class="choice">
+        <tr><td>A. ls</td><td>B. cat</td><td>C. cd</td><td>D. rm</td></tr>
+    </table>
+
+    <p class="question">2. 默认情况下，SSH服务监听的端口是？（   ）</p>
+    <table class="choice">
+        <tr><td>A. 21</td><td>B. 22</td><td>C. 23</td><td>D. 80</td></tr>
+    </table>
+
+    <p class="question">3. Docker容器和镜像的关系类似于？（   ）</p>
+    <table class="choice">
+        <tr><td>A. 类和对象</td><td>B. 父子和兄弟</td><td>C. 文件和文件夹</td><td>D. 进程和线程</td></tr>
+    </table>
+
+    <p class="question">4. Nginx默认监听的端口是？（   ）</p>
+    <table class="choice">
+        <tr><td>A. 80</td><td>B. 8080</td><td>C. 443</td><td>D. 3306</td></tr>
+    </table>
+
+    <p class="question">5. HTTPS相比HTTP增加了什么？（   ）</p>
+    <table class="choice">
+        <tr><td>A. 速度更快</td><td>B. SSL/TLS加密</td><td>C. 支持更多请求</td><td>D. 免费使用</td></tr>
+    </table>
+
+    <h2>二、填空题（每空2分，共20分）</h2>
+
+    <p class="question">6. Linux中，<code>chmod 755 file</code>表示所有者有<code>__________</code>权限，其他用户有<code>__________</code>权限。</p>
+
+    <p class="question">7. Docker用于构建镜像的文件叫<code>__________</code>，用于管理多容器的工具叫<code>__________</code>。</p>
+
+    <p class="question">8. Nginx主要用途包括：静态资源服务、<code>__________</code>、<code>__________</code>。</p>
+
+    <p class="question">9. HTTP状态码中，2xx表示<code>__________</code>，5xx表示<code>__________</code>。</p>
+
+    <p class="question">10. 常用的负载均衡策略有：轮询、<code>__________</code>、<code>__________</code>。</p>
+
+    <h2>三、简答题（每题8分，共40分）</h2>
+    <p><strong>请在下方答题区域作答</strong></p>
+
+    <p class="question">11. 如何排查服务器CPU使用率过高的问题？</p>
+    <div class="answer-box">
+        答：<br><br><br><br>
+    </div>
+
+    <p class="question">12. Docker有什么优势？为什么使用容器化？</p>
+    <div class="answer-box">
+        答：<br><br><br><br>
+    </div>
+
+    <p class="question">13. 如何保证数据库备份安全？</p>
+    <div class="answer-box">
+        答：<br><br><br><br>
+    </div>
+
+    <p class="question">14. 什么是CI/CD？它有什么价值？</p>
+    <div class="answer-box">
+        答：<br><br><br><br>
+    </div>
+
+    <p class="question">15. 如何防止服务器被暴力破解？</p>
+    <div class="answer-box">
+        答：<br><br><br><br>
+    </div>
+
+    <h2>四、操作题（共25分）</h2>
+
+    <p class="question">16. 写出以下Linux命令（10分）</p>
+    <div class="code-box">
+(1) 查找所有.log文件并删除：<br>
+    ____________________________________________________________<br><br>
+
+(2) 查看端口8080被哪个进程占用：<br>
+    ____________________________________________________________<br><br>
+
+(3) 解压一个tar.gz文件：<br>
+    ____________________________________________________________<br><br>
+
+(4) 给脚本添加执行权限：<br>
+    ____________________________________________________________
+    </div>
+
+    <p class="question">17. 编写简单的Dockerfile（15分）</p>
+    <p>要求：基于openjdk:17镜像，运行一个Java应用app.jar</p>
+    <div class="code-box">
+# 请在下方编写Dockerfile<br>
+<br>
+<br>
+<br>
+<br>
+    </div>
+
+    <h2>五、AI工具应用题（附加题10分）</h2>
+
+    <p class="question">18. 请写一个提示词，让AI帮你写一个自动备份数据库的Shell脚本</p>
+    <div class="answer-box">
+        <br><br><br><br><br>
+    </div>
+
+    <div class="rubric">
+        <strong>阅卷说明：</strong><br>
+        - 选择题：每题3分，选错不得分<br>
+        - 填空题：每空2分，意思对即可给分<br>
+        - 简答题：每题8分，要点清晰给6分以上<br>
+        - 操作题：命令正确给满分，语法正确给一半分
+    </div>
+
+    <hr>
+    <div class="footer">
+        <strong>未来申活（上海）数字科技有限公司</strong><br>
+        编制日期：2026年4月8日
+    </div>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安电通前期任务清单</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #fff;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #1a365d;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        .company-name {
+            color: #1a365d;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        h1 {
+            color: #ed8936;
+            font-size: 26px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        h2 {
+            color: #1a365d;
+            font-size: 18px;
+            margin: 25px 0 12px 0;
+            padding-left: 12px;
+            border-left: 4px solid #ed8936;
+        }
+        h3 { color: #2d3748; font-size: 15px; margin: 15px 0 8px 0; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 13px;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 8px 10px;
+            text-align: left;
+        }
+        th {
+            background: #1a365d;
+            color: white;
+            font-weight: 600;
+        }
+        tr:nth-child(even) { background: #f7fafc; }
+        .done { color: #38a169; }
+        .pending { color: #718096; }
+        .urgent { color: #c53030; font-weight: bold; }
+        .warning { color: #dd6b20; }
+        .section-box {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 12px;
+            margin: 12px 0;
+        }
+        .footer {
+            text-align: center;
+            color: #718096;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 13px;
+        }
+        @media print { body { padding: 20px; } }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="company-name">未来申活（上海）数字科技有限公司</div>
+</div>
+
+<h1>安电通前期任务清单</h1>
+
+<h2>一、M1启动任务清单</h2>
+
+<h3>1.1 团队组建（紧急）</h3>
+<table>
+    <tr><th>序号</th><th>任务</th><th>负责人</th><th>完成期限</th><th>状态</th></tr>
+    <tr><td>1</td><td>发布前端开发招聘信息</td><td>项目负责人</td><td>4月8日</td><td class="pending">待发布</td></tr>
+    <tr><td>2</td><td>发布后端开发招聘信息</td><td>项目负责人</td><td>4月8日</td><td class="pending">待发布</td></tr>
+    <tr><td>3</td><td>发布运维工程师招聘信息</td><td>项目负责人</td><td>4月8日</td><td class="pending">待发布</td></tr>
+    <tr><td>4</td><td>筛选简历</td><td>项目负责人</td><td>4月10日</td><td class="pending">待开始</td></tr>
+    <tr><td>5</td><td>面试安排</td><td>项目负责人</td><td>4月12日</td><td class="pending">待开始</td></tr>
+    <tr><td>6</td><td>Offer发放</td><td>项目负责人</td><td>4月15日</td><td class="pending">待开始</td></tr>
+    <tr><td>7</td><td>员工入职</td><td>-</td><td>4月22日</td><td class="pending">待开始</td></tr>
+</table>
+
+<h3>1.2 资质申请（紧急）</h3>
+<table>
+    <tr><th>序号</th><th>任务</th><th>负责人</th><th>完成期限</th><th>状态</th></tr>
+    <tr><td>8</td><td>微信支付商户号申请</td><td>后端开发</td><td>4月10日</td><td class="pending">待开始</td></tr>
+    <tr><td>9</td><td>阿里云短信服务申请</td><td>后端开发</td><td>4月10日</td><td class="pending">待开始</td></tr>
+    <tr><td>10</td><td>高德地图API Key申请</td><td>前端开发</td><td>4月15日</td><td class="pending">待开始</td></tr>
+    <tr><td>11</td><td>微信开放平台账号申请</td><td>项目负责人</td><td>4月15日</td><td class="pending">待开始</td></tr>
+    <tr><td>12</td><td>ICP备案</td><td>运维工程师</td><td>4月30日</td><td class="pending">待开始</td></tr>
+    <tr><td>13</td><td>软件著作权申请</td><td>项目负责人</td><td>5月30日</td><td class="pending">待开始</td></tr>
+</table>
+
+<h3>1.3 服务器环境（重要）</h3>
+<table>
+    <tr><th>序号</th><th>任务</th><th>负责人</th><th>完成期限</th><th>状态</th></tr>
+    <tr><td>14</td><td>阿里云ECS购买</td><td>运维工程师</td><td>4月12日</td><td class="pending">待开始</td></tr>
+    <tr><td>15</td><td>MySQL数据库部署</td><td>运维工程师</td><td>4月14日</td><td class="done">已完成</td></tr>
+    <tr><td>16</td><td>Redis缓存部署</td><td>运维工程师</td><td>4月14日</td><td class="done">已完成</td></tr>
+    <tr><td>17</td><td>SSL证书配置</td><td>运维工程师</td><td>4月18日</td><td class="pending">待开始</td></tr>
+    <tr><td>18</td><td>监控系统搭建</td><td>运维工程师</td><td>4月20日</td><td class="pending">待开始</td></tr>
+</table>
+
+<h3>1.4 开发准备（重要）</h3>
+<table>
+    <tr><th>序号</th><th>任务</th><th>负责人</th><th>完成期限</th><th>状态</th></tr>
+    <tr><td>19</td><td>单体应用框架搭建</td><td>后端开发</td><td>4月18日</td><td class="done">已完成</td></tr>
+    <tr><td>20</td><td>数据库表设计</td><td>后端开发</td><td>4月18日</td><td class="done">已完成</td></tr>
+    <tr><td>21</td><td>CI/CD流程搭建</td><td>运维工程师</td><td>4月18日</td><td class="done">已完成</td></tr>
+    <tr><td>22</td><td>前端开发环境配置</td><td>前端开发</td><td>4月22日</td><td class="pending">待开始</td></tr>
+    <tr><td>23</td><td>UI设计需求沟通</td><td>项目负责人</td><td>4月20日</td><td class="pending">待开始</td></tr>
+</table>
+
+<h2>二、M1前置依赖检查</h2>
+
+<h3>2.1 人员到位检查</h3>
+<table>
+    <tr><th>检查项</th><th>要求</th><th>检查时间</th><th>状态</th></tr>
+    <tr><td>前端开发到岗</td><td>1人</td><td>4月22日</td><td style="color: #c53030;">未到岗</td></tr>
+    <tr><td>后端开发到岗</td><td>1人</td><td>4月22日</td><td style="color: #c53030;">未到岗</td></tr>
+    <tr><td>运维工程师到岗</td><td>1人</td><td>4月22日</td><td style="color: #c53030;">未到岗</td></tr>
+    <tr><td>项目负责人</td><td>1人</td><td>已到岗</td><td class="done">已就位</td></tr>
+</table>
+
+<h3>2.2 环境就绪检查</h3>
+<table>
+    <tr><th>检查项</th><th>要求</th><th>检查时间</th><th>状态</th></tr>
+    <tr><td>开发服务器</td><td>可用</td><td>4月15日</td><td class="pending">待确认</td></tr>
+    <tr><td>测试服务器</td><td>可用</td><td>4月20日</td><td class="pending">待确认</td></tr>
+    <tr><td>数据库</td><td>可用</td><td>4月15日</td><td class="done">已就绪</td></tr>
+    <tr><td>Redis</td><td>可用</td><td>4月15日</td><td class="done">已就绪</td></tr>
+    <tr><td>CI/CD</td><td>可用</td><td>4月18日</td><td class="done">已就绪</td></tr>
+</table>
+
+<h3>2.3 资质申请检查</h3>
+<table>
+    <tr><th>检查项</th><th>要求</th><th>检查时间</th><th>状态</th></tr>
+    <tr><td>微信支付商户号</td><td>已开通</td><td>4月15日</td><td style="color: #c53030;">未申请</td></tr>
+    <tr><td>阿里云短信服务</td><td>已开通</td><td>4月15日</td><td style="color: #c53030;">未申请</td></tr>
+    <tr><td>高德地图API</td><td>已获取Key</td><td>4月20日</td><td style="color: #c53030;">未申请</td></tr>
+    <tr><td>微信开放平台</td><td>已注册</td><td>4月20日</td><td style="color: #c53030;">未申请</td></tr>
+</table>
+
+<h2>三、风险预警</h2>
+
+<table>
+    <tr><th>风险项</th><th>风险等级</th><th>影响范围</th><th>应对措施</th></tr>
+    <tr><td>招聘进度延迟</td><td class="urgent">高</td><td>整体进度</td><td>扩大招聘渠道，考虑外包</td></tr>
+    <tr><td>支付资质延迟</td><td class="urgent">高</td><td>支付功能</td><td>备选聚合支付方案</td></tr>
+    <tr><td>服务器配置问题</td><td class="warning">中</td><td>开发进度</td><td>提前采购，预留调试时间</td></tr>
+    <tr><td>UI设计延期</td><td class="warning">中</td><td>前端开发</td><td>确保设计稿按时交付</td></tr>
+</table>
+
+<h2>四、本周行动计划（4月8日-4月12日）</h2>
+
+<div class="section-box">
+    <h3>4月8日（周一）</h3>
+    <ul>
+        <li>[ ] 发布全部招聘信息（Boss直聘、拉勾网）</li>
+        <li>[ ] 提交微信支付商户号申请</li>
+        <li>[ ] 提交阿里云短信服务申请</li>
+        <li>[ ] 确认服务器采购方案</li>
+    </ul>
+</div>
+
+<div class="section-box">
+    <h3>4月9日（周二）</h3>
+    <ul>
+        <li>[ ] 筛选第一批简历</li>
+        <li>[ ] 确定服务器配置并下单</li>
+        <li>[ ] 开始高德地图API申请</li>
+    </ul>
+</div>
+
+<div class="section-box">
+    <h3>4月10日（周三）</h3>
+    <ul>
+        <li>[ ] 联系第一批候选人面试</li>
+        <li>[ ] 跟进支付资质申请进度</li>
+        <li>[ ] 服务器部署准备</li>
+    </ul>
+</div>
+
+<div class="section-box">
+    <h3>4月11日（周四）</h3>
+    <ul>
+        <li>[ ] 第一批面试（前端/后端）</li>
+        <li>[ ] 服务器基础环境搭建</li>
+        <li>[ ] 微信开放平台申请</li>
+    </ul>
+</div>
+
+<div class="section-box">
+    <h3>4月12日（周五）</h3>
+    <ul>
+        <li>[ ] 第一批面试（运维）</li>
+        <li>[ ] 本周工作总结</li>
+        <li>[ ] 下周工作计划</li>
+    </ul>
+</div>
+
+<h2>五、联系人清单</h2>
+<table>
+    <tr><th>角色</th><th>姓名</th><th>电话</th><th>邮箱</th></tr>
+    <tr><td>项目负责人</td><td>[姓名]</td><td>[电话]</td><td>[邮箱]</td></tr>
+    <tr><td>技术负责人</td><td>待定</td><td>-</td><td>-</td></tr>
+    <tr><td>前端开发</td><td>待定</td><td>-</td><td>-</td></tr>
+    <tr><td>后端开发</td><td>待定</td><td>-</td><td>-</td></tr>
+    <tr><td>运维工程师</td><td>待定</td><td>-</td><td>-</td></tr>
+    <tr><td>UI设计</td><td>待定</td><td>-</td><td>-</td></tr>
+</table>
+
+<div class="footer">
+    <strong>未来申活（上海）数字科技有限公司</strong><br>
+    编制日期：2026年4月8日
+</div>
+
+</body>
+</html>

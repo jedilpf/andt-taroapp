@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>运维工程师面试试卷答案</title>
+    <style>
+        @page { size: A4; margin: 15mm; }
+        body { font-family: 'SimSun', serif; font-size: 12pt; line-height: 1.6; max-width: 210mm; margin: 0 auto; padding: 20px; }
+        h1 { text-align: center; font-size: 18pt; margin-bottom: 5px; }
+        h2 { font-size: 14pt; margin-top: 15px; border-bottom: 1px solid #333; padding-bottom: 3px; }
+        .company { text-align: center; font-size: 14pt; font-weight: bold; margin-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+        table td, table th { border: 1px solid #333; padding: 5px 10px; }
+        .answer { margin: 10px 0; }
+        .code-box { border: 1px solid #999; background: #f5f5f5; padding: 10px; font-family: 'Consolas', monospace; margin: 10px 0; white-space: pre-wrap; }
+        .footer { text-align: center; margin-top: 20px; font-size: 10pt; }
+        hr { border: none; border-top: 2px solid #333; margin: 10px 0; }
+        .points { color: #666; font-size: 10pt; }
+        @media print { body { padding: 0; } }
+    </style>
+</head>
+<body>
+    <h1>运维工程师面试试卷答案</h1>
+    <p class="company">未来申活（上海）数字科技有限公司</p>
+    <hr>
+
+    <h2>一、选择题答案（每题3分）</h2>
+    <table>
+        <tr><th>题号</th><th>答案</th><th>解析</th></tr>
+        <tr><td>1</td><td>B</td><td>cat命令用于查看文件内容</td></tr>
+        <tr><td>2</td><td>B</td><td>SSH默认端口是22</td></tr>
+        <tr><td>3</td><td>A</td><td>镜像是模板，容器是运行实例，类似类和对象</td></tr>
+        <tr><td>4</td><td>A</td><td>Nginx默认监听80端口</td></tr>
+        <tr><td>5</td><td>B</td><td>HTTPS使用SSL/TLS加密传输</td></tr>
+    </table>
+
+    <h2>二、填空题答案（每空2分）</h2>
+    <table>
+        <tr><th>题号</th><th>答案</th></tr>
+        <tr><td>6</td><td>读写执行(rwx)、读执行(rx)</td></tr>
+        <tr><td>7</td><td>Dockerfile、Docker Compose</td></tr>
+        <tr><td>8</td><td>反向代理、负载均衡</td></tr>
+        <tr><td>9</td><td>成功、服务器错误</td></tr>
+        <tr><td>10</td><td>加权轮询、最少连接</td></tr>
+    </table>
+
+    <h2>三、简答题答案（每题8分）</h2>
+
+    <p class="answer"><strong>11. 如何排查服务器CPU使用率过高的问题？</strong></p>
+    <p class="points">评分要点：</p>
+    <ul>
+        <li>使用top命令查看进程（2分）</li>
+        <li>分析是哪个进程占用高（2分）</li>
+        <li>查看进程详情和线程（2分）</li>
+        <li>分析日志和代码定位问题（2分）</li>
+    </ul>
+
+    <p class="answer"><strong>12. Docker有什么优势？为什么使用容器化？</strong></p>
+    <p class="points">评分要点：</p>
+    <ul>
+        <li>环境一致性（2分）</li>
+        <li>快速部署（2分）</li>
+        <li>资源隔离（2分）</li>
+        <li>便于微服务架构（2分）</li>
+    </ul>
+
+    <p class="answer"><strong>13. 如何保证数据库备份安全？</strong></p>
+    <p class="points">评分要点：</p>
+    <ul>
+        <li>定期备份（2分）</li>
+        <li>异地备份（2分）</li>
+        <li>加密备份（2分）</li>
+        <li>验证恢复（2分）</li>
+    </ul>
+
+    <p class="answer"><strong>14. 什么是CI/CD？它有什么价值？</strong></p>
+    <p class="points">评分要点：</p>
+    <ul>
+        <li>CI持续集成：自动构建测试（3分）</li>
+        <li>CD持续部署：自动部署上线（3分）</li>
+        <li>价值：提高效率、减少错误（2分）</li>
+    </ul>
+
+    <p class="answer"><strong>15. 如何防止服务器被暴力破解？</strong></p>
+    <p class="points">评分要点：</p>
+    <ul>
+        <li>禁用root远程登录（2分）</li>
+        <li>使用SSH密钥认证（2分）</li>
+        <li>修改SSH端口（2分）</li>
+        <li>安装fail2ban（2分）</li>
+    </ul>
+
+    <h2>四、操作题答案</h2>
+
+    <p class="answer"><strong>16. Linux命令（10分）</strong></p>
+    <div class="code-box">(1) 查找所有.log文件并删除：
+    find / -name "*.log" -exec rm {} \;
+
+(2) 查看端口8080被哪个进程占用：
+    lsof -i:8080
+
+(3) 解压一个tar.gz文件：
+    tar -xzvf file.tar.gz
+
+(4) 给脚本添加执行权限：
+    chmod +x script.sh</div>
+    <p class="points">每个命令2.5分</p>
+
+    <p class="answer"><strong>17. Dockerfile（15分）</strong></p>
+    <div class="code-box">FROM openjdk:17-jdk-alpine
+
+WORKDIR /app
+
+COPY app.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]</div>
+    <p class="points">评分标准：FROM正确（3分）、WORKDIR正确（3分）、COPY正确（3分）、EXPOSE正确（3分）、ENTRYPOINT正确（3分）</p>
+
+    <h2>五、AI工具应用题答案</h2>
+
+    <p class="answer"><strong>18. 数据库备份脚本提示词示例</strong></p>
+    <div class="code-box">请帮我写一个Shell脚本，用于自动备份MySQL数据库：
+1. 数据库名：mydb
+2. 备份目录：/backup/mysql/
+3. 保留最近7天的备份
+4. 备份文件名格式：mydb_YYYYMMDD.sql.gz
+5. 备份完成后发送邮件通知</div>
+
+    <hr>
+    <div class="footer">
+        <strong>未来申活（上海）数字科技有限公司</strong><br>
+        编制日期：2026年4月8日
+    </div>
+</body>
+</html>

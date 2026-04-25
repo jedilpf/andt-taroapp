@@ -1,0 +1,167 @@
+/* 全局样式规范 */
+page {
+  background-color: #F7F8FA;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #333333;
+  line-height: 1.5;
+}
+
+/* 通用容器 */
+.container {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 24PX;
+}
+
+/* 页面统一背景 */
+.page-wrapper {
+  min-height: 100vh;
+  background-color: #F7F8FA;
+}
+
+/* 头部Banner统一风格 */
+.header-section {
+  position: relative;
+  padding: 40PX 24PX 56PX;
+  overflow: hidden;
+
+  .header-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(160deg, #E60012 0%, #9e000c 100%);
+    z-index: 0;
+  }
+
+  .header-content {
+    position: relative;
+    z-index: 1;
+
+    .title {
+      font-size: 28PX;
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: 4PX;
+      display: block;
+      margin-bottom: 8PX;
+      text-shadow: 0 2PX 4PX rgba(0, 0, 0, 0.1);
+    }
+
+    .subtitle {
+      font-size: 14PX;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 300;
+      letter-spacing: 2PX;
+    }
+  }
+
+  .decoration-circle {
+    position: absolute;
+    width: 200PX;
+    height: 200PX;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    bottom: -60PX;
+    right: -40PX;
+    z-index: 0;
+  }
+}
+
+/* 卡片统一风格 */
+.card {
+  background: #FFFFFF;
+  border-radius: 16PX;
+  padding: 20PX;
+  box-shadow: 0 4PX 16PX rgba(0, 0, 0, 0.04);
+}
+
+/* 按钮统一风格 */
+.btn-primary {
+  height: 48PX !important;
+  font-size: 16PX !important;
+  font-weight: 600;
+  background: linear-gradient(135deg, #ff6b6b 0%, #E60012 100%) !important;
+  border: none !important;
+  border-radius: 24PX !important;
+  box-shadow: 0 8PX 20PX rgba(230, 0, 18, 0.15);
+  letter-spacing: 4PX;
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+/* 输入框统一风格 */
+.input-field {
+  background: #F7F8FA;
+  border-radius: 12PX;
+  padding: 0 16PX;
+  height: 48PX;
+  border: 1PX solid transparent;
+  transition: all 0.2s;
+
+  &:focus-within {
+    border-color: #E60012;
+    background: #FFF8F8;
+  }
+}
+
+/* 标签统一风格 */
+.tag {
+  font-size: 12PX;
+  padding: 4PX 10PX;
+  border-radius: 12PX;
+}
+
+/* 文本颜色规范 */
+.text-primary { color: #E60012; }
+.text-title { color: #111111; }
+.text-body { color: #333333; }
+.text-secondary { color: #666666; }
+.text-muted { color: #999999; }
+
+/* 字号规范 */
+.fs-12 { font-size: 12PX; }
+.fs-13 { font-size: 13PX; }
+.fs-14 { font-size: 14PX; }
+.fs-15 { font-size: 15PX; }
+.fs-16 { font-size: 16PX; }
+.fs-18 { font-size: 18PX; }
+.fs-20 { font-size: 20PX; }
+.fs-24 { font-size: 24PX; }
+.fs-28 { font-size: 28PX; }
+
+/* 字重规范 */
+.fw-400 { font-weight: 400; }
+.fw-500 { font-weight: 500; }
+.fw-600 { font-weight: 600; }
+.fw-700 { font-weight: 700; }
+.fw-800 { font-weight: 800; }
+
+/* 间距规范 */
+.m-8 { margin: 8PX; }
+.m-16 { margin: 16PX; }
+.m-24 { margin: 24PX; }
+.m-32 { margin: 32PX; }
+
+.p-8 { padding: 8PX; }
+.p-16 { padding: 16PX; }
+.p-24 { padding: 24PX; }
+.p-32 { padding: 32PX; }
+
+/* Flex工具类 */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.flex-1 { flex: 1; }
+
+/* 隐藏滚动条 */
+::-webkit-scrollbar {
+  display: none;
+}

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安电通项目 - 详细规划方案</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; line-height: 1.8; max-width: 1000px; margin: 0 auto; padding: 40px 30px; color: #333; background: #fff; }
+        h1 { text-align: center; font-size: 24pt; color: #1E3A8A; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 4px solid #1E3A8A; }
+        h2 { font-size: 16pt; color: #1E3A8A; margin-top: 35px; margin-bottom: 15px; padding-left: 10px; border-left: 4px solid #3B82F6; }
+        h3 { font-size: 13pt; color: #1E40AF; margin-top: 20px; margin-bottom: 10px; }
+        .header { text-align: center; padding: 20px; background: linear-gradient(135deg, #EFF6FF, #F0FDF4); border-radius: 10px; margin-bottom: 25px; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 10pt; }
+        th, td { border: 1px solid #d1d5db; padding: 10px 12px; text-align: left; }
+        th { background: #EFF6FF; color: #1E40AF; }
+        ul { margin: 10px 0; padding-left: 25px; }
+        li { margin: 6px 0; }
+        .box { padding: 12px 15px; margin: 15px 0; border-radius: 8px; }
+        .box-info { background: #EFF6FF; border-left: 4px solid #3B82F6; }
+        .box-success { background: #F0FDF4; border-left: 4px solid #22C55E; }
+        .box-warn { background: #FEF2F2; border-left: 4px solid #EF4444; }
+        .box-purple { background: #F5F3FF; border-left: 4px solid #8B5CF6; }
+        .timeline { position: relative; padding-left: 30px; margin: 20px 0; }
+        .timeline::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: #3B82F6; }
+        .timeline-item { position: relative; margin-bottom: 25px; }
+        .timeline-item::before { content: ''; position: absolute; left: -25px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: #3B82F6; border: 3px solid white; }
+        .timeline-item .phase { font-size: 11pt; font-weight: bold; color: #1E3A8A; }
+        .timeline-item .duration { font-size: 9pt; color: #6B7280; }
+        .timeline-item .tasks { font-size: 10pt; color: #374151; margin-top: 5px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+        .card { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; padding: 15px; }
+        .card h4 { color: #1E3A8A; font-size: 11pt; margin-bottom: 8px; }
+        .card p, .card li { font-size: 10pt; color: #4B5563; }
+        .highlight { font-weight: bold; color: #1E3A8A; }
+        .page-break { page-break-after: always; margin: 30px 0; }
+        .text-center { text-align: center; }
+    </style>
+</head>
+<body>
+
+<h1>安电通项目 - 详细规划方案</h1>
+
+<div class="header">
+    <p><strong>项目名称：</strong>安电通上门电工服务系统</p>
+    <p><strong>编制人：</strong>陆芃非</p>
+    <p><strong>编制日期：</strong>2026年3月</p>
+</div>
+
+<h2>一、项目时间评估（基于满员8人团队）</h2>
+
+<div class="box box-info">
+    <p><strong>团队满员配置：</strong>项目负责人1人 + 产品经理1人 + 前端开发2人 + 后端开发2人 + UI设计1人 + 运营1人</p>
+</div>
+
+<h3>1.1 阶段划分与时间估算</h3>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="phase">阶段一：技术选型与架构设计</div>
+        <div class="duration">预估周期：2-3周</div>
+        <div class="tasks">
+            <ul>
+                <li>后端技术栈选型（Spring Cloud / Go / Node.js）</li>
+                <li>微服务架构设计（服务拆分、接口定义）</li>
+                <li>数据库选型与设计</li>
+                <li>云服务器方案确定</li>
+                <li>API接口文档编写</li>
+            </ul>
+        </div>
+    </div>
+    <div class="timeline-item">
+        <div class="phase">阶段二：后端核心模块开发</div>
+        <div class="duration">预估周期：6-8周</div>
+        <div class="tasks">
+            <ul>
+                <li>用户体系（注册、登录、认证）</li>
+                <li>订单系统（下单、派单、接单、进度）</li>
+                <li>支付系统（微信/支付宝）</li>
+                <li>地图定位服务（独立微服务）</li>
+                <li>消息通知服务</li>
+                <li>评价反馈系统</li>
+            </ul>
+        </div>
+    </div>
+    <div class="timeline-item">
+        <div class="phase">阶段三：前后端联调与功能完善</div>
+        <div class="duration">预估周期：4-6周</div>
+        <div class="tasks">
+            <ul>
+                <li>用户端APP接口对接</li>
+                <li>电工端小程序接口对接</li>
+                <li>核心业务流程联调</li>
+                <li>Demo功能补充与优化</li>
+            </ul>
+        </div>
+    </div>
+    <div class="timeline-item">
+        <div class="phase">阶段四：测试与验收</div>
+        <div class="duration">预估周期：3-4周</div>
+        <div class="tasks">
+            <ul>
+                <li>功能测试（39+功能点全覆盖）</li>
+                <li>性能测试（并发、负载）</li>
+                <li>安全测试</li>
+                <li>用户验收测试（UAT）</li>
+                <li>Bug修复与优化</li>
+            </ul>
+        </div>
+    </div>
+    <div class="timeline-item">
+        <div class="phase">阶段五：上线准备与发布</div>
+        <div class="duration">预估周期：2-3周</div>
+        <div class="tasks">
+            <ul>
+                <li>服务器部署与配置</li>
+                <li>数据迁移与初始化</li>
+                <li>运维监控搭建</li>
+                <li>灰度发布</li>
+                <li>正式上线</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="box box-success">
+    <p><strong>总预估周期：</strong>基于满员8人团队，<span class="highlight">约17-24周（4-6个月）</span></p>
+    <p style="margin-top:10px;"><strong>Q2完成联调 → Q3内测 → Q4上线</strong>的目标可实现</p>
+</div>
+
+<h3>1.2 当前阶段（Demo + 选型）时间线</h3>
+
+<table>
+    <tr><th>任务</th><th>负责人</th><th>预计完成</th><th>状态</th></tr>
+    <tr><td>后端技术选型</td><td>项目负责人 + 待定后端</td><td>1-2周</td><td>🔄 进行中</td></tr>
+    <tr><td>微服务架构设计</td><td>待定后端</td><td>1-2周</td><td>⏳ 待启动</td></tr>
+    <tr><td>API文档编写</td><td>产品 + 待定后端</td><td>1周</td><td>⏳ 待启动</td></tr>
+    <tr><td>云服务器选型</td><td>项目负责人</td><td>1周</td><td>🔄 进行中</td></tr>
+</table>
+
+<div class="page-break"></div>
+
+<h2>二、技术选型与后端规划</h2>
+
+<h3>2.1 后端技术栈选型（待确认）</h3>
+
+<div class="grid-2">
+    <div class="card">
+        <h4>方案A：Spring Cloud（Java）</h4>
+        <ul>
+            <li>✅ 生态成熟，稳定可靠</li>
+            <li>✅ 微服务支持完善</li>
+            <li>✅ 团队有Java经验</li>
+            <li>⚠️ 相对较重，学习曲线</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h4>方案B：Go + Gin</h4>
+        <ul>
+            <li>✅ 性能高，并发处理强</li>
+            <li>✅ 部署简单</li>
+            <li>⚠️ 团队需要学习</li>
+            <li>⚠️ 生态相对较小</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h4>方案C：Node.js + NestJS</h4>
+        <ul>
+            <li>✅ 前端团队可快速上手</li>
+            <li>✅ JSON处理方便</li>
+            <li>⚠️ 复杂业务逻辑处理</li>
+            <li>⚠️ 并发性能一般</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h4>推荐方案</h4>
+        <p><strong>建议：Spring Cloud + Go 微服务混合</strong></p>
+        <ul>
+            <li>核心业务用Java（稳定）</li>
+            <li>高并发模块用Go（性能）</li>
+            <li>前期快速启动可先用Node.js验证</li>
+        </ul>
+    </div>
+</div>
+
+<h3>2.2 微服务拆分方案</h3>
+
+<table>
+    <tr><th>服务名称</th><th>功能</th><th>技术选型</th><th>优先级</th></tr>
+    <tr><td>用户服务</td><td>注册、登录、认证、权限</td><td>Spring Cloud</td><td>P0</td></tr>
+    <tr><td>订单服务</td><td>下单、派单、接单、进度</td><td>Spring Cloud</td><td>P0</td></tr>
+    <tr><td>支付服务</td><td>微信/支付宝支付</td><td>Spring Cloud</td><td>P0</td></tr>
+    <tr><td>地图服务</td><td>定位、导航、附近电工</td><td>Go</td><td>P1</td></tr>
+    <tr><td>消息服务</td><td>推送、短信、站内信</td><td>Go</td><td>P1</td></tr>
+    <tr><td>评价服务</td><td>用户评价、电工评分</td><td>Spring Cloud</td><td>P2</td></tr>
+</table>
+
+<h3>2.3 后端开发里程碑</h3>
+
+<table>
+    <tr><th>里程碑</th><th>时间</th><th>交付内容</th></tr>
+    <tr><td>M1 - 架构完成</td><td>Q1第6周</td><td>微服务架构设计、API文档、数据库设计</td></tr>
+    <tr><td>M2 - 核心API</td><td>Q2第10周</td><td>用户+订单+支付核心接口完成</td></tr>
+    <tr><td>M3 - 接口就绪</td><td>Q2第14周</td><td>全部微服务API完成，可联调</td></tr>
+    <tr><td>M4 - 联调完成</td><td>Q2第18周</td><td>前后端联调完成，功能可用</td></tr>
+</table>
+
+<div class="page-break"></div>
+
+<h2>三、人机协同工作框架</h2>
+
+<div class="box box-purple">
+    <p><strong>核心理念：</strong>1个工程师 + 1套AI = 高效产出，效率提升30-50%</p>
+</div>
+
+<h3>3.1 团队角色与AI工具分工</h3>
+
+<table>
+    <tr><th>角色</th><th>人数</th><th>AI工具辅助</th><th>主要工作</th></tr>
+    <tr><td>项目负责人</td><td>1</td><td>Claude、MiniMax</td><td>规划、汇报、需求整理</td></tr>
+    <tr><td>产品经理</td><td>1</td><td>Claude、MiniMax</td><td>PRD撰写、需求分析</td></tr>
+    <tr><td>前端开发</td><td>2</td><td>Claude Code、Gemini</td><td>界面开发、组件编写</td></tr>
+    <tr><td>后端开发</td><td>2</td><td>Claude Code、Gemini</td><td>API开发、架构设计</td></tr>
+    <tr><td>UI设计</td><td>1</td><td>Gemini、Figma AI</td><td>界面设计、素材生成</td></tr>
+    <tr><td>运营专员</td><td>1</td><td>Claude、MiniMax</td><td>内容运营、用户运营</td></tr>
+</table>
+
+<h3>3.2 各岗位AI应用场景</h3>
+
+<div class="grid-2">
+    <div class="card">
+        <h4>📝 产品经理 + AI</h4>
+        <ul>
+            <li><strong>需求分析：</strong>Claude辅助PRD框架搭建</li>
+            <li><strong>文档撰写：</strong>MiniMax自动生成会议纪要</li>
+            <li><strong>竞品分析：</strong>AI辅助收集整理信息</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h4>💻 前端开发 + AI【 AI工具选用后期依照市场形势和性能挑选】</h4>
+        <ul>
+            <li><strong>代码补全：</strong>Claude Code/Gemini自动补全</li>
+            <li><strong>组件生成：</strong>AI根据设计稿生成代码</li>
+            <li><strong>UI设计：</strong>Figma AI生成设计建议</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h4>⚙️ 后端开发 + AI</h4>
+        <ul>
+            <li><strong>代码生成：</strong>Claude Code自动生成CRUD代码</li>
+            <li><strong>架构设计：</strong>Gemini辅助架构评审</li>
+            <li><strong>代码审查：</strong>AI辅助Code Review</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h4>🎨 UI设计 + AI</h4>
+        <ul>
+            <li><strong>设计素材：</strong>Gemini生成图标、插画</li>
+            <li><strong>布局建议：</strong>Figma AI自动布局优化</li>
+            <li><strong>配色方案：</strong>AI推荐配色组合</li>
+        </ul>
+    </div>
+</div>
+
+<h3>3.3 人机协作流程</h3>
+
+<div class="box box-success">
+    <p><strong>每日工作流：</strong></p>
+    <ol style="margin-top:10px;">
+        <li><strong>晨会（15min）</strong> → 明确当天任务</li>
+        <li><strong>AI预处理</strong> → AI生成代码框架/文档草稿</li>
+        <li><strong>人工审核调整</strong> → 工程师审核AI输出，调整优化</li>
+        <li><strong>代码编写</strong> → 人工完成核心逻辑，AI辅助重复代码</li>
+        <li><strong>AI审查</strong> → AI检查代码规范、安全问题</li>
+        <li><strong>晚间提交</strong> → 提交代码，AI生成当日工作小结</li>
+    </ol>
+</div>
+
+<h3>3.4 AI使用规范</h3>
+
+<table>
+    <tr><th>场景</th><th>推荐工具</th><th>使用方式</th></tr>
+    <tr><td>日常代码补全</td><td>Claude Code</td><td>IDE插件，实时补全</td></tr>
+    <tr><td>复杂逻辑代码</td><td>Gemini（高级付费版）</td><td>网页版，深度推理</td></tr>
+    <tr><td>架构设计/评审</td><td>Claude</td><td>讨论模式，输出方案</td></tr>
+    <tr><td>PRD/文档撰写</td><td>MiniMax</td><td>文档内直接调用</td></tr>
+    <tr><td>设计素材生成</td><td>Gemini</td><td>多模态生成图</td></tr>
+    <tr><td>图标/简单素材</td><td>Figma AI</td><td>设计工具内直接用</td></tr>
+</table>
+
+<div class="box box-warn">
+    <p><strong>⚠️ AI使用注意事项：</strong></p>
+    <ul>
+        <li>AI生成代码必须经过人工审核+测试后才能提交</li>
+        <li>涉及安全、支付的逻辑必须人工+AI编写和审查</li>
+        <li>敏感信息（密钥、用户数据）不允许上传AI工具</li>
+        <li>AI生成的设计素材需确认版权后再商用</li>
+    </ul>
+</div>
+
+<h3>3.5 AI工具成本预算</h3>
+
+<table>
+    <tr><th>工具</th><th>月费</th><th>用途</th><th>年成本</th></tr>
+    <tr><td>Claude Code Pro</td><td>约200元</td><td>代码补全生成</td><td>2400元</td></tr>
+    <tr><td>Gemini Advanced</td><td>约300元</td><td>复杂推理/设计素材</td><td>3600元</td></tr>
+    <tr><td>MiniMax</td><td>约150元</td><td>文档撰写/内容生成</td><td>1800元</td></tr>
+    <tr><td>Figma AI</td><td>约150元</td><td>设计辅助</td><td>1800元</td></tr>
+    <tr><td colspan="3"><strong>合计</strong></td><td><strong>约9600元/年</strong></td></tr>
+</table>
+
+<div class="page-break"></div>
+
+<h2>四、总结与下一步行动</h2>
+
+<div class="box box-info">
+    <h3>项目总周期预估</h3>
+    <ul>
+        <li><strong>Q1（当前）</strong>：Demo完善 + 技术选型 + 架构设计</li>
+        <li><strong>Q2</strong>：后端开发 + 前后端联调</li>
+        <li><strong>Q3</strong>：内测 + 小范围试运营</li>
+        <li><strong>Q4</strong>：V1.0正式上线</li>
+    </ul>
+    <p style="margin-top:15px;"><strong>总工期：约6个月（基于满员团队）</strong></p>
+</div>
+
+<div class="box box-success">
+    <h3>下一步行动计划</h3>
+    <table>
+        <tr><th>序号</th><th>任务</th><th>负责人</th><th>完成时间</th></tr>
+        <tr><td>1</td><td>确定后端技术选型方案</td><td>项目负责人</td><td>本周</td></tr>
+        <tr><td>2</td><td>完成微服务架构设计</td><td>待定后端</td><td>1周内</td></tr>
+        <tr><td>3</td><td>编写API接口文档</td><td>产品+后端</td><td>1周内</td></tr>
+        <tr><td>4</td><td>确定云服务器方案</td><td>项目负责人</td><td>本周</td></tr>
+        <tr><td>5</td><td>招聘/外包确定后端开发</td><td>项目负责人</td><td>2周内</td></tr>
+    </table>
+</div>
+
+<hr style="margin-top:40px;">
+
+<div class="text-center" style="margin-top:30px; padding:25px; background:linear-gradient(135deg, #EFF6FF, #F0FDF4); border-radius:10px;">
+    <p style="font-size:12pt; font-weight:bold; color:#1E3A8A;">规划编制完毕，请各位领导审阅指导！</p>
+    <p style="color:#6B7280; margin-top:10px;">陆芃非</p>
+</div>
+
+</body>
+</html>

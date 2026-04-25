@@ -1,0 +1,222 @@
+.home-page {
+  min-height: 100vh;
+  background-color: #F7F8FA;
+  padding-bottom: 32PX;
+
+  /* 顶部 Banner */
+  .banner-section {
+    position: relative;
+    padding: 48PX 24PX 64PX;
+    overflow: hidden;
+
+    .banner-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(160deg, #E60012 0%, #9e000c 100%);
+      z-index: 0;
+    }
+
+    .banner-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+
+      .greeting-text {
+        font-size: 14PX;
+        color: rgba(255, 255, 255, 0.85);
+        font-weight: 300;
+        letter-spacing: 2PX;
+        display: block;
+        margin-bottom: 16PX;
+      }
+
+      .brand-title {
+        font-size: 28PX;
+        font-weight: 800;
+        color: #FFFFFF;
+        letter-spacing: 4PX;
+        display: block;
+        margin-bottom: 8PX;
+        text-shadow: 0 2PX 4PX rgba(0, 0, 0, 0.1);
+      }
+
+      .brand-subtitle {
+        font-size: 14PX;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 300;
+        letter-spacing: 6PX;
+        display: block;
+        margin-bottom: 32PX;
+      }
+
+      .banner-btn {
+        height: 44PX !important;
+        width: 160PX !important;
+        font-size: 15PX !important;
+        font-weight: 500;
+        letter-spacing: 2PX;
+        background: #FFFFFF !important;
+        color: #E60012 !important;
+        border: none !important;
+        border-radius: 22PX !important;
+        box-shadow: 0 8PX 24PX rgba(0, 0, 0, 0.15);
+
+        &:active {
+          transform: scale(0.98);
+          opacity: 0.9;
+        }
+      }
+    }
+
+    /* 装饰圆圈 */
+    .decoration-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      z-index: 0;
+
+      &.circle-1 {
+        width: 300PX;
+        height: 300PX;
+        top: -100PX;
+        right: -80PX;
+      }
+
+      &.circle-2 {
+        width: 200PX;
+        height: 200PX;
+        bottom: -60PX;
+        left: -60PX;
+      }
+    }
+  }
+
+  /* 卡片通用样式 */
+  .menu-card,
+  .service-card {
+    margin: -32PX 24PX 24PX;
+    background: #FFFFFF;
+    border-radius: 20PX;
+    padding: 24PX;
+    box-shadow: 0 16PX 40PX rgba(0, 0, 0, 0.06), 0 8PX 16PX rgba(230, 0, 18, 0.04);
+    position: relative;
+    z-index: 2;
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 24PX;
+
+      .header-line {
+        width: 4PX;
+        height: 18PX;
+        background: linear-gradient(180deg, #ff6b6b 0%, #E60012 100%);
+        border-radius: 4PX;
+        margin-right: 12PX;
+      }
+
+      .header-title {
+        font-size: 18PX;
+        font-weight: 600;
+        color: #111111;
+      }
+    }
+  }
+
+  /* 功能菜单 */
+  .menu-card {
+    .menu-grid {
+      background: transparent;
+
+      .menu-grid-item {
+        .nut-grid-item__content {
+          padding: 16PX 0;
+          background: transparent;
+        }
+
+        .menu-icon-wrap {
+          width: 48PX;
+          height: 48PX;
+          background: linear-gradient(135deg, #FFF2F2 0%, #FFEBEB 100%);
+          border-radius: 16PX;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 12PX;
+          transition: all 0.2s;
+
+          &:active {
+            transform: scale(0.95);
+          }
+        }
+
+        .menu-text {
+          font-size: 13PX;
+          color: #333333;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+
+  /* 服务优势 */
+  .service-card {
+    margin-top: 0;
+
+    .service-list {
+      .service-item {
+        display: flex;
+        align-items: center;
+        padding: 20PX 0;
+        border-bottom: 1PX solid #F2F2F2;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        .service-icon-wrap {
+          width: 48PX;
+          height: 48PX;
+          background: linear-gradient(135deg, #FFF2F2 0%, #FFEBEB 100%);
+          border-radius: 12PX;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 16PX;
+          flex-shrink: 0;
+        }
+
+        .service-content {
+          flex: 1;
+
+          .service-title {
+            font-size: 15PX;
+            font-weight: 500;
+            color: #111111;
+            display: block;
+            margin-bottom: 4PX;
+          }
+
+          .service-desc {
+            font-size: 12PX;
+            color: #999999;
+          }
+        }
+      }
+    }
+  }
+
+  /* 底部安全提示 */
+  .safety-tips {
+    text-align: center;
+    padding: 16PX;
+
+    .tips-text {
+      font-size: 12PX;
+      color: #999999;
+    }
+  }
+}

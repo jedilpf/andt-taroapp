@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安电通技术架构方案</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #64748b;
+            --accent-color: #f97316;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --code-bg: #1e293b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 2px solid var(--primary-color);
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .header .company {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .subsection-title {
+            font-size: 1.3rem;
+            color: var(--text-color);
+            margin: 25px 0 15px 0;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .architecture-diagram {
+            background: var(--code-bg);
+            color: #e2e8f0;
+            padding: 30px;
+            border-radius: 12px;
+            font-family: "Courier New", Consolas, monospace;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:nth-child(even) {
+            background: #f1f5f9;
+        }
+
+        .code-block {
+            background: var(--code-bg);
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 12px;
+            font-family: "Courier New", Consolas, monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 4px solid var(--accent-color);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-left: 4px solid #10b981;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin: 0 5px;
+        }
+
+        .tag-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .tag-success {
+            background: #10b981;
+            color: white;
+        }
+
+        .tag-warning {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .tag-secondary {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            border-top: 2px solid var(--border-color);
+            color: var(--secondary-color);
+        }
+
+        .evolution-path {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .evolution-step {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px 20px;
+        }
+
+        .evolution-step h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-left: 10px;
+        }
+
+        .status-current {
+            background: #10b981;
+            color: white;
+        }
+
+        .status-future {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        @media print {
+            body { background: white; }
+            .card { box-shadow: none; }
+            .architecture-diagram, .code-block { background: #f8f8f8; color: #333; }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.4rem;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            .architecture-diagram {
+                font-size: 0.75rem;
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>安电通技术架构方案</h1>
+            <p class="company">未来申活（上海）数字科技有限公司</p>
+        </header>
+
+        <!-- 一、系统架构概述 -->
+        <section class="section">
+            <h2 class="section-title">一、系统架构概述</h2>
+
+            <h3 class="subsection-title">1.1 整体架构图（MVP阶段 - 单体架构）</h3>
+            <div class="architecture-diagram">
+┌─────────────────────────────────────────────────────────────────┐
+│                         客户端层                                  │
+├─────────────────────────────────────────────────────────────────┤
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐              │
+│  │   APP端     │  │   小程序端   │  │  管理后台   │              │
+│  │ (React+Cap) │  │   (Taro)    │  │  (React)    │              │
+│  └─────────────┘  └─────────────┘  └─────────────┘              │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                       应用服务层                                 │
+├─────────────────────────────────────────────────────────────────┤
+│  ┌──────────────────────────────────────────────────────────┐   │
+│  │              Spring Boot 单体应用                         │   │
+│  │  ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐        │   │
+│  │  │ 用户模块 │ │ 订单模块 │ │ 支付模块 │ │ 商品模块 │        │   │
+│  │  └─────────┘ └─────────┘ └─────────┘ └─────────┘        │   │
+│  │  ┌─────────┐ ┌─────────┐ ┌─────────┐                   │   │
+│  │  │ AI模块  │ │ 地图模块 │ │ 地址模块 │                   │   │
+│  │  └─────────┘ └─────────┘ └─────────┘                   │   │
+│  │                                                          │   │
+│  │  统一网关层：JWT认证、参数校验、限流、日志                  │   │
+│  └──────────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                        数据层                                    │
+├─────────────────────────────────────────────────────────────────┤
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐                        │
+│  │  MySQL   │ │  Redis   │ │  OSS     │                        │
+│  │  主数据库 │ │  缓存    │ │  文件存储 │                        │
+│  └──────────┘ └──────────┘ └──────────┘                        │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                       基础设施层                                  │
+├─────────────────────────────────────────────────────────────────┤
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐                        │
+│  │  Docker  │ │ Nginx    │ │ 监控告警 │                        │
+│  │ 容器部署  │ │ 反向代理  │ │ (可选)   │                        │
+│  └──────────┘ └──────────┘ └──────────┘                        │
+└─────────────────────────────────────────────────────────────────┘
+            </div>
+
+            <h3 class="subsection-title">1.2 架构设计原则</h3>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>原则</th>
+                            <th>说明</th>
+                            <th>实现方式</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="tag tag-primary">简单优先</span></td>
+                            <td>MVP阶段避免过度设计</td>
+                            <td>单体架构、模块化设计</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-success">快速迭代</span></td>
+                            <td>降低开发复杂度</td>
+                            <td>统一代码库、简化部署</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-warning">可扩展</span></td>
+                            <td>为未来演进预留空间</td>
+                            <td>模块化拆分、接口抽象</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-secondary">高性能</span></td>
+                            <td>响应时间&lt;500ms</td>
+                            <td>Redis缓存、异步处理</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-secondary">安全性</span></td>
+                            <td>数据安全、接口安全</td>
+                            <td>JWT认证、参数校验</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-secondary">可维护</span></td>
+                            <td>代码清晰、文档完善</td>
+                            <td>统一规范、注释文档</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="subsection-title">1.3 架构选型理由</h3>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>对比项</th>
+                            <th>单体架构（当前选择）</th>
+                            <th>微服务架构</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>开发效率</td>
+                            <td style="color: #10b981; font-weight: 600;">高，统一代码库</td>
+                            <td>低，多服务协调</td>
+                        </tr>
+                        <tr>
+                            <td>部署复杂度</td>
+                            <td style="color: #10b981; font-weight: 600;">低，单应用部署</td>
+                            <td>高，多服务编排</td>
+                        </tr>
+                        <tr>
+                            <td>运维成本</td>
+                            <td style="color: #10b981; font-weight: 600;">低，单服务器即可</td>
+                            <td>高，需多节点部署</td>
+                        </tr>
+                        <tr>
+                            <td>团队要求</td>
+                            <td style="color: #10b981; font-weight: 600;">1-2人即可维护</td>
+                            <td>需专职运维</td>
+                        </tr>
+                        <tr>
+                            <td>扩展能力</td>
+                            <td>垂直扩展为主</td>
+                            <td>水平扩展灵活</td>
+                        </tr>
+                        <tr>
+                            <td>适用阶段</td>
+                            <td><span class="tag tag-success">MVP/初创期</span></td>
+                            <td><span class="tag tag-secondary">成熟期/高并发</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="highlight">
+                <strong>选择依据：</strong>第1期（M1-M6）用户规模&lt;500人，单服务器足够支撑，单体架构可降低70%开发和运维成本。
+            </div>
+        </section>
+
+        <!-- 二、技术选型说明 -->
+        <section class="section">
+            <h2 class="section-title">二、技术选型说明</h2>
+
+            <h3 class="subsection-title">2.1 前端技术栈</h3>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>层次</th>
+                            <th>技术</th>
+                            <th>版本</th>
+                            <th>选型理由</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>APP框架</td>
+                            <td>React</td>
+                            <td>18.x</td>
+                            <td>组件化开发、生态丰富</td>
+                        </tr>
+                        <tr>
+                            <td>构建工具</td>
+                            <td>Vite</td>
+                            <td>5.x</td>
+                            <td>快速构建、HMR支持</td>
+                        </tr>
+                        <tr>
+                            <td>移动打包</td>
+                            <td>Capacitor</td>
+                            <td>6.x</td>
+                            <td>跨平台、原生桥接</td>
+                        </tr>
+                        <tr>
+                            <td>小程序框架</td>
+                            <td>Taro</td>
+                            <td>4.x</td>
+                            <td>多端统一、React语法</td>
+                        </tr>
+                        <tr>
+                            <td>UI框架</td>
+                            <td>Tailwind CSS</td>
+                            <td>3.x</td>
+                            <td>快速开发、响应式</td>
+                        </tr>
+                        <tr>
+                            <td>地图组件</td>
+                            <td>Leaflet</td>
+                            <td>1.9</td>
+                            <td>开源、轻量、插件丰富</td>
+                        </tr>
+                        <tr>
+                            <td>状态管理</td>
+                            <td>React Context</td>
+                            <td>-</td>
+                            <td>简单场景、避免过度设计</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="subsection-title">2.2 后端技术栈</h3>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>层次</th>
+                            <th>技术</th>
+                            <th>版本</th>
+                            <th>选型理由</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>框架</td>
+                            <td><strong>Spring Boot</strong></td>
+                            <td>3.2.x</td>
+                            <td>生态成熟、开发效率高</td>
+                        </tr>
+                        <tr>
+                            <td>ORM</td>
+                            <td><strong>MyBatis Plus</strong></td>
+                            <td>3.5.x</td>
+                            <td>灵活SQL、代码生成</td>
+                        </tr>
+                        <tr>
+                            <td>缓存</td>
+                            <td><strong>Redis</strong></td>
+                            <td>7.x</td>
+                            <td>高性能、数据结构丰富</td>
+                        </tr>
+                        <tr>
+                            <td>连接池</td>
+                            <td>HikariCP</td>
+                            <td>-</td>
+                            <td>Spring Boot默认、高性能</td>
+                        </tr>
+                        <tr>
+                            <td>参数校验</td>
+                            <td>Spring Validation</td>
+                            <td>-</td>
+                            <td>注解式校验、简洁</td>
+                        </tr>
+                        <tr>
+                            <td>认证</td>
+                            <td>JWT</td>
+                            <td>-</td>
+                            <td>无状态、适合移动端</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="subsection-title">2.3 数据存储</h3>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>类型</th>
+                            <th>技术</th>
+                            <th>版本</th>
+                            <th>选型理由</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>主数据库</td>
+                            <td><strong>MySQL</strong></td>
+                            <td>8.0</td>
+                            <td>关系型、事务支持</td>
+                        </tr>
+                        <tr>
+                            <td>缓存</td>
+                            <td><strong>Redis</strong></td>
+                            <td>7.x</td>
+                            <td>高性能、多数据结构</td>
+                        </tr>
+                        <tr>
+                            <td>文件存储</td>
+                            <td>阿里云OSS</td>
+                            <td>-</td>
+                            <td>成本低、CDN加速</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="subsection-title">2.4 运维工具</h3>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>类型</th>
+                            <th>技术</th>
+                            <th>版本</th>
+                            <th>选型理由</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>容器</td>
+                            <td>Docker</td>
+                            <td>24.x</td>
+                            <td>标准化部署</td>
+                        </tr>
+                        <tr>
+                            <td>编排</td>
+                            <td>Docker Compose</td>
+                            <td>2.x</td>
+                            <td>简单编排、适合小团队</td>
+                        </tr>
+                        <tr>
+                            <td>CI/CD</td>
+                            <td>GitHub Actions</td>
+                            <td>-</td>
+                            <td>免费、与仓库集成</td>
+                        </tr>
+                        <tr>
+                            <td>反向代理</td>
+                            <td>Nginx</td>
+                            <td>-</td>
+                            <td>负载均衡、SSL终止</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 三、前端架构设计 -->
+        <section class="section">
+            <h2 class="section-title">三、前端架构设计</h2>
+
+            <h3 class="subsection-title">3.1 APP端目录结构</h3>
+            <div class="code-block">
+app/
+├── src/
+│   ├── pages/                 # 页面组件
+│   │   ├── user/              # 用户端页面
+│   │   │   ├── HomePage.tsx   # 首页
+│   │   │   ├── StorePage.tsx  # 商城
+│   │   │   ├── OrderPage.tsx  # 订单
+│   │   │   ├── ProfilePage.tsx# 个人中心
+│   │   │   ├── RepairPage.tsx # 维修预约
+│   │   │   ├── MapPage.tsx    # 地图选电工
+│   │   │   └── SafetyPage.tsx # 安全页
+│   │   ├── electrician/       # 电工端页面
+│   │   │   ├── ElecHomePage.tsx
+│   │   │   ├── TaskHallPage.tsx
+│   │   │   ├── MyTaskPage.tsx
+│   │   │   └── IncomePage.tsx
+│   │   └── shared/            # 共享页面
+│   │       ├── LoginPage.tsx
+│   │       └── ChatPage.tsx
+│   ├── components/            # 公共组件
+│   ├── context/               # 全局状态
+│   ├── services/              # API服务
+│   ├── utils/                 # 工具函数
+│   ├── hooks/                 # 自定义Hook
+│   └── types/                 # TypeScript类型
+├── capacitor.config.ts
+├── vite.config.ts
+├── tailwind.config.js
+└── package.json
+            </div>
+
+            <h3 class="subsection-title">3.2 状态管理设计</h3>
+            <div class="code-block">
+interface AppState {
+  currentUser: User | null;      // 当前用户
+  orders: Order[];               // 订单列表
+  addresses: Address[];          // 地址列表
+  messages: Message[];           // 通知消息
+  cartItems: CartItem[];         // 购物车
+}
+
+interface AppActions {
+  setUser: (user: User) => void;
+  addOrder: (order: Order) => void;
+  updateOrder: (id: string, status: OrderStatus) => void;
+  addAddress: (address: Address) => void;
+}
+            </div>
+        </section>
+
+        <!-- 四、后端架构设计 -->
+        <section class="section">
+            <h2 class="section-title">四、后端架构设计</h2>
+
+            <h3 class="subsection-title">4.1 模块化设计</h3>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>模块名</th>
+                            <th>职责</th>
+                            <th>核心功能</th>
+                            <th>数据依赖</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>user</td>
+                            <td>用户模块</td>
+                            <td>注册、登录、信息管理</td>
+                            <td>user表</td>
+                        </tr>
+                        <tr>
+                            <td>order</td>
+                            <td>订单模块</td>
+                            <td>订单CRUD、状态流转</td>
+                            <td>order表</td>
+                        </tr>
+                        <tr>
+                            <td>payment</td>
+                            <td>支付模块</td>
+                            <td>支付、退款、回调</td>
+                            <td>payment表</td>
+                        </tr>
+                        <tr>
+                            <td>address</td>
+                            <td>地址模块</td>
+                            <td>地址管理</td>
+                            <td>address表</td>
+                        </tr>
+                        <tr>
+                            <td>goods</td>
+                            <td>商品模块</td>
+                            <td>商品列表、分类</td>
+                            <td>goods表</td>
+                        </tr>
+                        <tr>
+                            <td>ai</td>
+                            <td>AI模块</td>
+                            <td>AI对话、推荐</td>
+                            <td>无(调用外部API)</td>
+                        </tr>
+                        <tr>
+                            <td>map</td>
+                            <td>地图模块</td>
+                            <td>电工定位、匹配</td>
+                            <td>location表</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="subsection-title">4.2 模块间接口规范（为微服务拆分预留）</h3>
+            <div class="warning-box">
+                <strong>设计原则：</strong>模块间通过Service接口调用，禁止直接访问其他模块的Mapper或Entity。
+            </div>
+            <div class="code-block">
+✅ 正确做法：通过Service接口调用
+   OrderService → userService.getUserById() → UserDTO
+
+❌ 错误做法：直接访问其他模块的Mapper
+   OrderService → userMapper.selectById() → 禁止!</div>
+
+            <h3 class="subsection-title">4.3 服务边界定义</h3>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>模块</th>
+                            <th>领域边界</th>
+                            <th>可拆分条件</th>
+                            <th>拆分后数据库</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>user</td><td>用户、电工信息</td><td>用户>5000</td><td>andiantong_user</td></tr>
+                        <tr><td>order</td><td>订单、评价、日志</td><td>订单>10000/日</td><td>andiantong_order</td></tr>
+                        <tr><td>payment</td><td>支付、退款</td><td>交易>5000/日</td><td>andiantong_payment</td></tr>
+                        <tr><td>goods</td><td>商品、分类、购物车</td><td>商品>1000</td><td>andiantong_goods</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="subsection-title">4.4 数据库表边界预留</h3>
+            <div class="highlight">
+                <strong>原则：</strong>单库存储，但表设计按服务边界组织，为未来拆库预留。
+            </div>
+            <div class="code-block">
+数据库: andiantong
+
+【用户域】user相关表
+├── user, electrician, electrician_location
+
+【订单域】order相关表
+├── order, order_log, order_review, payment
+
+【商品域】goods相关表
+├── category, goods, cart
+
+【公共域】common相关表
+├── address, message, config, service_price</div>
+
+            <h3 class="subsection-title">4.5 后端目录结构（单体模块化）</h3>
+            <div class="code-block">
+backend/
+├── src/main/java/com/andiantong/
+│   ├── AndiantongApplication.java    # 启动类
+│   ├── config/                       # 配置类
+│   │   ├── WebConfig.java
+│   │   ├── RedisConfig.java
+│   │   ├── SecurityConfig.java
+│   │   └── CorsConfig.java
+│   ├── common/                       # 公共模块
+│   │   ├── result/Result.java
+│   │   ├── exception/
+│   │   ├── constant/
+│   │   └── utils/
+│   ├── modules/                      # 业务模块（按领域划分）
+│   │   ├── user/                     # 用户模块
+│   │   │   ├── controller/
+│   │   │   ├── service/
+│   │   │   ├── mapper/
+│   │   │   ├── entity/
+│   │   │   └── dto/
+│   │   ├── order/                    # 订单模块
+│   │   ├── payment/                  # 支付模块
+│   │   ├── goods/                    # 商品模块
+│   │   ├── address/                  # 地址模块
+│   │   ├── ai/                       # AI模块
+│   │   └── map/                      # 地图模块
+│   └── filter/                       # 过滤器
+│       ├── JwtAuthFilter.java
+│       └── RequestLogFilter.java
+├── src/main/resources/
+│   ├── application.yml
+│   ├── application-dev.yml
+│   ├── application-prod.yml
+│   └── mapper/
+└── pom.xml
+            </div>
+
+            <h3 class="subsection-title">4.3 统一响应格式</h3>
+            <div class="code-block">
+public class Result&lt;T&gt; {
+    private Integer code;       // 状态码
+    private String message;     // 提示信息
+    private T data;             // 业务数据
+    private Long timestamp;     // 时间戳
+
+    public static &lt;T&gt; Result&lt;T&gt; success(T data) {
+        return new Result&lt;&gt;(200, "success", data, System.currentTimeMillis());
+    }
+
+    public static &lt;T&gt; Result&lt;T&gt; error(Integer code, String message) {
+        return new Result&lt;&gt;(code, message, null, System.currentTimeMillis());
+    }
+}
+            </div>
+
+            <h3 class="subsection-title">4.4 模块间调用</h3>
+            <div class="code-block">
+@Service
+public class OrderServiceImpl implements OrderService {
+
+    @Autowired
+    private UserService userService;  // 直接注入用户服务
+
+    @Autowired
+    private AddressService addressService;  // 直接注入地址服务
+
+    public OrderVO getOrderDetail(Long orderId) {
+        Order order = orderMapper.selectById(orderId);
+        User user = userService.getById(order.getUserId());
+        Address address = addressService.getById(order.getAddressId());
+        return OrderVO.build(order, user, address);
+    }
+}
+            </div>
+        </section>
+
+        <!-- 五、数据库架构设计 -->
+        <section class="section">
+            <h2 class="section-title">五、数据库架构设计</h2>
+
+            <h3 class="subsection-title">5.1 数据库规划</h3>
+            <div class="highlight">
+                MVP阶段采用<strong>单库设计</strong>，所有表在同一数据库中：
+            </div>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>库名</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>andiantong</td>
+                            <td>主数据库，包含所有业务表</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="subsection-title">5.2 核心表设计预览</h3>
+            <div class="card">
+                <h4 style="margin-bottom: 15px; color: var(--primary-color);">用户表 (user)</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>字段</th>
+                            <th>类型</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>id</td><td>BIGINT</td><td>主键</td></tr>
+                        <tr><td>phone</td><td>VARCHAR(11)</td><td>手机号</td></tr>
+                        <tr><td>password</td><td>VARCHAR(64)</td><td>密码(加密)</td></tr>
+                        <tr><td>nickname</td><td>VARCHAR(50)</td><td>昵称</td></tr>
+                        <tr><td>avatar</td><td>VARCHAR(255)</td><td>头像URL</td></tr>
+                        <tr><td>role</td><td>TINYINT</td><td>角色(用户/电工)</td></tr>
+                        <tr><td>status</td><td>TINYINT</td><td>状态(正常/禁用)</td></tr>
+                        <tr><td>created_at</td><td>DATETIME</td><td>创建时间</td></tr>
+                        <tr><td>updated_at</td><td>DATETIME</td><td>更新时间</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="color: var(--secondary-color); margin-top: 10px;">详细表结构见 08_数据库设计文档</p>
+        </section>
+
+        <!-- 六、部署架构设计 -->
+        <section class="section">
+            <h2 class="section-title">六、部署架构设计</h2>
+
+            <h3 class="subsection-title">6.1 生产环境拓扑（MVP阶段）</h3>
+            <div class="architecture-diagram">
+                    ┌─────────────────┐
+                    │   域名/SSL证书   │
+                    │  (阿里云DNS)    │
+                    └─────────────────┘
+                            │
+                            ▼
+                    ┌─────────────────┐
+                    │    Nginx        │
+                    │   (反向代理)    │
+                    └─────────────────┘
+                            │
+                            ▼
+                    ┌─────────────────┐
+                    │ Spring Boot应用  │
+                    │   (单实例)       │
+                    │   端口: 8080     │
+                    └─────────────────┘
+                            │
+            ┌───────────────┼───────────────┐
+            ▼               ▼               ▼
+    ┌───────────┐   ┌───────────┐   ┌───────────┐
+    │  MySQL    │   │  Redis    │   │   OSS     │
+    │  (单实例)  │   │  (单实例)  │   │  (云服务)  │
+    └───────────┘   └───────────┘   └───────────┘
+            </div>
+
+            <h3 class="subsection-title">6.2 服务器规划（MVP阶段）</h3>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>服务器</th>
+                            <th>配置</th>
+                            <th>部署服务</th>
+                            <th>数量</th>
+                            <th>月成本</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>应用服务器</td>
+                            <td>2核4G</td>
+                            <td>Spring Boot + Nginx</td>
+                            <td>1台</td>
+                            <td>约200元</td>
+                        </tr>
+                        <tr>
+                            <td>数据服务器</td>
+                            <td>2核4G</td>
+                            <td>MySQL + Redis</td>
+                            <td>1台</td>
+                            <td>约200元</td>
+                        </tr>
+                        <tr>
+                            <td>OSS存储</td>
+                            <td>-</td>
+                            <td>文件存储</td>
+                            <td>按量</td>
+                            <td>约50元</td>
+                        </tr>
+                        <tr style="background: #dbeafe; font-weight: 600;">
+                            <td><strong>合计</strong></td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td><strong style="color: var(--primary-color);">约450元/月</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="subsection-title">6.3 Docker Compose配置示例</h3>
+            <div class="code-block">
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: andiantong-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: andiantong
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  redis:
+    image: redis:7-alpine
+    container_name: andiantong-redis
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+
+  app:
+    build: .
+    container_name: andiantong-app
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/andiantong
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+      - redis
+
+volumes:
+  mysql-data:
+  redis-data:
+            </div>
+        </section>
+
+        <!-- 七、安全架构设计 -->
+        <section class="section">
+            <h2 class="section-title">七、安全架构设计</h2>
+
+            <h3 class="subsection-title">7.1 认证方案</h3>
+            <div class="architecture-diagram">
+┌──────────────────────────────────────────────────┐
+│                  JWT认证流程                      │
+├──────────────────────────────────────────────────┤
+│                                                  │
+│  1. 用户登录                                     │
+│     POST /api/user/login                         │
+│     └── 验证手机号+密码                          │
+│     └── 生成JWT Token                           │
+│     └── 返回Token + 用户信息                     │
+│                                                  │
+│  2. 请求携带Token                                │
+│     Authorization: Bearer {token}                │
+│     └── Filter验证Token                         │
+│     └── 解析用户ID                               │
+│     └── 继续处理请求                            │
+│                                                  │
+│  3. Token刷新                                    │
+│     POST /api/user/refresh-token                │
+│     └── 验证旧Token                              │
+│     └── 生成新Token                              │
+│                                                  │
+└──────────────────────────────────────────────────┘
+            </div>
+
+            <h3 class="subsection-title">7.2 安全措施清单</h3>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>类别</th>
+                            <th>措施</th>
+                            <th>实现方式</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>认证安全</td><td>JWT Token</td><td>短有效期+刷新机制</td></tr>
+                        <tr><td>接口安全</td><td>参数校验</td><td>Spring Validation</td></tr>
+                        <tr><td>数据安全</td><td>密码加密</td><td>BCrypt加密存储</td></tr>
+                        <tr><td>传输安全</td><td>HTTPS</td><td>SSL证书</td></tr>
+                        <tr><td>流量安全</td><td>限流</td><td>Nginx limit_req</td></tr>
+                        <tr><td>SQL安全</td><td>防注入</td><td>MyBatis预编译</td></tr>
+                        <tr><td>日志安全</td><td>脱敏处理</td><td>敏感字段过滤</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 八、关键技术方案 -->
+        <section class="section">
+            <h2 class="section-title">八、关键技术方案</h2>
+
+            <h3 class="subsection-title">8.1 订单状态机</h3>
+            <div class="architecture-diagram">
+┌──────────────────────────────────────────────────────────┐
+│                    订单状态流转                           │
+├──────────────────────────────────────────────────────────┤
+│                                                          │
+│  ┌─────────┐    支付成功    ┌─────────┐    电工接单    ┌─────────┐ │
+│  │ 待支付  │ ──────────→ │ 已支付  │ ──────────→ │ 已接单  │ │
+│  │ (0)    │              │ (10)   │              │ (20)   │ │
+│  └─────────┘              └─────────┘              └─────────┘ │
+│       │                        │                        │     │
+│       │ 取消                   │ 取消                   │     │
+│       ▼                        ▼                        ▼     │
+│  ┌─────────┐              ┌─────────┐    开始服务    ┌─────────┐ │
+│  │ 已取消  │              │ 已取消  │ ──────────→ │ 服务中  │ │
+│  │ (-1)   │              │ (-1)   │              │ (30)   │ │
+│  └─────────┘              └─────────┘              └─────────┘ │
+│                                                      │     │
+│                              ┌─────────┐  完成服务  │     │
+│                              │ 已完成  │ ←──────────┤     │
+│                              │ (40)   │             │     │
+│                              └─────────┘             │     │
+│                                   │                  │     │
+│                                   │ 用户评价         │     │
+│                                   ▼                  │     │
+│                              ┌─────────┐             │     │
+│                              │ 已评价  │             │     │
+│                              │ (50)   │             │     │
+│                              └─────────┘             │     │
+│                                                          │
+└──────────────────────────────────────────────────────────┘
+            </div>
+        </section>
+
+        <!-- 九、性能优化策略 -->
+        <section class="section">
+            <h2 class="section-title">九、性能优化策略</h2>
+
+            <h3 class="subsection-title">9.1 缓存策略</h3>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>数据类型</th>
+                            <th>缓存方案</th>
+                            <th>TTL</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>用户信息</td><td>Redis</td><td>30min</td><td>登录后缓存</td></tr>
+                        <tr><td>商品列表</td><td>Redis</td><td>10min</td><td>首页展示</td></tr>
+                        <tr><td>订单详情</td><td>Redis</td><td>5min</td><td>短期缓存</td></tr>
+                        <tr><td>电工位置</td><td>Redis GEO</td><td>1min</td><td>实时更新</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 十、监控与运维 -->
+        <section class="section">
+            <h2 class="section-title">十、监控与运维</h2>
+
+            <h3 class="subsection-title">10.1 监控指标</h3>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>指标类型</th>
+                            <th>监控内容</th>
+                            <th>告警阈值</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>应用指标</td><td>QPS、响应时间</td><td>RT&gt;500ms</td></tr>
+                        <tr><td>系统指标</td><td>CPU、内存、磁盘</td><td>CPU&gt;80%</td></tr>
+                        <tr><td>业务指标</td><td>订单量、支付成功率</td><td>成功率&lt;90%</td></tr>
+                        <tr><td>异常指标</td><td>错误率、慢查询</td><td>错误率&gt;1%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 十一、架构演进规划 -->
+        <section class="section">
+            <h2 class="section-title">十一、架构演进规划</h2>
+
+            <h3 class="subsection-title">11.1 分期演进路线</h3>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>阶段</th>
+                            <th>时间</th>
+                            <th>架构形态</th>
+                            <th>触发条件</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="tag tag-success">第1期</span></td>
+                            <td>M1-M6</td>
+                            <td><span class="status-badge status-current">单体架构</span></td>
+                            <td>MVP验证阶段</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-warning">第2期</span></td>
+                            <td>M7-M12</td>
+                            <td><span class="status-badge status-future">单体优化</span></td>
+                            <td>用户&lt;3000</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-secondary">第3期</span></td>
+                            <td>M13+</td>
+                            <td><span class="status-badge status-future">微服务架构</span></td>
+                            <td>用户&gt;5000 或 QPS&gt;1000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="subsection-title">11.2 微服务升级触发条件</h3>
+            <div class="warning-box">
+                <strong>当满足以下任一条件时，考虑升级为微服务架构：</strong>
+            </div>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>指标</th>
+                            <th>阈值</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>DAU</td><td>&gt;5000</td><td>日活用户超5000</td></tr>
+                        <tr><td>QPS</td><td>&gt;1000</td><td>峰值请求超1000/秒</td></tr>
+                        <tr><td>团队规模</td><td>&gt;5人</td><td>开发团队超5人</td></tr>
+                        <tr><td>数据库表</td><td>&gt;50张</td><td>单库表数量过多</td></tr>
+                        <tr><td>服务响应</td><td>&gt;500ms</td><td>平均响应时间过长</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="subsection-title">11.3 升级路径</h3>
+            <div class="evolution-path">
+                <div class="evolution-step">
+                    <h4>第一步：模块化拆分</h4>
+                    <ul>
+                        <li>按业务领域划分模块边界</li>
+                        <li>定义清晰的模块间接口</li>
+                        <li>消除循环依赖</li>
+                    </ul>
+                </div>
+                <div class="evolution-step">
+                    <h4>第二步：数据库拆分</h4>
+                    <ul>
+                        <li>按服务拆分数据库</li>
+                        <li>实现数据同步机制</li>
+                        <li>消除跨库JOIN</li>
+                    </ul>
+                </div>
+                <div class="evolution-step">
+                    <h4>第三步：服务独立部署</h4>
+                    <ul>
+                        <li>引入注册中心(Nacos)</li>
+                        <li>引入网关(Gateway)</li>
+                        <li>引入消息队列(RocketMQ)</li>
+                        <li>实现服务间调用(OpenFeign)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">11.4 第3期微服务架构预览</h3>
+            <div class="architecture-diagram">
+┌─────────────────────────────────────────────────────────────────┐
+│                         客户端层                                  │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                     Spring Cloud Gateway                         │
+│                 (路由、鉴权、限流、熔断)                          │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                        微服务层                                   │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐           │
+│  │user-svc  │ │order-svc │ │payment-svc│ │goods-svc│           │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────┘           │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                        基础设施层                                  │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐           │
+│  │  Nacos   │ │ RocketMQ │ │ Sentinel │ │ SkyWalking│          │
+│  │ 注册配置  │ │ 消息队列  │ │ 流控熔断  │ │ 链路追踪  │           │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────┘           │
+└─────────────────────────────────────────────────────────────────┘
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p><strong>未来申活（上海）数字科技有限公司</strong></p>
+            <p>编制日期：2026年4月8日</p>
+        </footer>
+    </div>
+</body>
+</html>

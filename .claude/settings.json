@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mysql -u root -p111111 andt_user -N -e \"SELECT code FROM sys_sms_code WHERE phone='13800138000' ORDER BY id DESC LIMIT 1\")",
+      "Bash(powershell.exe -Command \"Stop-Process -Id 197504,203076,162416 -Force -ErrorAction SilentlyContinue\")",
+      "Bash(mvn spring-boot:run -pl andt-user)",
+      "Bash(mvn spring-boot:run -pl andt-inspection)",
+      "Bash(mvn spring-boot:run -pl andt-order)",
+      "Bash(curl -s http://localhost:8081/user/info -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ0b2tlblR5cGUiOiJhY2Nlc3MiLCJzdWIiOiIxIiwiaWF0IjoxNzc2OTQ3ODMyLCJleHAiOjE3NzcwMzQyMzJ9.Mcb5m-LqiNzEpLa7eFlPkmkqR2WE3GVMW-RfapSZN88')",
+      "Bash(curl -s http://localhost:8081/user/address/list -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ0b2tlblR5cGUiOiJhY2Nlc3MiLCJzdWIiOiIxIiwiaWF0IjoxNzc2OTQ3ODMyLCJleHAiOjE3NzcwMzQyMzJ9.Mcb5m-LqiNzEpLa7eFlPkmkqR2WE3GVMW-RfapSZN88')",
+      "Bash(curl -s http://localhost:8083/api/inspection/quota -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ0b2tlblR5cGUiOiJhY2Nlc3MiLCJzdWIiOiIxIiwiaWF0IjoxNzc2OTQ3ODMyLCJleHAiOjE3NzcwMzQyMzJ9.Mcb5m-LqiNzEpLa7eFlPkmkqR2WE3GVMW-RfapSZN88')",
+      "Bash(curl -s 'http://localhost:8083/api/inspection/list?page=1&pageSize=10' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ0b2tlblR5cGUiOiJhY2Nlc3MiLCJzdWIiOiIxIiwiaWF0IjoxNzc2OTQ3ODMyLCJleHAiOjE3NzcwMzQyMzJ9.Mcb5m-LqiNzEpLa7eFlPkmkqR2WE3GVMW-RfapSZN88')",
+      "Bash(curl -s 'http://localhost:8083/api/electrician/pending?page=1&pageSize=10' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ0b2tlblR5cGUiOiJhY2Nlc3MiLCJzdWIiOiIxIiwiaWF0IjoxNzc2OTQ3ODMyLCJleHAiOjE3NzcwMzQyMzJ9.Mcb5m-LqiNzEpLa7eFlPkmkqR2WE3GVMW-RfapSZN88')"
+    ]
+  }
+}

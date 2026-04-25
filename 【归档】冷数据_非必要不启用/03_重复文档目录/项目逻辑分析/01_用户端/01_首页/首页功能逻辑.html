@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01_首页 功能逻辑</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f7fa;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: white;
+            border-right: 1px solid #e5e7eb;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar-header {
+            padding: 24px 20px;
+            border-bottom: 1px solid #e5e7eb;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+        }
+
+        .sidebar-header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            padding: 0;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .sidebar-header .subtitle {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-top: 8px;
+        }
+
+        .sidebar-toc {
+            padding: 16px 0;
+        }
+
+        .sidebar-toc .section-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 8px 20px;
+            margin-top: 8px;
+        }
+
+        .sidebar-toc a {
+            display: block;
+            padding: 10px 20px;
+            color: #4b5563;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+            position: relative;
+        }
+
+        .sidebar-toc a:hover {
+            background: #f3f4f6;
+            color: #3b82f6;
+        }
+
+        .sidebar-toc a.active {
+            background: #eff6ff;
+            color: #3b82f6;
+            border-left-color: #3b82f6;
+            font-weight: 500;
+        }
+
+        .sidebar-toc a .section-num {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            text-align: center;
+            background: #e5e7eb;
+            border-radius: 6px;
+            font-size: 12px;
+            margin-right: 10px;
+            color: #6b7280;
+        }
+
+        .sidebar-toc a.active .section-num {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 40px 60px;
+            max-width: calc(100% - 280px);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 48px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #1a1a1a;
+            border-bottom: 3px solid #3b82f6;
+            padding-bottom: 16px;
+            margin-bottom: 32px;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #1a1a1a;
+            margin-top: 48px;
+            margin-bottom: 20px;
+            padding-left: 12px;
+            border-left: 4px solid #3b82f6;
+            scroll-margin-top: 20px;
+        }
+
+        h3 {
+            font-size: 20px;
+            color: #2c3e50;
+            margin-top: 32px;
+            margin-bottom: 16px;
+        }
+
+        h4 {
+            font-size: 18px;
+            color: #34495e;
+            margin-top: 24px;
+            margin-bottom: 12px;
+        }
+
+        p {
+            margin-bottom: 16px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #374151;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            color: #e91e63;
+        }
+
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: #e2e8f0;
+        }
+
+        .keyword { color: #c792ea; }
+        .string { color: #c3e88d; }
+        .comment { color: #676e95; }
+        .function { color: #82aaff; }
+        .number { color: #f78c6c; }
+
+        ul, ol {
+            margin: 16px 0;
+            padding-left: 32px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        .tree {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 4px solid #f59e0b;
+            margin: 20px 0;
+        }
+
+        .info-box {
+            background: #eff6ff;
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background: #fef2f2;
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 4px solid #ef4444;
+            margin: 20px 0;
+        }
+
+        .success-box {
+            background: #f0fdf4;
+            padding: 16px;
+            border-radius: 8px;
+            border-left: 4px solid #10b981;
+            margin: 20px 0;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px solid #e5e7eb;
+            margin: 40px 0;
+        }
+
+        .toc {
+            display: none;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .badge-p0 {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .badge-p1 {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .badge-p2 {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 48px;
+            height: 48px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+            transition: all 0.3s;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+            .main-content {
+                margin-left: 240px;
+                max-width: calc(100% - 240px);
+                padding: 30px 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+                max-width: 100%;
+                padding: 20px;
+            }
+            .container {
+                padding: 24px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            h2 {
+                font-size: 20px;
+            }
+            h3 {
+                font-size: 18px;
+            }
+            table {
+                font-size: 14px;
+            }
+            th, td {
+                padding: 8px 12px;
+            }
+            pre {
+                padding: 16px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>01_首页</h1>
+                <div class="subtitle">功能逻辑文档</div>
+            </div>
+            <nav class="sidebar-toc">
+                <div class="section-title">目录导航</div>
+                <a href="#section-1" class="active"><span class="section-num">1</span>模块概述</a>
+                <a href="#section-2"><span class="section-num">2</span>页面结构总览</a>
+                <a href="#section-3"><span class="section-num">3</span>UserHeader组件</a>
+                <a href="#section-4"><span class="section-num">4</span>公告弹窗</a>
+                <a href="#section-5"><span class="section-num">5</span>公益福利区</a>
+                <a href="#section-6"><span class="section-num">6</span>便民服务大厅</a>
+                <a href="#section-7"><span class="section-num">7</span>社区明星师傅</a>
+                <a href="#section-8"><span class="section-num">8</span>状态管理</a>
+                <a href="#section-9"><span class="section-num">9</span>全局事件</a>
+                <a href="#section-10"><span class="section-num">10</span>路由配置</a>
+                <a href="#section-11"><span class="section-num">11</span>用户操作流程</a>
+                <a href="#section-12"><span class="section-num">12</span>业务规则汇总</a>
+                <a href="#section-13"><span class="section-num">13</span>异常处理</a>
+                <a href="#section-14"><span class="section-num">14</span>性能优化</a>
+                <a href="#section-15"><span class="section-num">15</span>测试要点</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="container">
+                <h1>01_首页 功能逻辑</h1>
+
+        <h2 id="section-1">一、模块概述</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>字段</th>
+                    <th>内容</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>模块名称</td>
+                    <td>用户端首页</td>
+                </tr>
+                <tr>
+                    <td>对应文件</td>
+                    <td><code>pages/user/UserHome.tsx</code></td>
+                </tr>
+                <tr>
+                    <td>依赖组件</td>
+                    <td><code>components/user/UserShared.tsx</code>（UserHeader、AddressSelector、TimeSelector）</td>
+                </tr>
+                <tr>
+                    <td>上下文依赖</td>
+                    <td><code>context/AppContext.tsx</code></td>
+                </tr>
+                <tr>
+                    <td>路由配置</td>
+                    <td><code>pages/UserApp.tsx</code></td>
+                </tr>
+                <tr>
+                    <td>Phase-1优先级</td>
+                    <td><span class="badge badge-p0">P0（必须）</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2 id="section-2">二、页面结构总览</h2>
+
+        <div class="tree">首页 (UserHome)
+│
+├── &lt;UserHeader /&gt; ─────────────────────────── 顶部导航+轮播Banner
+│   │
+│   ├── 轮播Banner（4张自动切换）
+│   │   ├── Slide 1: 社区安全公益行 → /user/inspection
+│   │   ├── Slide 2: 邻里便民驿站 → /user/store
+│   │   ├── Slide 3: AI智能生活顾问 → open-ai-chat (deepseek)
+│   │   └── Slide 4: 消费赚积分 → /user/points-mall
+│   │
+│   ├── 顶部导航栏
+│   │   ├── 左侧：地址选择器按钮
+│   │   │   └── 点击 → 弹出 &lt;AddressSelector /&gt;
+│   │   └── 右侧：关怀版按钮 + 消息铃铛
+│   │
+│   └── 底部：轮播指示器（4个圆点）
+│
+├── 1. 社区公告栏 ─────────────────────────── 公告入口
+│   ├── 左侧：公告图标（橙色脉冲动画）
+│   ├── 中间：公告标题（单行截断）
+│   ├── 右侧：ChevronRight箭头
+│   └── 点击 → 弹出 &lt;BulletinModal /&gt;
+│
+├── 2. 公益福利区 ─────────────────────────── 4个快捷入口
+│   └── 4个图标按钮（2x2网格）：
+│       ├── 公益安检 [ShieldCheck] → /user/inspection 标签：首次免费
+│       ├── 安全课堂 [BookOpen] → /user/academy 标签：涨知识
+│       ├── 社区志愿 [Heart] → /user/activity 标签：招募中
+│       └── 惠民福利 [Gift] → /user/coupons 标签：领券
+│
+├── 3. 便民服务大厅 ─────────────────────────── 8个服务入口
+│   ├── 标题：便民服务大厅（左侧蓝色竖线装饰）
+│   └── 8个图标按钮（4x2网格）：
+│       ├── 应急维修 [Zap] → /user/repair
+│       ├── 便民安装 [Wrench] → /user/install 标签：惠民
+│       ├── 智慧家居 [Wifi] → /user/smart-home
+│       ├── 周边服务 [Coffee] → /user/local
+│       ├── 居民热线 [Headphones] → 触发 open-support 事件
+│       ├── 便民驿站 [MapPin] → /user/convenience-station
+│       ├── 我的需求 [MessageSquareText] → /user/tasks 标签：新功能
+│       └── AI顾问 [Sparkles] → 触发 open-ai-chat 事件 (gemini)
+│
+└── 4. 社区明星师傅 ─────────────────────────── 推荐电工列表
+    ├── 标题栏：社区明星师傅 + "前往地图"按钮
+    └── 3个师傅卡片
+        ├── 头像 + 身份徽章（党员/金牌/优选）
+        ├── 姓名 + 从业年限
+        ├── 评分（5.0/4.9/4.8）
+        ├── 标签列表（党员、金牌电工等）
+        ├── 距离（0.5km/0.8km/1.2km）
+        └── 咨询按钮</div>
+
+        <hr>
+
+        <h2 id="section-3">三、UserHeader 组件详解</h2>
+
+        <h3>3.1 轮播Banner配置</h3>
+
+        <pre><code><span class="keyword">const</span> slides = [
+  {
+    <span class="string">id</span>: <span class="string">'safety'</span>,
+    <span class="string">image</span>: <span class="string">'https://images.unsplash.com/photo-1621905251189-08b45d6a269e...'</span>,
+    <span class="string">bg</span>: <span class="string">'bg-emerald-600'</span>,
+    <span class="string">icon</span>: ShieldCheck,
+    <span class="string">title</span>: <span class="string">'社区安全公益行'</span>,
+    <span class="string">subtitle</span>: <span class="string">'消除隐患 · 首次上门免费检测 · 守护家园'</span>,
+    <span class="string">btnText</span>: <span class="string">'免费预约'</span>,
+    <span class="string">btnColor</span>: <span class="string">'text-emerald-800 bg-white'</span>,
+    <span class="string">action</span>: () => navigate(<span class="string">'/user/inspection'</span>),
+  },
+  {
+    <span class="string">id</span>: <span class="string">'store'</span>,
+    <span class="string">image</span>: <span class="string">'https://images.unsplash.com/photo-1581244277943-fe4a9c777189...'</span>,
+    <span class="string">bg</span>: <span class="string">'bg-teal-600'</span>,
+    <span class="string">icon</span>: ShoppingBag,
+    <span class="string">title</span>: <span class="string">'邻里便民驿站'</span>,
+    <span class="string">subtitle</span>: <span class="string">'国标耗材 · 社区补贴价 · 假一赔十'</span>,
+    <span class="string">btnText</span>: <span class="string">'查看补贴'</span>,
+    <span class="string">btnColor</span>: <span class="string">'text-teal-900 bg-white'</span>,
+    <span class="string">action</span>: () => navigate(<span class="string">'/user/store'</span>),
+  },
+  {
+    <span class="string">id</span>: <span class="string">'deepseek'</span>,
+    <span class="string">image</span>: <span class="string">'https://images.unsplash.com/photo-1677442136019-21780ecad995...'</span>,
+    <span class="string">bg</span>: <span class="string">'bg-indigo-600'</span>,
+    <span class="string">icon</span>: Brain,
+    <span class="string">title</span>: <span class="string">'AI 智能生活顾问'</span>,
+    <span class="string">subtitle</span>: <span class="string">'用电咨询 · 故障分析 · 生活百科'</span>,
+    <span class="string">btnText</span>: <span class="string">'免费咨询'</span>,
+    <span class="string">btnColor</span>: <span class="string">'text-indigo-900 bg-white'</span>,
+    <span class="string">action</span>: () => window.dispatchEvent(<span class="keyword">new</span> CustomEvent(<span class="string">'open-ai-chat'</span>, { detail: { model: <span class="string">'deepseek'</span> } })),
+  },
+  {
+    <span class="string">id</span>: <span class="string">'points'</span>,
+    <span class="string">image</span>: <span class="string">'https://images.unsplash.com/photo-1559526324-4b87b5e36e44...'</span>,
+    <span class="string">bg</span>: <span class="string">'bg-orange-600'</span>,
+    <span class="string">icon</span>: Coins,
+    <span class="string">title</span>: <span class="string">'消费赚积分'</span>,
+    <span class="string">subtitle</span>: <span class="string">'积分当钱花 · 首次消费获得额外1000积分'</span>,
+    <span class="string">btnText</span>: <span class="string">'去赚积分'</span>,
+    <span class="string">btnColor</span>: <span class="string">'text-orange-900 bg-white'</span>,
+    <span class="string">action</span>: () => navigate(<span class="string">'/user/points-mall'</span>),
+  },
+];</code></pre>
+
+        <h3>3.2 轮播逻辑</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>规则ID</th>
+                    <th>规则内容</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>LB-001</td>
+                    <td>每5秒自动切换下一张</td>
+                </tr>
+                <tr>
+                    <td>LB-002</td>
+                    <td>循环播放，最后一张后回到第一张</td>
+                </tr>
+                <tr>
+                    <td>LB-003</td>
+                    <td>鼠标悬停时显示左右导航按钮</td>
+                </tr>
+                <tr>
+                    <td>LB-004</td>
+                    <td>底部显示4个圆点指示器，当前页高亮</td>
+                </tr>
+                <tr>
+                    <td>LB-005</td>
+                    <td>图片有缓慢放大动画（subtle-zoom 15s）</td>
+                </tr>
+                <tr>
+                    <td>LB-006</td>
+                    <td>文案有滑入动画（animate-slide-up）</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>3.3 地址选择器 (AddressSelector)</h3>
+
+        <h4>触发条件</h4>
+        <ul>
+            <li>点击UserHeader左侧地址按钮</li>
+        </ul>
+
+        <h4>弹窗结构</h4>
+
+        <div class="tree">AddressSelector
+├── 顶部栏
+│   ├── 标题：切换服务位置
+│   └── 关闭按钮（X图标）
+├── 搜索框
+│   └── placeholder: "搜索写字楼 / 小区 / 学校"
+├── 地图点选入口
+│   ├── 图标：Map
+│   ├── 标题：在地图上挑选
+│   ├── 副标题：手动拖拽地图精准定位
+│   └── 点击 → navigate('/user/address-add')
+├── 我的收货地址列表
+│   ├── 地址卡片（可选中）
+│   │   ├── 标签（家/公司）+ 默认标识 + 当前选择标识
+│   │   ├── 地址详情
+│   │   └── 联系人信息
+│   └── 管理收货地址按钮 → navigate('/user/addresses')
+└── 底部安全区域</div>
+
+        <h4>地址数据结构</h4>
+
+        <pre><code><span class="keyword">interface</span> <span class="function">AddressItem</span> {
+  <span class="string">id</span>: <span class="string">string</span>;
+  <span class="string">tag</span>: <span class="string">string</span>;        <span class="comment">// 家、公司</span>
+  <span class="string">address</span>: <span class="string">string</span>;    <span class="comment">// 上海市徐汇区天钥桥路</span>
+  <span class="string">detail</span>: <span class="string">string</span>;     <span class="comment">// 333 号 602室</span>
+  <span class="string">name</span>: <span class="string">string</span>;       <span class="comment">// 李</span>
+  <span class="string">gender</span>: <span class="string">string</span>;     <span class="comment">// 女士</span>
+  <span class="string">phone</span>: <span class="string">string</span>;      <span class="comment">// 138****8000</span>
+  <span class="string">isDefault</span>: <span class="string">boolean</span>;
+}</code></pre>
+
+        <h4>Mock地址数据</h4>
+
+        <pre><code><span class="keyword">const</span> addresses = [
+  { <span class="string">id</span>: <span class="string">'1'</span>, <span class="string">tag</span>: <span class="string">'家'</span>, <span class="string">address</span>: <span class="string">'上海市徐汇区天钥桥路'</span>, <span class="string">detail</span>: <span class="string">'333 号 602室'</span>, <span class="string">name</span>: <span class="string">'李'</span>, <span class="string">gender</span>: <span class="string">'女士'</span>, <span class="string">phone</span>: <span class="string">'138****8000'</span>, <span class="string">isDefault</span>: <span class="keyword">true</span> },
+  { <span class="string">id</span>: <span class="string">'2'</span>, <span class="string">tag</span>: <span class="string">'公司'</span>, <span class="string">address</span>: <span class="string">'上海市静安区静安寺'</span>, <span class="string">detail</span>: <span class="string">'88 号'</span>, <span class="string">name</span>: <span class="string">'李'</span>, <span class="string">gender</span>: <span class="string">'女士'</span>, <span class="string">phone</span>: <span class="string">'138****8000'</span>, <span class="string">isDefault</span>: <span class="keyword">false</span> }
+];</code></pre>
+
+        <h4>交互规则</h4>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>规则ID</th>
+                    <th>规则内容</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>AD-001</td>
+                    <td>点击遮罩层关闭弹窗</td>
+                </tr>
+                <tr>
+                    <td>AD-002</td>
+                    <td>点击地址卡片选中并关闭</td>
+                </tr>
+                <tr>
+                    <td>AD-003</td>
+                    <td>当前选中地址显示蓝色边框+勾选图标</td>
+                </tr>
+                <tr>
+                    <td>AD-004</td>
+                    <td>默认地址显示"默认"标签</td>
+                </tr>
+                <tr>
+                    <td>AD-005</td>
+                    <td>点击"在地图上挑选"跳转地址新增页</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2 id="section-4">四、公告弹窗 (BulletinModal)</h2>
+
+        <h3>4.1 触发条件</h3>
+        <ul>
+            <li>用户点击首页公告栏</li>
+        </ul>
+
+        <h3>4.2 弹窗结构</h3>
+
+        <div class="tree">BulletinModal
+├── 顶部栏
+│   ├── 图标：Volume2（橙色）
+│   ├── 标题：社区公告
+│   └── 关闭按钮（X图标）
+├── 公告内容
+│   ├── 公告标题
+│   │   ├── 置顶标签（橙色）
+│   │   ├── 发布日期：2023-11-24
+│   │   └── 发布单位：街道办
+│   ├── 公告正文
+│   │   └── 尊敬的居民朋友们...
+│   ├── 活动信息卡片
+│   │   ├── 活动时间：本周六 (11月25日) 09:00 - 17:00
+│   │   └── 活动范围：徐汇区天钥桥路小区及周边社区
+│   └── 检测内容列表（橙色背景高亮）
+│       ├── 入户总配电箱安检（漏保测试）
+│       ├── 全屋开关插座排查、极性是否正确
+│       └── 大功率电器负载测试、线路绝缘性检测
+└── 底部
+    ├── 立即报名参加按钮（渐变橙色）
+    └── 提示文案：本次活动全程免费，不收取任何费用</div>
+
+        <h3>4.3 公告数据（硬编码）</h3>
+
+        <pre><code>{
+  <span class="string">title</span>: <span class="string">"关于开展冬季用电安全免费排查活动的通知"</span>,
+  <span class="string">date</span>: <span class="string">"2023-11-24"</span>,
+  <span class="string">publisher</span>: <span class="string">"街道办"</span>,
+  <span class="string">content</span>: <span class="string">"随着冬季气温降低，家庭取暖设备使用频率增加，用电负荷增大。为了消除老旧线路火灾隐患，保障大家的生命财产安全，安电通联合徐家汇街道办将于近期开展公益检测活动。"</span>,
+  <span class="string">activityTime</span>: <span class="string">"本周六 (11月25日) 09:00 - 17:00"</span>,
+  <span class="string">activityArea</span>: <span class="string">"徐汇区天钥桥路小区及周边社区"</span>,
+  <span class="string">inspectionItems</span>: [
+    <span class="string">"入户总配电箱安检（漏保测试）"</span>,
+    <span class="string">"全屋开关插座排查、极性是否正确"</span>,
+    <span class="string">"大功率电器负载测试、线路绝缘性检测"</span>
+  ]
+}</code></pre>
+
+        <h3>4.4 交互规则</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>规则ID</th>
+                    <th>规则内容</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>BM-001</td>
+                    <td>点击遮罩层或X按钮关闭弹窗</td>
+                </tr>
+                <tr>
+                    <td>BM-002</td>
+                    <td>点击"立即报名"关闭弹窗并跳转 /user/activity</td>
+                </tr>
+                <tr>
+                    <td>BM-003</td>
+                    <td>弹窗从底部滑入动画（animate-slide-up）</td>
+                </tr>
+                <tr>
+                    <td>BM-004</td>
+                    <td>背景添加黑色50%遮罩（backdrop-blur-sm）</td>
+                </tr>
+                <tr>
+                    <td>BM-005</td>
+                    <td>弹窗最大高度85vh，内容可滚动</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2 id="section-5">五、公益福利区</h2>
+
+        <h3>5.1 数据配置</h3>
+
+        <pre><code><span class="keyword">const</span> welfareServices = [
+  { <span class="string">id</span>: <span class="string">'inspection'</span>, <span class="string">label</span>: <span class="string">'公益安检'</span>, <span class="string">icon</span>: ShieldCheck, <span class="string">color</span>: <span class="string">'text-emerald-600 bg-emerald-100'</span>, <span class="string">route</span>: <span class="string">'/user/inspection'</span>, <span class="string">tag</span>: <span class="string">'首次免费'</span> },
+  { <span class="string">id</span>: <span class="string">'academy'</span>, <span class="string">label</span>: <span class="string">'安全课堂'</span>, <span class="string">icon</span>: BookOpen, <span class="string">color</span>: <span class="string">'text-blue-600 bg-blue-100'</span>, <span class="string">route</span>: <span class="string">'/user/academy'</span>, <span class="string">tag</span>: <span class="string">'涨知识'</span> },
+  { <span class="string">id</span>: <span class="string">'activity'</span>, <span class="string">label</span>: <span class="string">'社区志愿'</span>, <span class="string">icon</span>: Heart, <span class="string">color</span>: <span class="string">'text-rose-600 bg-rose-100'</span>, <span class="string">route</span>: <span class="string">'/user/activity'</span>, <span class="string">tag</span>: <span class="string">'招募中'</span> },
+  { <span class="string">id</span>: <span class="string">'coupons'</span>, <span class="string">label</span>: <span class="string">'惠民福利'</span>, <span class="string">icon</span>: Gift, <span class="string">color</span>: <span class="string">'text-orange-600 bg-orange-100'</span>, <span class="string">route</span>: <span class="string">'/user/coupons'</span>, <span class="string">tag</span>: <span class="string">'领券'</span> },
+];</code></pre>
+
+        <h3>5.2 视觉样式</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>入口</th>
+                    <th>图标</th>
+                    <th>背景色</th>
+                    <th>文字色</th>
+                    <th>标签</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>公益安检</td>
+                    <td>ShieldCheck</td>
+                    <td>emerald-100</td>
+                    <td>emerald-600</td>
+                    <td>首次免费（红色）</td>
+                </tr>
+                <tr>
+                    <td>安全课堂</td>
+                    <td>BookOpen</td>
+                    <td>blue-100</td>
+                    <td>blue-600</td>
+                    <td>涨知识</td>
+                </tr>
+                <tr>
+                    <td>社区志愿</td>
+                    <td>Heart</td>
+                    <td>rose-100</td>
+                    <td>rose-600</td>
+                    <td>招募中</td>
+                </tr>
+                <tr>
+                    <td>惠民福利</td>
+                    <td>Gift</td>
+                    <td>orange-100</td>
+                    <td>orange-600</td>
+                    <td>领券</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>5.3 交互规则</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>规则ID</th>
+                    <th>规则内容</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>WF-001</td>
+                    <td>图标尺寸：w-14 h-14，圆角20px</td>
+                </tr>
+                <tr>
+                    <td>WF-002</td>
+                    <td>点击有缩放动画（group-active:scale-95）</td>
+                </tr>
+                <tr>
+                    <td>WF-003</td>
+                    <td>标签徽章显示在右上角（红色背景）</td>
+                </tr>
+                <tr>
+                    <td>WF-004</td>
+                    <td>标签字体：9px，白色</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2 id="section-6">六、便民服务大厅</h2>
+
+        <h3>6.1 数据配置</h3>
+
+        <pre><code><span class="keyword">const</span> convenienceServices = [
+  { <span class="string">id</span>: <span class="string">'repair'</span>, <span class="string">label</span>: <span class="string">'应急维修'</span>, <span class="string">icon</span>: Zap, <span class="string">color</span>: <span class="string">'text-slate-600 bg-slate-50'</span>, <span class="string">route</span>: <span class="string">'/user/repair'</span> },
+  { <span class="string">id</span>: <span class="string">'install'</span>, <span class="string">label</span>: <span class="string">'便民安装'</span>, <span class="string">icon</span>: Wrench, <span class="string">color</span>: <span class="string">'text-slate-600 bg-slate-50'</span>, <span class="string">route</span>: <span class="string">'/user/install'</span>, <span class="string">badge</span>: <span class="string">'惠民'</span> },
+  { <span class="string">id</span>: <span class="string">'smart'</span>, <span class="string">label</span>: <span class="string">'智慧家居'</span>, <span class="string">icon</span>: Wifi, <span class="string">color</span>: <span class="string">'text-slate-600 bg-slate-50'</span>, <span class="string">route</span>: <span class="string">'/user/smart-home'</span> },
+  { <span class="string">id</span>: <span class="string">'local'</span>, <span class="string">label</span>: <span class="string">'周边服务'</span>, <span class="string">icon</span>: Coffee, <span class="string">color</span>: <span class="string">'text-slate-600 bg-slate-50'</span>, <span class="string">route</span>: <span class="string">'/user/local'</span> },
+  { <span class="string">id</span>: <span class="string">'support'</span>, <span class="string">label</span>: <span class="string">'居民热线'</span>, <span class="string">icon</span>: Headphones, <span class="string">color</span>: <span class="string">'text-slate-600 bg-slate-50'</span>, <span class="string">action</span>: () => window.dispatchEvent(<span class="keyword">new</span> Event(<span class="string">'open-support'</span>)) },
+  { <span class="string">id</span>: <span class="string">'station'</span>, <span class="string">label</span>: <span class="string">'便民驿站'</span>, <span class="string">icon</span>: MapPin, <span class="string">color</span>: <span class="string">'text-slate-600 bg-slate-50'</span>, <span class="string">route</span>: <span class="string">'/user/convenience-station'</span> },
+  { <span class="string">id</span>: <span class="string">'tasks'</span>, <span class="string">label</span>: <span class="string">'我的需求'</span>, <span class="string">icon</span>: MessageSquareText, <span class="string">color</span>: <span class="string">'text-orange-600 bg-orange-50'</span>, <span class="string">route</span>: <span class="string">'/user/tasks'</span>, <span class="string">badge</span>: <span class="string">'新功能'</span> },
+  { <span class="string">id</span>: <span class="string">'ai'</span>, <span class="string">label</span>: <span class="string">'AI顾问'</span>, <span class="string">icon</span>: Sparkles, <span class="string">color</span>: <span class="string">'text-slate-600 bg-slate-50'</span>, <span class="string">action</span>: () => window.dispatchEvent(<span class="keyword">new</span> CustomEvent(<span class="string">'open-ai-chat'</span>, { detail: { model: <span class="string">'gemini'</span> } })) },
+];</code></pre>
+
+        <h3>6.2 特殊交互说明</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>入口</th>
+                    <th>点击行为</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>居民热线</td>
+                    <td><code>window.dispatchEvent(new Event('open-support'))</code></td>
+                    <td>触发全局事件，打开客服弹窗</td>
+                </tr>
+                <tr>
+                    <td>AI顾问</td>
+                    <td><code>window.dispatchEvent(new CustomEvent('open-ai-chat', { detail: { model: 'gemini' } }))</code></td>
+                    <td>触发全局事件，打开AI对话</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>6.3 交互规则</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>规则ID</th>
+                    <th>规则内容</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>CS-001</td>
+                    <td>图标尺寸：w-12 h-12，圆形</td>
+                </tr>
+                <tr>
+                    <td>CS-002</td>
+                    <td>点击有背景色变化（group-active:bg-slate-100）</td>
+                </tr>
+                <tr>
+                    <td>CS-003</td>
+                    <td>徽章显示在右上角（蓝色背景）</td>
+                </tr>
+                <tr>
+                    <td>CS-004</td>
+                    <td>标题左侧有蓝色竖线装饰（border-l-4 border-blue-500）</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2 id="section-7">七、社区明星师傅</h2>
+
+        <h3>7.1 数据配置</h3>
+
+        <pre><code><span class="keyword">const</span> FEATURED_ELECTRICIANS = [
+  { 
+    <span class="string">id</span>: <span class="number">1</span>, 
+    <span class="string">name</span>: <span class="string">"王师傅"</span>, 
+    <span class="string">years</span>: <span class="string">"20年"</span>, 
+    <span class="string">rating</span>: <span class="number">5.0</span>, 
+    <span class="string">tags</span>: [<span class="string">"党员"</span>, <span class="string">"志愿服务100+h"</span>, <span class="string">"电路急修"</span>], 
+    <span class="string">distance</span>: <span class="string">"0.5km"</span>, 
+    <span class="string">image</span>: <span class="string">"/assets/avatars/p1.png"</span>, 
+    <span class="string">badgeText</span>: <span class="string">"党员"</span>, 
+    <span class="string">badgeColor</span>: <span class="string">"bg-red-500"</span> 
+  },
+  { 
+    <span class="string">id</span>: <span class="number">2</span>, 
+    <span class="string">name</span>: <span class="string">"张师傅"</span>, 
+    <span class="string">years</span>: <span class="string">"12年"</span>, 
+    <span class="string">rating</span>: <span class="number">4.9</span>, 
+    <span class="string">tags</span>: [<span class="string">"金牌电工"</span>, <span class="string">"持证上岗"</span>, <span class="string">"灯具安装"</span>], 
+    <span class="string">distance</span>: <span class="string">"0.8km"</span>, 
+    <span class="string">image</span>: <span class="string">"/assets/avatars/p2.png"</span>, 
+    <span class="string">badgeText</span>: <span class="string">"金牌"</span>, 
+    <span class="string">badgeColor</span>: <span class="string">"bg-blue-500"</span> 
+  },
+  { 
+    <span class="string">id</span>: <span class="number">3</span>, 
+    <span class="string">name</span>: <span class="string">"李师傅"</span>, 
+    <span class="string">years</span>: <span class="string">"8年"</span>, 
+    <span class="string">rating</span>: <span class="number">4.8</span>, 
+    <span class="string">tags</span>: [<span class="string">"退伍军人"</span>, <span class="string">"实名认证"</span>, <span class="string">"老房翻新"</span>], 
+    <span class="string">distance</span>: <span class="string">"1.2km"</span>, 
+    <span class="string">image</span>: <span class="string">"/assets/avatars/p3.png"</span>, 
+    <span class="string">badgeText</span>: <span class="string">"优选"</span>, 
+    <span class="string">badgeColor</span>: <span class="string">"bg-green-500"</span> 
+  }
+];</code></pre>
+
+        <h3>7.2 卡片结构</h3>
+
+        <div class="tree">师傅卡片
+├── 左侧：头像区
+│   ├── 头像图片（w-12 h-12，圆形）
+│   └── 身份徽章（左下角圆形）
+│       ├── 党员：红色 bg-red-500
+│       ├── 金牌：蓝色 bg-blue-500
+│       └── 优选：绿色 bg-green-500
+├── 中间：信息区
+│   ├── 姓名 + 从业年限
+│   ├── 评分（Star图标 + 数字）
+│   └── 标签列表（灰色小标签）
+└── 右侧：操作区
+    ├── 距离（灰色小字）
+    └── 咨询按钮（蓝色胶囊）</div>
+
+        <h3>7.3 交互规则</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>规则ID</th>
+                    <th>规则内容</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>FE-001</td>
+                    <td>点击整个卡片跳转 /user/map</td>
+                </tr>
+                <tr>
+                    <td>FE-002</td>
+                    <td>头像加载失败使用DiceBear默认头像</td>
+                </tr>
+                <tr>
+                    <td>FE-003</td>
+                    <td>点击卡片有背景色变化（active:bg-gray-50）</td>
+                </tr>
+                <tr>
+                    <td>FE-004</td>
+                    <td>"前往地图"按钮点击跳转 /user/map</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2 id="section-8">八、状态管理</h2>
+
+        <h3>8.1 本地状态 (UserHome.tsx)</h3>
+
+        <pre><code><span class="keyword">const</span> [showBulletin, setShowBulletin] = useState(<span class="keyword">false</span>);</code></pre>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>状态</th>
+                    <th>类型</th>
+                    <th>用途</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>showBulletin</td>
+                    <td>boolean</td>
+                    <td>控制公告弹窗显示/隐藏</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>8.2 本地状态 (UserHeader)</h3>
+
+        <pre><code><span class="keyword">const</span> [showAddressSelector, setShowAddressSelector] = useState(<span class="keyword">false</span>);
+<span class="keyword">const</span> [activeSlide, setActiveSlide] = useState(<span class="number">0</span>);</code></pre>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>状态</th>
+                    <th>类型</th>
+                    <th>用途</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>showAddressSelector</td>
+                    <td>boolean</td>
+                    <td>控制地址选择器弹窗显示/隐藏</td>
+                </tr>
+                <tr>
+                    <td>activeSlide</td>
+                    <td>number</td>
+                    <td>当前轮播Banner索引（0-3）</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>8.3 全局状态 (AppContext)</h3>
+
+        <pre><code><span class="keyword">interface</span> <span class="function">AppContextType</span> {
+  <span class="string">currentUser</span>: ExtendedUserProfile | <span class="keyword">null</span>;  <span class="comment">// 当前用户信息</span>
+  <span class="string">role</span>: UserRole;                           <span class="comment">// 用户角色</span>
+  <span class="string">orders</span>: Order[];                          <span class="comment">// 订单列表</span>
+  <span class="string">messages</span>: AppNotification[];              <span class="comment">// 消息列表</span>
+  <span class="string">addresses</span>: AddressItem[];                 <span class="comment">// 地址列表</span>
+  <span class="function">login</span>: (phone: <span class="string">string</span>, role: UserRole) => <span class="string">void</span>;
+  <span class="function">logout</span>: () => <span class="string">void</span>;
+  <span class="function">switchRole</span>: (role: UserRole) => <span class="string">void</span>;
+  <span class="function">createOrder</span>: (order: Partial&lt;Order&gt;) => <span class="string">void</span>;
+  <span class="function">updateOrder</span>: (orderId: <span class="string">string</span>, updates: Partial&lt;Order&gt;) => <span class="string">void</span>;
+  <span class="function">updateUserLocation</span>: (location: Location) => <span class="string">void</span>;
+  <span class="function">earnPoints</span>: (amount: <span class="string">number</span>, isFirstPurchaseBonus?: <span class="string">boolean</span>) => <span class="string">void</span>;
+  <span class="function">spendPoints</span>: (points: <span class="string">number</span>) => <span class="string">void</span>;
+  <span class="function">addAddress</span>: (addr: Omit&lt;AddressItem, <span class="string">'id'</span>&gt;) => <span class="string">void</span>;
+  <span class="function">updateAddress</span>: (id: <span class="string">string</span>, addr: Partial&lt;AddressItem&gt;) => <span class="string">void</span>;
+  <span class="function">deleteAddress</span>: (id: <span class="string">string</span>) => <span class="string">void</span>;
+}</code></pre>
+
+        <h3>8.4 Mock用户数据</h3>
+
+        <pre><code><span class="keyword">const</span> MOCK_USER: ExtendedUserProfile = {
+  <span class="string">id</span>: <span class="string">'u1'</span>, 
+  <span class="string">name</span>: <span class="string">'李女士 (业主)'</span>, 
+  <span class="string">role</span>: UserRole.USER, 
+  <span class="string">phone</span>: <span class="string">'13800138000'</span>, 
+  <span class="string">avatar</span>: <span class="string">'https://api.dicebear.com/7.x/avataaars/svg?seed=Li...'</span>,
+  <span class="string">verified</span>: <span class="keyword">true</span>, 
+  <span class="string">rating</span>: <span class="number">4.8</span>,
+  <span class="string">points</span>: <span class="number">2580</span>,           <span class="comment">// 积分余额</span>
+  <span class="string">balance</span>: <span class="number">128.50</span>,        <span class="comment">// 账户余额</span>
+  <span class="string">isFirstPurchase</span>: <span class="keyword">true</span>,  <span class="comment">// 是否首单</span>
+  <span class="string">identityStatus</span>: <span class="string">'VERIFIED'</span>,
+  <span class="string">specialIdentity</span>: SpecialIdentity.NONE,
+  <span class="string">location</span>: { 
+    <span class="string">lat</span>: <span class="number">31.1940</span>, 
+    <span class="string">lng</span>: <span class="number">121.4360</span>, 
+    <span class="string">address</span>: <span class="string">'上海市徐汇区天钥桥路 333 号 602室'</span> 
+  }
+};</code></pre>
+
+        <hr>
+
+        <h2 id="section-9">九、全局事件</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>事件名</th>
+                    <th>触发位置</th>
+                    <th>携带参数</th>
+                    <th>用途</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>open-support</td>
+                    <td>居民热线点击</td>
+                    <td>无</td>
+                    <td>打开客服会话弹窗</td>
+                </tr>
+                <tr>
+                    <td>open-ai-chat</td>
+                    <td>AI顾问点击</td>
+                    <td><code>{ model: 'gemini' }</code></td>
+                    <td>打开AI对话弹窗（Gemini模型）</td>
+                </tr>
+                <tr>
+                    <td>open-ai-chat</td>
+                    <td>Banner Slide 3点击</td>
+                    <td><code>{ model: 'deepseek' }</code></td>
+                    <td>打开AI对话弹窗（DeepSeek模型）</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2 id="section-10">十、路由配置</h2>
+
+        <h3>10.1 首页相关路由</h3>
+
+        <pre><code><span class="comment">// pages/UserApp.tsx</span>
+&lt;Route path=<span class="string">"/"</span> element={&lt;Home /&gt;} /&gt;
+&lt;Route path=<span class="string">"inspection"</span> element={&lt;InspectionFlow /&gt;} /&gt;
+&lt;Route path=<span class="string">"repair"</span> element={&lt;RepairPage /&gt;} /&gt;
+&lt;Route path=<span class="string">"install"</span> element={&lt;InstallPage /&gt;} /&gt;
+&lt;Route path=<span class="string">"activity"</span> element={&lt;ActivityPage /&gt;} /&gt;
+&lt;Route path=<span class="string">"academy"</span> element={&lt;SafetyAcademyPage /&gt;} /&gt;
+&lt;Route path=<span class="string">"smart-home"</span> element={&lt;SmartHomePage /&gt;} /&gt;
+&lt;Route path=<span class="string">"local"</span> element={&lt;LocalServicesPage /&gt;} /&gt;
+&lt;Route path=<span class="string">"convenience-station"</span> element={&lt;ConvenienceStationPage /&gt;} /&gt;
+&lt;Route path=<span class="string">"tasks"</span> element={&lt;TaskList /&gt;} /&gt;
+&lt;Route path=<span class="string">"store"</span> element={&lt;UserStore /&gt;} /&gt;
+&lt;Route path=<span class="string">"points-mall"</span> element={&lt;PointsMall /&gt;} /&gt;
+&lt;Route path=<span class="string">"coupons"</span> element={&lt;UserCouponWallet /&gt;} /&gt;
+&lt;Route path=<span class="string">"map"</span> element={&lt;ElectricianMap /&gt;} /&gt;
+&lt;Route path=<span class="string">"addresses"</span> element={&lt;UserAddresses /&gt;} /&gt;
+&lt;Route path=<span class="string">"address-add"</span> element={&lt;UserAddressEdit /&gt;} /&gt;
+&lt;Route path=<span class="string">"care"</span> element={&lt;CareVersion /&gt;} /&gt;</code></pre>
+
+        <h3>10.2 布局结构</h3>
+
+        <pre><code><span class="comment">// UserLayout</span>
+&lt;div className=<span class="string">"h-full flex flex-col"</span>&gt;
+  &lt;div className=<span class="string">"flex-1 overflow-y-auto pb-20"</span>&gt;
+    &lt;Outlet /&gt;  <span class="comment">{/* 页面内容 */}</span>
+  &lt;/div&gt;
+  &lt;BottomNav role=<span class="string">"USER"</span> /&gt;  <span class="comment">{/* 底部导航 */}</span>
+  &lt;OnlineSupportModal /&gt;     <span class="comment">{/* 客服弹窗（全局） */}</span>
+&lt;/div&gt;</code></pre>
+
+        <hr>
+
+        <h2 id="section-11">十一、用户操作流程</h2>
+
+        <h3>11.1 查看公告</h3>
+
+        <div class="tree">进入首页 → 看到公告栏（橙色脉冲图标）
+    │
+    ↓ 点击公告栏
+弹出BulletinModal
+    │
+    ├── 浏览公告内容
+    │   ├── 查看活动时间、地点
+    │   └── 查看检测内容列表
+    │
+    ├── 点击"立即报名" → 关闭弹窗 → 跳转 /user/activity
+    │
+    └── 点击遮罩/X → 关闭弹窗</div>
+
+        <h3>11.2 切换服务地址</h3>
+
+        <div class="tree">进入首页 → 看到顶部地址按钮
+    │
+    ↓ 点击地址按钮
+弹出AddressSelector
+    │
+    ├── 方式1：点击已有地址 → 选中并关闭
+    │
+    ├── 方式2：点击"在地图上挑选" → 跳转 /user/address-add
+    │
+    ├── 方式3：点击"管理收货地址" → 跳转 /user/addresses
+    │
+    └── 点击遮罩/X → 关闭弹窗</div>
+
+        <h3>11.3 使用轮播Banner</h3>
+
+        <div class="tree">进入首页 → 看到轮播Banner
+    │
+    ├── 自动播放：每5秒切换下一张
+    │
+    ├── 手动切换：
+    │   ├── 点击左右箭头（悬停时显示）
+    │   └── 点击底部圆点指示器
+    │
+    └── 点击Banner按钮：
+        ├── Slide 1 "免费预约" → /user/inspection
+        ├── Slide 2 "查看补贴" → /user/store
+        ├── Slide 3 "免费咨询" → 打开AI对话（DeepSeek）
+        └── Slide 4 "去赚积分" → /user/points-mall</div>
+
+        <h3>11.4 使用便民服务</h3>
+
+        <div class="tree">进入首页 → 下滑到便民服务大厅
+    │
+    ├── 点击"应急维修" → /user/repair
+    ├── 点击"便民安装" → /user/install
+    ├── 点击"智慧家居" → /user/smart-home
+    ├── 点击"周边服务" → /user/local
+    ├── 点击"居民热线" → 触发 open-support 事件 → 打开客服弹窗
+    ├── 点击"便民驿站" → /user/convenience-station
+    ├── 点击"我的需求" → /user/tasks
+    └── 点击"AI顾问" → 触发 open-ai-chat 事件 → 打开AI对话</div>
+
+        <h3>11.5 查看明星师傅</h3>
+
+        <div class="tree">进入首页 → 下滑到社区明星师傅
+    │
+    ├── 浏览师傅列表（3个）
+    │   ├── 查看头像、姓名、从业年限
+    │   ├── 查看评分、标签
+    │   └── 查看距离
+    │
+    ├── 点击师傅卡片 → 跳转 /user/map（地图页）
+    │
+    ├── 点击"咨询"按钮 → 跳转 /user/map
+    │
+    └── 点击"前往地图"按钮 → 跳转 /user/map</div>
+
+        <hr>
+
+        <h2 id="section-12">十二、业务规则汇总</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>规则ID</th>
+                    <th>规则名称</th>
+                    <th>规则内容</th>
+                    <th>优先级</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>BR-001</td>
+                    <td>轮播自动播放</td>
+                    <td>每5秒自动切换下一张，循环播放</td>
+                    <td>P0</td>
+                </tr>
+                <tr>
+                    <td>BR-002</td>
+                    <td>地址默认选择</td>
+                    <td>优先选择默认地址，无默认地址选择第一个</td>
+                    <td>P0</td>
+                </tr>
+                <tr>
+                    <td>BR-003</td>
+                    <td>公告弹窗显示</td>
+                    <td>点击公告栏触发，不自动弹出</td>
+                    <td>P1</td>
+                </tr>
+                <tr>
+                    <td>BR-004</td>
+                    <td>师傅推荐算法</td>
+                    <td>按距离排序，优先显示党员和金牌电工</td>
+                    <td>P1</td>
+                </tr>
+                <tr>
+                    <td>BR-005</td>
+                    <td>AI模型选择</td>
+                    <td>Banner使用DeepSeek，便民服务使用Gemini</td>
+                    <td>P1</td>
+                </tr>
+                <tr>
+                    <td>BR-006</td>
+                    <td>首单积分奖励</td>
+                    <td>首次消费额外获得1000积分</td>
+                    <td>P1</td>
+                </tr>
+                <tr>
+                    <td>BR-007</td>
+                    <td>关怀版入口</td>
+                    <td>顶部右侧关怀版按钮，点击跳转关怀版页面</td>
+                    <td>P2</td>
+                </tr>
+                <tr>
+                    <td>BR-008</td>
+                    <td>消息通知</td>
+                    <td>顶部右侧消息铃铛，点击跳转消息列表</td>
+                    <td>P1</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2 id="section-13">十三、异常处理</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>异常场景</th>
+                    <th>处理方式</th>
+                    <th>用户提示</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>网络请求失败</td>
+                    <td>显示错误提示，提供重试按钮</td>
+                    <td>"网络连接失败，请检查网络后重试"</td>
+                </tr>
+                <tr>
+                    <td>图片加载失败</td>
+                    <td>显示默认占位图</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>地址列表为空</td>
+                    <td>显示空状态提示，引导添加地址</td>
+                    <td>"暂无收货地址，点击添加"</td>
+                </tr>
+                <tr>
+                    <td>师傅列表为空</td>
+                    <td>显示空状态提示</td>
+                    <td>"附近暂无在线师傅"</td>
+                </tr>
+                <tr>
+                    <td>定位权限未授权</td>
+                    <td>显示权限引导弹窗</td>
+                    <td>"需要定位权限以提供更好的服务"</td>
+                </tr>
+                <tr>
+                    <td>AI服务不可用</td>
+                    <td>显示错误提示，引导使用其他功能</td>
+                    <td>"AI服务暂时不可用，请稍后再试"</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2 id="section-14">十四、性能优化</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>优化项</th>
+                    <th>优化方式</th>
+                    <th>预期效果</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>轮播图片</td>
+                    <td>使用CDN加速，图片懒加载</td>
+                    <td>首屏加载时间 &lt; 2s</td>
+                </tr>
+                <tr>
+                    <td>师傅列表</td>
+                    <td>虚拟滚动，仅渲染可见区域</td>
+                    <td>滚动流畅度 60fps</td>
+                </tr>
+                <tr>
+                    <td>地址数据</td>
+                    <td>本地缓存，减少网络请求</td>
+                    <td>二次打开无延迟</td>
+                </tr>
+                <tr>
+                    <td>事件监听</td>
+                    <td>组件卸载时移除监听</td>
+                    <td>避免内存泄漏</td>
+                </tr>
+                <tr>
+                    <td>状态更新</td>
+                    <td>使用useCallback缓存函数</td>
+                    <td>减少不必要的渲染</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2 id="section-15">十五、测试要点</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>测试类型</th>
+                    <th>测试内容</th>
+                    <th>验收标准</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>功能测试</td>
+                    <td>所有入口点击跳转正确</td>
+                    <td>100%通过</td>
+                </tr>
+                <tr>
+                    <td>功能测试</td>
+                    <td>轮播自动播放和手动切换</td>
+                    <td>100%通过</td>
+                </tr>
+                <tr>
+                    <td>功能测试</td>
+                    <td>地址选择和保存</td>
+                    <td>100%通过</td>
+                </tr>
+                <tr>
+                    <td>功能测试</td>
+                    <td>公告弹窗显示和关闭</td>
+                    <td>100%通过</td>
+                </tr>
+                <tr>
+                    <td>功能测试</td>
+                    <td>AI对话打开和关闭</td>
+                    <td>100%通过</td>
+                </tr>
+                <tr>
+                    <td>性能测试</td>
+                    <td>首屏加载时间</td>
+                    <td>&lt; 2s</td>
+                </tr>
+                <tr>
+                    <td>性能测试</td>
+                    <td>滚动流畅度</td>
+                    <td>≥ 60fps</td>
+                </tr>
+                <tr>
+                    <td>兼容性测试</td>
+                    <td>iOS/Android双端兼容</td>
+                    <td>100%通过</td>
+                </tr>
+                <tr>
+                    <td>兼容性测试</td>
+                    <td>不同屏幕尺寸适配</td>
+                    <td>100%通过</td>
+                </tr>
+                <tr>
+                    <td>异常测试</td>
+                    <td>网络异常处理</td>
+                    <td>正确提示，可重试</td>
+                </tr>
+                <tr>
+                    <td>异常测试</td>
+                    <td>权限拒绝处理</td>
+                    <td>正确引导授权</td>
+                </tr>
+                <tr>
+                    <td>测试</td>
+                    <td>功能测试、性能测试</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</main>
+</div>
+
+<script>
+    // 侧边栏导航交互
+    const sidebarLinks = document.querySelectorAll('.sidebar-toc a');
+    const sections = document.querySelectorAll('h2[id]');
+    
+    // 点击链接切换active状态
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            sidebarLinks.forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+    
+    // 滚动时更新active状态
+    window.addEventListener('scroll', function() {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (scrollY >= sectionTop - 100) {
+                current = section.getAttribute('id');
+            }
+        });
+        
+        sidebarLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + current) {
+                link.classList.add('active');
+            }
+        });
+    });
+    
+    // 返回顶部按钮
+    const backToTop = document.createElement('button');
+    backToTop.className = 'back-to-top';
+    backToTop.innerHTML = '↑';
+    document.body.appendChild(backToTop);
+    
+    window.addEventListener('scroll', function() {
+        if (scrollY > 300) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    });
+    
+    backToTop.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+</body>
+</html>

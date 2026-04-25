@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安电通上门电工服务系统 - 项目介绍</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Microsoft YaHei", "PingFang SC", "SimHei", sans-serif;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 50px 40px;
+            color: #333;
+            background: #fff;
+        }
+        h1 {
+            text-align: center;
+            font-size: 28pt;
+            color: #1a1a1a;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 4px solid #1E3A8A;
+        }
+        h2 {
+            font-size: 18pt;
+            color: #1E3A8A;
+            border-left: 5px solid #1E3A8A;
+            padding-left: 15px;
+            margin-top: 45px;
+            margin-bottom: 20px;
+        }
+        h3 {
+            font-size: 14pt;
+            color: #1E40AF;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        h4 {
+            font-size: 12pt;
+            color: #374151;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 10.5pt;
+        }
+        th, td {
+            border: 1px solid #d1d5db;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #EFF6FF;
+            font-weight: bold;
+            color: #1E40AF;
+        }
+        tr:nth-child(even) {
+            background-color: #F9FAFB;
+        }
+        p {
+            margin: 10px 0;
+        }
+        .highlight {
+            background-color: #FEF3C7;
+            padding: 18px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #F59E0B;
+        }
+        .info-box {
+            background-color: #EFF6FF;
+            border-left: 4px solid #3B82F6;
+            padding: 18px 20px;
+            margin: 20px 0;
+        }
+        .success-box {
+            background-color: #F0FDF4;
+            border-left: 4px solid #22C55E;
+            padding: 18px 20px;
+            margin: 20px 0;
+        }
+        .warning-box {
+            background-color: #FEF2F2;
+            border-left: 4px solid #EF4444;
+            padding: 18px 20px;
+            margin: 20px 0;
+        }
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .header-info {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 25px;
+            background: linear-gradient(135deg, #EFF6FF 0%, #F0FDF4 100%);
+            border-radius: 12px;
+        }
+        .header-info p {
+            margin: 8px 0;
+            text-indent: 0;
+        }
+        .toc {
+            background-color: #F8FAFC;
+            padding: 25px 35px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border: 1px solid #E2E8F0;
+        }
+        .toc h3 {
+            margin-top: 0;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .toc ol {
+            margin: 0;
+            padding-left: 25px;
+        }
+        .toc li {
+            margin: 8px 0;
+            color: #374151;
+        }
+        .metric-card {
+            display: inline-block;
+            background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin: 8px;
+            text-align: center;
+            min-width: 140px;
+        }
+        .metric-card .number {
+            font-size: 24pt;
+            font-weight: bold;
+            display: block;
+        }
+        .metric-card .label {
+            font-size: 10pt;
+            opacity: 0.9;
+        }
+        .feature-card {
+            display: inline-block;
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 10px;
+            width: calc(33% - 25px);
+            vertical-align: top;
+        }
+        .feature-card .icon {
+            font-size: 28pt;
+            margin-bottom: 10px;
+        }
+        .feature-card .title {
+            font-weight: bold;
+            color: #1E3A8A;
+            font-size: 12pt;
+            margin-bottom: 8px;
+        }
+        .feature-card .desc {
+            font-size: 10pt;
+            color: #6B7280;
+        }
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin: 20px 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #3B82F6;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -25px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #3B82F6;
+            border: 2px solid white;
+        }
+        .timeline-item .time {
+            font-size: 9pt;
+            color: #6B7280;
+            margin-bottom: 5px;
+        }
+        .timeline-item .content {
+            font-weight: 500;
+            color: #1E3A8A;
+        }
+        .tech-tag {
+            display: inline-block;
+            background: #EFF6FF;
+            color: #1E40AF;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 9pt;
+            margin: 3px;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-indent-0 {
+            text-indent: 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>安电通上门电工服务系统</h1>
+
+<div class="header-info">
+    <p><strong>项目负责人</strong>：陆芃非</p>
+    <p><strong>所属行业</strong>：O2O上门服务平台 / 家庭服务</p>
+    <p><strong>核心技术</strong>：AI智能诊断 · Taro跨端 · React · Spring Cloud</p>
+    <p><strong>更新日期</strong>：2026年3月</p>
+</div>
+
+<div class="toc">
+    <h3>目 录</h3>
+    <ol>
+        <li>项目概述</li>
+        <li>市场分析</li>
+        <li>产品定位</li>
+        <li>商业模式</li>
+        <li>技术架构</li>
+        <li>核心功能</li>
+        <li>团队与资源</li>
+        <li>项目进度</li>
+        <li>发展规划</li>
+    </ol>
+</div>
+
+<h2>一、项目概述</h2>
+
+<h3>1.1 项目简介</h3>
+
+<p><strong>安电通</strong>是一款基于移动互联网技术的O2O（Online to Offline）电工服务平台，旨在连接用户与专业电工，提供安全、便捷、专业的上门电路服务。</p>
+
+<div class="highlight">
+    <p class="text-indent-0" style="font-size: 13pt; font-weight: bold; text-align: center;">"家庭电路服务的滴滴" —— 让找电工像打车一样简单</p>
+</div>
+
+<h3>1.2 核心价值</h3>
+
+<table>
+    <tr>
+        <th>价值点</th>
+        <th>说明</th>
+    </tr>
+    <tr>
+        <td><strong>🤖 AI智能诊断</strong></td>
+        <td>输入故障描述，AI智能分析原因并给出建议，降低沟通成本</td>
+    </tr>
+    <tr>
+        <td><strong>🗺️ 地图找人</strong></td>
+        <td>实时定位附近电工，快速匹配，30分钟内上门</td>
+    </tr>
+    <tr>
+        <td><strong>💰 透明定价</strong></td>
+        <td>标准化收费，服务前预估费用，杜绝乱报价</td>
+    </tr>
+    <tr>
+        <td><strong>📱 全程追踪</strong></td>
+        <td>订单状态实时更新，服务过程透明可查</td>
+    </tr>
+    <tr>
+        <td><strong>🛡️ 服务保障</strong></td>
+        <td>先行赔付+服务保险，安全无忧</td>
+    </tr>
+</table>
+
+<h3>1.3 目标用户</h3>
+
+<table>
+    <tr>
+        <th>用户类型</th>
+        <th>年龄</th>
+        <th>特征</th>
+        <th>核心需求</th>
+    </tr>
+    <tr>
+        <td>银发用户（核心）</td>
+        <td>55岁+</td>
+        <td>独居/空巢、安全意识强</td>
+        <td>用电安全、便捷预约</td>
+    </tr>
+    <tr>
+        <td>家庭用户</td>
+        <td>35-55岁</td>
+        <td>有房有家庭、注重品质</td>
+        <td>深度体检、定期维护</td>
+    </tr>
+    <tr>
+        <td>租房群体</td>
+        <td>25-35岁</td>
+        <td>追求便捷、在线支付</td>
+        <td>快速响应、费用透明</td>
+    </tr>
+</table>
+
+---
+
+<h2>二、市场分析</h2>
+
+<h3>2.1 市场规模</h3>
+
+<table>
+    <tr>
+        <th>年份</th>
+        <th>中国家政服务市场规模</th>
+        <th>增长率</th>
+    </tr>
+    <tr>
+        <td>2023年</td>
+        <td>10,890亿元</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>2024年</td>
+        <td><strong>12,000+亿元</strong></td>
+        <td>11.3%</td>
+    </tr>
+    <tr>
+        <td>2025年（预测）</td>
+        <td><strong>14,500亿元</strong></td>
+        <td>20.8%</td>
+    </tr>
+</table>
+
+<div class="info-box">
+    <p class="text-indent-0"><strong>细分市场测算：</strong></p>
+    <ul>
+        <li>家庭维修市场占比约<strong>15%</strong>，规模超<strong>1,800亿元</strong></li>
+        <li>电工服务作为核心细分领域，市场规模约<strong>600亿元</strong></li>
+        <li><strong>数据来源</strong>：艾瑞咨询《2024年中国家政服务行业发展报告》</li>
+    </ul>
+</div>
+
+<h3>2.2 老龄化机遇</h3>
+
+<div class="success-box">
+    <p class="text-indent-0"><strong>银发经济机遇：</strong></p>
+    <ul>
+        <li>全国60岁及以上人口达<strong>3.1亿</strong>，占总人口<strong>22.0%</strong></li>
+        <li>少子化、高龄化、空巢化特征明显，老年用户是电工服务<strong>高频需求群体</strong></li>
+        <li><strong>数据来源</strong>：国家统计局《2024年度国家老龄事业发展公报》</li>
+    </ul>
+</div>
+
+<h3>2.3 竞品分析</h3>
+
+<table>
+    <tr>
+        <th>竞品</th>
+        <th>市场份额</th>
+        <th>优势</th>
+        <th>痛点</th>
+    </tr>
+    <tr>
+        <td>啄木鸟家庭维修</td>
+        <td>2.4%（行业第一）</td>
+        <td>品牌知名度高、覆盖广</td>
+        <td>投诉超6000条，解决率不足30%</td>
+    </tr>
+    <tr>
+        <td>万师傅</td>
+        <td>-</td>
+        <td>家居安装专业</td>
+        <td>电工维修覆盖少</td>
+    </tr>
+    <tr>
+        <td>本地电工</td>
+        <td>分散</td>
+        <td>价格灵活</td>
+        <td>无保障、难找</td>
+    </tr>
+</table>
+
+<div class="warning-box">
+    <p class="text-indent-0"><strong>行业痛点：</strong></p>
+    <ul>
+        <li><strong>抽成过高</strong>：头部平台抽成40%-50%，电工收入低、流失率高</li>
+        <li><strong>价格不透明</strong>：无病乱修、小病大修，央视3·15曝光</li>
+        <li><strong>服务无保障</strong>：投诉率高，平台解决能力弱</li>
+    </ul>
+</div>
+
+---
+
+<h2>三、产品定位</h2>
+
+<h3>3.1 差异化定位</h3>
+
+<table>
+    <tr>
+        <th>维度</th>
+        <th>传统平台</th>
+        <th>安电通</th>
+        <th>竞争优势</th>
+    </tr>
+    <tr>
+        <td>电工分成</td>
+        <td>40%-50%</td>
+        <td><strong>80%</strong></td>
+        <td>吸引优质电工，降低流失率</td>
+    </tr>
+    <tr>
+        <td>定价模式</td>
+        <td>不透明、乱收费</td>
+        <td><strong>AI诊断+透明定价</strong></td>
+        <td>杜绝过度维修，提升信任</td>
+    </tr>
+    <tr>
+        <td>服务保障</td>
+        <td>投诉解决率低</td>
+        <td><strong>先行赔付+保险兜底</strong></td>
+        <td>提升用户满意度</td>
+    </tr>
+    <tr>
+        <td>技术赋能</td>
+        <td>传统派单</td>
+        <td><strong>AI智能匹配+实时追踪</strong></td>
+        <td>提升效率，优化体验</td>
+    </tr>
+</table>
+
+<h3>3.2 服务场景</h3>
+
+<table>
+    <tr>
+        <th>服务类型</th>
+        <th>场景描述</th>
+        <th>频次</th>
+        <th>客单价</th>
+    </tr>
+    <tr>
+        <td><strong>⚡ 电路急修</strong></td>
+        <td>插座烧了、跳闸断电、电路故障</td>
+        <td>高</td>
+        <td>80-200元</td>
+    </tr>
+    <tr>
+        <td><strong>🔍 深度体检</strong></td>
+        <td>全屋电路安全检测、配电箱检测</td>
+        <td>中</td>
+        <td>199-299元</td>
+    </tr>
+    <tr>
+        <td><strong>🔧 上门安装</strong></td>
+        <td>灯具安装、开关更换、家电安装</td>
+        <td>中</td>
+        <td>50-300元</td>
+    </tr>
+    <tr>
+        <td><strong>📋 年度维保</strong></td>
+        <td>家庭电路年度维护套餐</td>
+        <td>低</td>
+        <td>500-1000元</td>
+    </tr>
+</table>
+
+---
+
+<h2>四、商业模式</h2>
+
+<h3>4.1 收入模型</h3>
+
+<table>
+    <tr>
+        <th>收入来源</th>
+        <th>占比</th>
+        <th>说明</th>
+        <th>毛利率</th>
+    </tr>
+    <tr>
+        <td><strong>交易佣金</strong></td>
+        <td>60%</td>
+        <td>每单抽取15%-20%服务费</td>
+        <td>80%+</td>
+    </tr>
+    <tr>
+        <td><strong>会员订阅</strong></td>
+        <td>20%</td>
+        <td>Plus会员月费19元/年费169元</td>
+        <td>90%+</td>
+    </tr>
+    <tr>
+        <td><strong>材料代购</strong></td>
+        <td>10%</td>
+        <td>开关、灯具、线材等销售</td>
+        <td>30%-50%</td>
+    </tr>
+    <tr>
+        <td><strong>增值服务</strong></td>
+        <td>5%</td>
+        <td>延保服务、检测套餐</td>
+        <td>70%+</td>
+    </tr>
+    <tr>
+        <td><strong>企业服务</strong></td>
+        <td>5%</td>
+        <td>物业/企业年度合作</td>
+        <td>60%+</td>
+    </tr>
+</table>
+
+<h3>4.2 单位经济模型</h3>
+
+<table>
+    <tr>
+        <th>指标</th>
+        <th>数值</th>
+        <th>行业基准</th>
+        <th>评估</th>
+    </tr>
+    <tr>
+        <td>LTV（用户生命周期价值）</td>
+        <td><strong>243元</strong></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>CAC（获客成本）</td>
+        <td><strong>45元</strong></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>LTV/CAC</td>
+        <td><strong>5.4</strong></td>
+        <td>≥3</td>
+        <td>✅ 健康</td>
+    </tr>
+    <tr>
+        <td>回本周期</td>
+        <td><strong>4个月</strong></td>
+        <td>≤12个月</td>
+        <td>✅ 优秀</td>
+    </tr>
+</table>
+
+<h3>4.3 盈利预测</h3>
+
+<table>
+    <tr>
+        <th>指标</th>
+        <th>第一年</th>
+        <th>第二年</th>
+        <th>第三年</th>
+    </tr>
+    <tr>
+        <td>注册用户</td>
+        <td>10万</td>
+        <td>50万</td>
+        <td>150万</td>
+    </tr>
+    <tr>
+        <td>电工数量</td>
+        <td>500</td>
+        <td>2,000</td>
+        <td>5,000</td>
+    </tr>
+    <tr>
+        <td>GMV</td>
+        <td>1,095万</td>
+        <td>5,840万</td>
+        <td>1.9亿</td>
+    </tr>
+    <tr>
+        <td>营收</td>
+        <td>197万</td>
+        <td>1,051万</td>
+        <td>3,449万</td>
+    </tr>
+    <tr>
+        <td>净利润</td>
+        <td>-150万</td>
+        <td><strong>210万</strong></td>
+        <td><strong>1,034万</strong></td>
+    </tr>
+</table>
+
+---
+
+<h2>五、技术架构</h2>
+
+<h3>5.1 双端技术架构</h3>
+
+<h4>用户端（APP + H5）</h4>
+<table>
+    <tr>
+        <th>层级</th>
+        <th>技术</th>
+        <th>说明</th>
+    </tr>
+    <tr>
+        <td>前端框架</td>
+        <td>React 18 + TypeScript</td>
+        <td>主流技术栈</td>
+    </tr>
+    <tr>
+        <td>构建工具</td>
+        <td>Vite 5</td>
+        <td>快速开发</td>
+    </tr>
+    <tr>
+        <td>样式方案</td>
+        <td>Tailwind CSS</td>
+        <td>原子化CSS</td>
+    </tr>
+    <tr>
+        <td>跨端打包</td>
+        <td>Capacitor 6.0</td>
+        <td>Android/iOS原生应用</td>
+    </tr>
+    <tr>
+        <td>AI服务</td>
+        <td>Gemini/DeepSeek</td>
+        <td>多模型支持</td>
+    </tr>
+    <tr>
+        <td>地图服务</td>
+        <td>Leaflet</td>
+        <td>开源地图</td>
+    </tr>
+</table>
+
+<h4>电工端（微信小程序 + H5 + 鸿蒙）</h4>
+<table>
+    <tr>
+        <th>层级</th>
+        <th>技术</th>
+        <th>说明</th>
+    </tr>
+    <tr>
+        <td><strong>跨端框架</strong></td>
+        <td><strong>Taro 4.0+</strong></td>
+        <td><strong>一次编写，多端运行</strong></td>
+    </tr>
+    <tr>
+        <td>前端框架</td>
+        <td>React 18 + TypeScript</td>
+        <td>与用户端统一</td>
+    </tr>
+    <tr>
+        <td>UI组件库</td>
+        <td>NutUI React Taro 2.0+</td>
+        <td>京东出品</td>
+    </tr>
+    <tr>
+        <td>状态管理</td>
+        <td>Zustand 4.5+</td>
+        <td>轻量级状态管理</td>
+    </tr>
+</table>
+
+<h4>后端服务</h4>
+<table>
+    <tr>
+        <th>层级</th>
+        <th>技术</th>
+        <th>说明</th>
+    </tr>
+    <tr>
+        <td>核心框架</td>
+        <td>Spring Boot 3.2</td>
+        <td>Java主流框架</td>
+    </tr>
+    <tr>
+        <td>微服务</td>
+        <td>Spring Cloud 2023</td>
+        <td>微服务治理</td>
+    </tr>
+    <tr>
+        <td>注册中心</td>
+        <td>Nacos 2.3</td>
+        <td>配置/注册中心</td>
+    </tr>
+    <tr>
+        <td>API网关</td>
+        <td>Spring Cloud Gateway</td>
+        <td>统一网关</td>
+    </tr>
+    <tr>
+        <td>ORM框架</td>
+        <td>MyBatis Plus 3.5</td>
+        <td>数据库操作</td>
+    </tr>
+    <tr>
+        <td>数据库</td>
+        <td>MySQL 8.0</td>
+        <td>关系型数据库</td>
+    </tr>
+</table>
+
+<h3>5.2 代码规模</h3>
+
+<div class="text-center">
+    <div class="metric-card">
+        <span class="number">76</span>
+        <span class="label">页面组件</span>
+    </div>
+    <div class="metric-card">
+        <span class="number">157</span>
+        <span class="label">源代码文件</span>
+    </div>
+    <div class="metric-card">
+        <span class="number">16,800</span>
+        <span class="label">代码行数</span>
+    </div>
+</div>
+
+---
+
+<h2>六、核心功能</h2>
+
+<h3>6.1 用户端功能</h3>
+
+<div class="text-center">
+    <div class="feature-card">
+        <div class="icon">🤖</div>
+        <div class="title">AI智能诊断</div>
+        <div class="desc">输入故障描述，AI分析原因并给出建议</div>
+    </div>
+    <div class="feature-card">
+        <div class="icon">⚡</div>
+        <div class="title">电路急修</div>
+        <div class="desc">紧急维修，30分钟内上门</div>
+    </div>
+    <div class="feature-card">
+        <div class="icon">🔍</div>
+        <div class="title">深度体检</div>
+        <div class="desc">全屋电路安全检测</div>
+    </div>
+    <div class="feature-card">
+        <div class="icon">🔧</div>
+        <div class="title">上门安装</div>
+        <div class="desc">灯具、开关、家电安装</div>
+    </div>
+    <div class="feature-card">
+        <div class="icon">📋</div>
+        <div class="title">订单管理</div>
+        <div class="desc">状态追踪、历史记录</div>
+    </div>
+    <div class="feature-card">
+        <div class="icon">🗺️</div>
+        <div class="title">地图找人</div>
+        <div class="desc">附近电工、一键预约</div>
+    </div>
+</div>
+
+<h3>6.2 电工端功能</h3>
+
+<div class="text-center">
+    <div class="feature-card">
+        <div class="icon">📢</div>
+        <div class="title">任务大厅</div>
+        <div class="desc">抢单模式、智能推荐</div>
+    </div>
+    <div class="feature-card">
+        <div class="icon">📝</div>
+        <div class="title">我的任务</div>
+        <div class="desc">任务管理、状态流转</div>
+    </div>
+    <div class="feature-card">
+        <div class="icon">💰</div>
+        <div class="title">收益管理</div>
+        <div class="desc">收入统计、提现功能</div>
+    </div>
+</div>
+
+<h3>6.3 订单状态流转</h3>
+
+<div class="info-box">
+    <p class="text-indent-0"><strong>8状态完整流转：</strong></p>
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="time">PENDING</div>
+            <div class="content">待接单 → 用户下单后等待电工接单</div>
+        </div>
+        <div class="timeline-item">
+            <div class="time">ACCEPTED</div>
+            <div class="content">已接单 → 电工确认接单</div>
+        </div>
+        <div class="timeline-item">
+            <div class="time">ARRIVED</div>
+            <div class="content">已到达 → 电工到达服务地点</div>
+        </div>
+        <div class="timeline-item">
+            <div class="time">IN_PROGRESS</div>
+            <div class="content">施工中 → 开始提供服务</div>
+        </div>
+        <div class="timeline-item">
+            <div class="time">COMPLETED</div>
+            <div class="content">已完成 → 服务完成，等待支付</div>
+        </div>
+    </div>
+</div>
+
+---
+
+<h2>七、团队与资源</h2>
+
+<h3>7.1 核心团队</h3>
+
+<table>
+    <tr>
+        <th>角色</th>
+        <th>人数</th>
+        <th>职责</th>
+        <th>状态</th>
+    </tr>
+    <tr>
+        <td>项目负责人</td>
+        <td>1</td>
+        <td>项目管理、进度把控</td>
+        <td>✅ 已到位</td>
+    </tr>
+    <tr>
+        <td>产品经理</td>
+        <td>1</td>
+        <td>需求分析、产品设计</td>
+        <td>✅ 已到位</td>
+    </tr>
+    <tr>
+        <td>前端开发</td>
+        <td>2</td>
+        <td>用户端、电工端开发</td>
+        <td>✅ 已到位</td>
+    </tr>
+    <tr>
+        <td>后端开发</td>
+        <td>2</td>
+        <td>API开发、数据库设计</td>
+        <td>⏳ 待补充</td>
+    </tr>
+    <tr>
+        <td>UI设计</td>
+        <td>1</td>
+        <td>界面设计、交互设计</td>
+        <td>✅ 已到位</td>
+    </tr>
+    <tr>
+        <td>运营专员</td>
+        <td>1</td>
+        <td>用户运营、电工招募</td>
+        <td>⏳ 待补充</td>
+    </tr>
+</table>
+
+<h3>7.2 年度预算</h3>
+
+<table>
+    <tr>
+        <th>成本项</th>
+        <th>金额（万元/年）</th>
+        <th>占比</th>
+    </tr>
+    <tr>
+        <td>人力成本</td>
+        <td>180</td>
+        <td>67%</td>
+    </tr>
+    <tr>
+        <td>市场推广</td>
+        <td>50</td>
+        <td>19%</td>
+    </tr>
+    <tr>
+        <td>服务器/云服务</td>
+        <td>12</td>
+        <td>4.5%</td>
+    </tr>
+    <tr>
+        <td>办公/行政</td>
+        <td>20</td>
+        <td>7.5%</td>
+    </tr>
+    <tr>
+        <td>其他</td>
+        <td>6</td>
+        <td>2%</td>
+    </tr>
+    <tr>
+        <td><strong>合计</strong></td>
+        <td><strong>268</strong></td>
+        <td>100%</td>
+    </tr>
+</table>
+
+---
+
+<h2>八、项目进度</h2>
+
+<h3>8.1 当前进度</h3>
+
+<table>
+    <tr>
+        <th>模块</th>
+        <th>完成度</th>
+        <th>状态</th>
+    </tr>
+    <tr>
+        <td>用户端（APP）</td>
+        <td><strong>100%</strong></td>
+        <td>✅ 完成</td>
+    </tr>
+    <tr>
+        <td>电工端（小程序）</td>
+        <td><strong>100%</strong></td>
+        <td>✅ 完成</td>
+    </tr>
+    <tr>
+        <td>前端后端对接</td>
+        <td>0%</td>
+        <td>⏳ 待启动</td>
+    </tr>
+    <tr>
+        <td>后端开发</td>
+        <td>0%</td>
+        <td>⏳ 待启动</td>
+    </tr>
+    <tr>
+        <td>运营准备</td>
+        <td>0%</td>
+        <td>⏳ 待启动</td>
+    </tr>
+</table>
+
+<h3>8.2 里程碑计划</h3>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="time">2026 Q1</div>
+        <div class="content">后端开发启动、前端API联调</div>
+    </div>
+    <div class="timeline-item">
+        <div class="time">2026 Q2</div>
+        <div class="content">内测版本发布、运营启动</div>
+    </div>
+    <div class="timeline-item">
+        <div class="time">2026 Q3</div>
+        <div class="content">公测版本、城市扩张</div>
+    </div>
+    <div class="timeline-item">
+        <div class="time">2026 Q4</div>
+        <div class="content">正式上线 V1.0、小程序上线</div>
+    </div>
+</div>
+
+---
+
+<h2>九、发展规划</h2>
+
+<h3>9.1 产品路线图</h3>
+
+<table>
+    <tr>
+        <th>阶段</th>
+        <th>时间</th>
+        <th>版本</th>
+        <th>核心功能</th>
+    </tr>
+    <tr>
+        <td>基础版</td>
+        <td>Q1-Q2</td>
+        <td>V1.0</td>
+        <td>用户端+电工端+AI诊断+订单管理</td>
+    </tr>
+    <tr>
+        <td>优化版</td>
+        <td>Q3</td>
+        <td>V1.5</td>
+        <td>性能优化、会员体系、新城市</td>
+    </tr>
+    <tr>
+        <td>扩展版</td>
+        <td>Q4</td>
+        <td>V2.0</td>
+        <td>企业版、小程序、IoT设备</td>
+    </tr>
+</table>
+
+<h3>9.2 城市扩张计划</h3>
+
+<table>
+    <tr>
+        <th>阶段</th>
+        <th>时间</th>
+        <th>城市</th>
+        <th>目标</th>
+    </tr>
+    <tr>
+        <td>第一阶段</td>
+        <td>Q2</td>
+        <td>上海</td>
+        <td>验证模式</td>
+    </tr>
+    <tr>
+        <td>第二阶段</td>
+        <td>Q3</td>
+        <td>北京、杭州、深圳</td>
+        <td>重点城市</td>
+    </tr>
+    <tr>
+        <td>第三阶段</td>
+        <td>Q4</td>
+        <td>15个新一线城市</td>
+        <td>规模扩张</td>
+    </tr>
+</table>
+
+<h3>9.3 融资计划</h3>
+
+<table>
+    <tr>
+        <th>轮次</th>
+        <th>时间</th>
+        <th>金额</th>
+        <th>估值</th>
+        <th>用途</th>
+    </tr>
+    <tr>
+        <td>天使轮</td>
+        <td>2026 Q2</td>
+        <td>500万</td>
+        <td>2500万</td>
+        <td>产品开发、市场验证</td>
+    </tr>
+    <tr>
+        <td>A轮</td>
+        <td>2027 Q1</td>
+        <td>2000万</td>
+        <td>1亿</td>
+        <td>城市扩张、团队扩充</td>
+    </tr>
+    <tr>
+        <td>B轮</td>
+        <td>2028 Q1</td>
+        <td>5000万</td>
+        <td>3亿</td>
+        <td>规模化、生态建设</td>
+    </tr>
+</table>
+
+---
+
+<div class="page-break"></div>
+
+<h2>附录：信息来源</h2>
+
+<div class="info-box">
+    <p class="text-indent-0"><strong>本项目介绍引用的权威数据来源：</strong></p>
+    <table>
+        <tr>
+            <th>数据类型</th>
+            <th>数据内容</th>
+            <th>来源</th>
+        </tr>
+        <tr>
+            <td>家政市场规模</td>
+            <td>2024年市场规模达1.2万亿元，年增长率11.3%</td>
+            <td>艾瑞咨询《2024年中国家政服务行业发展报告》</td>
+        </tr>
+        <tr>
+            <td>老龄化数据</td>
+            <td>60岁及以上人口3.1亿，占总人口22.0%</td>
+            <td>国家统计局《2024年度国家老龄事业发展公报》</td>
+        </tr>
+        <tr>
+            <td>竞品市场份额</td>
+            <td>啄木鸟占线上家庭维修行业2.4%市场份额</td>
+            <td>灼识咨询、啄木鸟招股书（2024年）</td>
+        </tr>
+    </table>
+</div>
+
+<hr style="margin-top: 50px;">
+
+<div class="text-center" style="margin-top: 40px; padding: 30px; background: linear-gradient(135deg, #EFF6FF 0%, #F0FDF4 100%); border-radius: 10px;">
+    <p style="font-size: 14pt; font-weight: bold; color: #1E3A8A; text-indent: 0;">感谢您的关注</p>
+    <p style="color: #6B7280; margin-top: 10px; text-indent: 0;">安电通 - 让家庭电路服务更简单</p>
+    <p style="color: #9CA3AF; margin-top: 15px; font-size: 10pt; text-indent: 0;">项目负责人：陆芃非 | 著作权人：米枫网络科技</p>
+</div>
+
+</body>
+</html>

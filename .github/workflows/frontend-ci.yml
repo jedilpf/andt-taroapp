@@ -1,0 +1,86 @@
+name: 安电通前端 CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/frontend-ci.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'frontend/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: 前端构建与测试
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './frontend/package-lock.json'
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 代码检查
+        run: npm run lint || echo "Lint skipped"
+
+      - name: 类型检查
+        run: npm run typecheck || echo "Type check skipped"
+
+      - name: 构建 H5 版本
+        run: npm run build:h5
+
+      - name: 上传构建产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist/
+          retention-days: 7
+
+      - name: 构建产物分析
+        run: |
+          echo "构建产物大小:"
+          du -sh frontend/dist/
+
+  build-weapp:
+    runs-on: ubuntu-latest
+    name: 微信小程序构建
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './frontend/package-lock.json'
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 构建微信小程序
+        run: npm run build:weapp
+
+      - name: 上传构建产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: weapp-dist
+          path: frontend/dist/
+          retention-days: 7

@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    
+    <!-- PWA / Mobile Web App Meta Tags -->
+    <link rel="manifest" href="./manifest.json" />
+    <meta name="theme-color" content="#16a34a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="安电通" />
+    
+    <!-- Disable format detection -->
+    <meta name="format-detection" content="telephone=no" />
+
+    <link rel="apple-touch-icon" href="https://api.dicebear.com/7.x/avataaars/svg?seed=Logo" />
+
+    <title>安电通</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['PingFang SC', 'Microsoft YaHei', 'Heiti SC', 'sans-serif'],
+            },
+            padding: {
+              'safe': 'env(safe-area-inset-bottom)',
+            },
+            spacing: {
+              'safe-bottom': 'env(safe-area-inset-bottom)',
+              'safe-top': 'env(safe-area-inset-top)',
+            }
+          }
+        }
+      }
+    </script>
+    <!-- Replace unpkg with BootCDN for faster access in China -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    
+    <!-- Performance Optimization: Preconnect to Map Tile Server -->
+    <link rel="preconnect" href="https://wprd04.is.autonavi.com" />
+    <link rel="dns-prefetch" href="https://wprd04.is.autonavi.com" />
+
+    <style>
+      /* Critical Layout Fix for Android WebView / Capacitor */
+      html, body, #root {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        overscroll-behavior: none; /* Prevent rubber banding */
+        -webkit-user-select: none; /* Disable selection */
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        background-color: #F8FAFC; /* 修改为浅灰色背景 */
+      }
+
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      /* Hide scrollbar for IE, Edge and Firefox */
+      .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+      }
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        /* Handle safe area for notched phones */
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      }
+
+      /* --- Animations --- */
+      
+      /* Slide Up (For Sheets/Modals) - Smooth ease out */
+      .animate-slide-up {
+        animation: slideUp 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        will-change: transform;
+      }
+      @keyframes slideUp {
+        from { transform: translateY(100%); }
+        to { transform: translateY(0); }
+      }
+
+      /* Fade Up (For Content) - Subtle rise */
+      .animate-fade-up {
+        animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        will-change: transform, opacity;
+        opacity: 0;
+      }
+      @keyframes fadeUp {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+
+      /* Fade In - General */
+      .animate-fade-in {
+        animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        will-change: opacity;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      /* Scale In - For Popups/Dialogs - Slight bounce */
+      .animate-scale-in {
+        animation: scaleIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        will-change: transform, opacity;
+      }
+      @keyframes scaleIn {
+        from { transform: scale(0.9); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+      }
+      
+      /* Radar Animation */
+      @keyframes radar-spin {
+        0% { transform: scale(0.5); opacity: 0.5; }
+        100% { transform: scale(1.5); opacity: 0; }
+      }
+      .animate-radar-spin {
+        animation: radar-spin 3s infinite ease-out;
+      }
+
+      /* Leaflet Popup Customization */
+      .leaflet-popup-content-wrapper {
+        border-radius: 12px;
+        padding: 0;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      }
+      .leaflet-popup-content {
+        margin: 8px;
+        line-height: 1.4;
+      }
+      .leaflet-popup-tip {
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      }
+      .custom-avatar-marker {
+        background: transparent;
+        border: none;
+      }
+      .user-location-marker {
+        background: transparent;
+        border: none;
+      }
+      /* Ensure inputs are clickable and not zoomed */
+      input, textarea, select {
+        font-size: 16px; 
+      }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "vite": "https://aistudiocdn.com/vite@^7.2.4",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.6",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
+    "react-leaflet": "https://aistudiocdn.com/react-leaflet@^5.0.0",
+    "leaflet": "https://aistudiocdn.com/leaflet@^1.9.4",
+    "react-dom": "https://aistudiocdn.com/react-dom@^19.2.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-slate-50 text-gray-900 antialiased select-none flex justify-center overflow-hidden">
+    <div id="root" class="w-full flex justify-center h-full max-w-md mx-auto bg-white shadow-2xl relative"></div>
+    <!-- Entry point for Vite -->
+    <script type="module" src="./index.tsx"></script>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安电通项目提案 - 未来申活</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .slide {
+            min-height: 100vh;
+            padding: 60px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-bottom: 1px solid #333;
+            position: relative;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            color: #fff;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 500;
+            margin: 20px 0 15px;
+            color: #667eea;
+        }
+
+        p {
+            font-size: 18px;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+
+        .highlight {
+            color: #667eea;
+            font-weight: 500;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: #667eea;
+            transform: translateY(-5px);
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .card-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .card-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #667eea;
+            margin: 10px 0;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            margin-top: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #667eea, #764ba2);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding: 25px 30px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 30px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .timeline-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .timeline-time {
+            font-size: 14px;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .timeline-content {
+            font-size: 15px;
+            color: #aaa;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .table th {
+            background: rgba(102, 126, 234, 0.2);
+            padding: 15px 20px;
+            text-align: left;
+            font-weight: 500;
+            color: #667eea;
+            border-bottom: 1px solid #333;
+        }
+
+        .table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #222;
+            color: #ccc;
+        }
+
+        .table tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .pie-chart {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(#667eea 0% 40%, #764ba2 40% 70%, #f093fb 70% 85%, #f5576c 85% 100%);
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .flow-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .flow-item {
+            background: rgba(102, 126, 234, 0.15);
+            border: 1px solid #667eea;
+            border-radius: 12px;
+            padding: 20px 30px;
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .flow-arrow {
+            font-size: 24px;
+            color: #667eea;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(102, 126, 234, 0.2);
+            border-radius: 20px;
+            font-size: 13px;
+            color: #667eea;
+            margin: 5px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #222;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .ecosystem {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            margin: 40px 0;
+        }
+
+        .eco-center {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .eco-ring {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 2px dashed rgba(102, 126, 234, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .eco-node {
+            position: absolute;
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid #667eea;
+            border-radius: 12px;
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .feature-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #222;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .cover {
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cover h1 {
+            font-size: 72px;
+            margin-bottom: 30px;
+        }
+
+        .cover .subtitle {
+            font-size: 24px;
+            color: #999;
+            margin-bottom: 60px;
+        }
+
+        .cover .company {
+            font-size: 18px;
+            color: #666;
+            margin-top: 40px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .summary-item {
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .summary-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .summary-label {
+            font-size: 14px;
+            color: #999;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 1200px) {
+            .slide {
+                padding: 40px;
+            }
+            .grid-3 {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: 封面 -->
+<div class="slide cover">
+    <h1>安电通</h1>
+    <div class="subtitle">家庭用电安全O2O服务平台</div>
+    <div class="subtitle" style="font-size: 20px; color: #667eea;">物业 + 商城社区生态闭环</div>
+
+    <div class="summary-grid" style="margin-top: 60px;">
+        <div class="summary-item">
+            <div class="summary-value">450亿+</div>
+            <div class="summary-label">年市场容量</div>
+        </div>
+        <div class="summary-item">
+            <div class="summary-value">3.3亿</div>
+            <div class="summary-label">老年人口用电安全需求</div>
+        </div>
+        <div class="summary-item">
+            <div class="summary-value">20-25%</div>
+            <div class="summary-label">平台抽成（竞品40-50%）</div>
+        </div>
+        <div class="summary-item">
+            <div class="summary-value">6人</div>
+            <div class="summary-label">前期团队规模</div>
+        </div>
+    </div>
+
+    <div class="company">
+        未来申活（上海）数字科技有限公司<br>
+        2026年3月
+    </div>
+    <div class="slide-number">01</div>
+</div>
+
+<!-- Slide 2: 项目规划 - 核心价值 -->
+<div class="slide">
+    <h2>一、项目规划</h2>
+    <h3>1.1 核心价值主张</h3>
+
+    <div class="flow-diagram">
+        <div class="flow-item">
+            <div style="font-size: 32px; margin-bottom: 10px;">🗺️</div>
+            <div style="font-weight: 600;">实时地图</div>
+            <div style="font-size: 13px; color: #999;">3km内智能匹配</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item">
+            <div style="font-size: 32px; margin-bottom: 10px;">🤖</div>
+            <div style="font-weight: 600;">AI诊断</div>
+            <div style="font-size: 13px; color: #999;">故障智能判断</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item">
+            <div style="font-size: 32px; margin-bottom: 10px;">💰</div>
+            <div style="font-weight: 600;">透明定价</div>
+            <div style="font-size: 13px; color: #999;">标准化一次性收费</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item">
+            <div style="font-size: 32px; margin-bottom: 10px;">🛡️</div>
+            <div style="font-weight: 600;">服务保障</div>
+            <div style="font-size: 13px; color: #999;">双向保障+先行赔付</div>
+        </div>
+    </div>
+
+    <div class="grid-3" style="margin-top: 40px;">
+        <div class="card">
+            <div class="card-icon">👨‍👩‍👧‍👦</div>
+            <div class="card-title">社区居民</div>
+            <div class="card-desc">便捷找电工，享专业服务</div>
+            <div style="margin-top: 15px;">
+                <span class="tag">专业认证</span>
+                <span class="tag">价格透明</span>
+                <span class="tag">售后保障</span>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-icon">🔌</div>
+            <div class="card-title">专业电工</div>
+            <div class="card-desc">灵活接单，获稳定客源</div>
+            <div style="margin-top: 15px;">
+                <span class="tag">低抽成</span>
+                <span class="tag">智能派单</span>
+                <span class="tag">收益透明</span>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-icon">🏢</div>
+            <div class="card-title">物业公司</div>
+            <div class="card-desc">提升服务品质，增强居民粘性</div>
+            <div style="margin-top: 15px;">
+                <span class="tag">联合推广</span>
+                <span class="tag">利润分成</span>
+                <span class="tag">降本增效</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-number">02</div>
+</div>
+
+<!-- Slide 3: 项目规划 - 商业模式 -->
+<div class="slide">
+    <h2>一、项目规划</h2>
+    <h3>1.2 核心商业模式：物业+商城社区生态闭环</h3>
+
+    <div class="ecosystem">
+        <div class="eco-ring">
+            <div class="eco-node" style="top: -20px;">📱 用户端<br><span style="color: #999; font-size: 12px;">服务消费 + 积分获取</span></div>
+            <div class="eco-node" style="bottom: -20px;">🏠 物业端<br><span style="color: #999; font-size: 12px;">联合推广 + 利润共享</span></div>
+            <div class="eco-center">
+                安电通<br>平台生态
+            </div>
+        </div>
+
+        <div style="max-width: 400px;">
+            <div class="card" style="margin-bottom: 20px;">
+                <div class="card-title">💎 用户价值</div>
+                <ul class="feature-list">
+                    <li>专业透明的电工服务</li>
+                    <li>积分可抵物业费（核心留存）</li>
+                    <li>社区生活一站式便利</li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="card-title">🏢 物业价值</div>
+                <ul class="feature-list">
+                    <li>获得平台推广分成</li>
+                    <li>提升居民满意度</li>
+                    <li>降低社区管理成本</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div style="background: rgba(102, 126, 234, 0.1); border-radius: 12px; padding: 25px; margin-top: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <div style="font-size: 20px; font-weight: 600;">核心逻辑</div>
+                <div style="color: #999; margin-top: 5px;">与其花10万砸广告，不如将15%利润给物业，让物业主动推广</div>
+            </div>
+            <div style="font-size: 48px; color: #667eea;">15%</div>
+        </div>
+    </div>
+
+    <div class="slide-number">03</div>
+</div>
+
+<!-- Slide 4: 项目规划 - APP功能 -->
+<div class="slide">
+    <h2>一、项目规划</h2>
+    <h3>1.3 APP功能架构</h3>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">📱 用户端APP（8大模块）</div>
+            <table class="table" style="margin-top: 15px;">
+                <tr>
+                    <td><strong>应急维修</strong></td>
+                    <td>故障申报、电工抢单、实时进度追踪</td>
+                </tr>
+                <tr>
+                    <td><strong>免费检测</strong></td>
+                    <td>首次免费、5步检测流程、整改转化</td>
+                </tr>
+                <tr>
+                    <td><strong>便民安装</strong></td>
+                    <td>标准化安装服务</td>
+                </tr>
+                <tr>
+                    <td><strong>智慧家居</strong></td>
+                    <td>智能设备安装</td>
+                </tr>
+                <tr>
+                    <td><strong>积分商城</strong></td>
+                    <td>积分获取、物业费抵扣</td>
+                </tr>
+                <tr>
+                    <td><strong>订单管理</strong></td>
+                    <td>订单列表、状态追踪、支付评价</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <div class="card-title">👨‍🔧 电工端小程序（4大模块）</div>
+            <table class="table" style="margin-top: 15px;">
+                <tr>
+                    <td><strong>任务大厅</strong></td>
+                    <td>抢单模式、订单筛选、状态切换</td>
+                </tr>
+                <tr>
+                    <td><strong>我的任务</strong></td>
+                    <td>进行中/历史订单、状态更新</td>
+                </tr>
+                <tr>
+                    <td><strong>收益管理</strong></td>
+                    <td>收入统计、提现</td>
+                </tr>
+                <tr>
+                    <td><strong>个人中心</strong></td>
+                    <td>技能认证、服务范围设置</td>
+                </tr>
+            </table>
+
+            <div style="margin-top: 25px; padding: 15px; background: rgba(102, 126, 234, 0.1); border-radius: 8px;">
+                <div style="font-size: 14px; color: #999;">技术框架</div>
+                <div style="font-size: 16px; margin-top: 5px;">React + TypeScript + Taro</div>
+                <div style="font-size: 13px; color: #667eea; margin-top: 5px;">一套代码，多端复用</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-number">04</div>
+</div>
+
+<!-- Slide 5: 开发周期 -->
+<div class="slide">
+    <h2>二、开发周期</h2>
+    <h3>2.1 开发阶段时间线</h3>
+
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="timeline-title">阶段一：技术选型与架构设计</div>
+            <div class="timeline-time">2-3周 · 2026年Q2</div>
+            <div class="timeline-content">
+                • 微服务架构设计<br>
+                • API文档规范制定<br>
+                • 数据库设计<br>
+                • 技术选型评审
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-title">阶段二：后端核心模块开发</div>
+            <div class="timeline-time">6-8周 · 2026年Q2-Q3</div>
+            <div class="timeline-content">
+                • 用户服务体系（注册/登录/认证）<br>
+                • 订单系统（下单/派单/接单）<br>
+                • 支付系统（微信/支付宝）<br>
+                • 地图服务、消息服务
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-title">阶段三：前后端联调</div>
+            <div class="timeline-time">4-6周 · 2026年Q3</div>
+            <div class="timeline-content">
+                • 用户端APP接口对接<br>
+                • 电工端小程序接口对接<br>
+                • 核心业务流程联调<br>
+                • 第三方服务集成
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-title">阶段四：测试与验收</div>
+            <div class="timeline-time">3-4周 · 2026年Q3</div>
+            <div class="timeline-content">
+                • 功能测试<br>
+                • 性能测试<br>
+                • 安全测试<br>
+                • UAT验收
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-title">阶段五：上线准备</div>
+            <div class="timeline-time">2-3周 · 2026年Q4</div>
+            <div class="timeline-content">
+                • 服务器部署<br>
+                • 数据迁移<br>
+                • 运维监控搭建<br>
+                • 灰度发布
+            </div>
+        </div>
+    </div>
+
+    <div style="background: rgba(102, 126, 234, 0.15); border-radius: 12px; padding: 25px; margin-top: 20px;">
+        <div style="display: flex; justify-content: space-around; text-align: center;">
+            <div>
+                <div style="font-size: 36px; font-weight: 700; color: #667eea;">17-24周</div>
+                <div style="color: #999; margin-top: 5px;">总工期（4-6个月）</div>
+            </div>
+            <div>
+                <div style="font-size: 36px; font-weight: 700; color: #667eea;">6人</div>
+                <div style="color: #999; margin-top: 5px;">前期团队</div>
+            </div>
+            <div>
+                <div style="font-size: 36px; font-weight: 700; color: #667eea;">Q4上线</div>
+                <div style="color: #999; margin-top: 5px;">正式版本发布</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-number">05</div>
+</div>
+
+<!-- Slide 6: 开发周期 - Q1-Q4规划 -->
+<div class="slide">
+    <h2>二、开发周期</h2>
+    <h3>2.2 Q1-Q4季度里程碑</h3>
+
+    <div class="grid-4" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+        <div class="card" style="text-align: center; border-top: 4px solid #667eea;">
+            <div style="font-size: 48px; margin-bottom: 15px;">Q1</div>
+            <div class="card-title">Demo验证</div>
+            <div style="color: #999; font-size: 14px; margin: 15px 0;">2026年Q1（当前）</div>
+            <ul class="feature-list" style="text-align: left; font-size: 14px;">
+                <li>完善Demo</li>
+                <li>技术选型</li>
+                <li>团队组建</li>
+            </ul>
+            <div style="margin-top: 15px;">
+                <span class="tag" style="background: rgba(102, 126, 234, 0.3);">进行中</span>
+            </div>
+        </div>
+
+        <div class="card" style="text-align: center; border-top: 4px solid #764ba2;">
+            <div style="font-size: 48px; margin-bottom: 15px;">Q2</div>
+            <div class="card-title">开发攻坚</div>
+            <div style="color: #999; font-size: 14px; margin: 15px 0;">2026年Q2</div>
+            <ul class="feature-list" style="text-align: left; font-size: 14px;">
+                <li>后端开发</li>
+                <li>API对接</li>
+                <li>核心流程</li>
+            </ul>
+            <div style="margin-top: 15px;">
+                <span class="tag" style="background: rgba(118, 75, 162, 0.3);">规划中</span>
+            </div>
+        </div>
+
+        <div class="card" style="text-align: center; border-top: 4px solid #f093fb;">
+            <div style="font-size: 48px; margin-bottom: 15px;">Q3</div>
+            <div class="card-title">内测试运营</div>
+            <div style="color: #999; font-size: 14px; margin: 15px 0;">2026年Q3</div>
+            <ul class="feature-list" style="text-align: left; font-size: 14px;">
+                <li>小范围内测</li>
+                <li>反馈收集</li>
+                <li>运营启动</li>
+            </ul>
+            <div style="margin-top: 15px;">
+                <span class="tag" style="background: rgba(240, 147, 251, 0.3);">规划中</span>
+            </div>
+        </div>
+
+        <div class="card" style="text-align: center; border-top: 4px solid #f5576c;">
+            <div style="font-size: 48px; margin-bottom: 15px;">Q4</div>
+            <div class="card-title">正式上线</div>
+            <div style="color: #999; font-size: 14px; margin: 15px 0;">2026年Q4</div>
+            <ul class="feature-list" style="text-align: left; font-size: 14px;">
+                <li>V1.0发布</li>
+                <li>大规模推广</li>
+                <li>用户增长</li>
+            </ul>
+            <div style="margin-top: 15px;">
+                <span class="tag" style="background: rgba(245, 87, 108, 0.3);">规划中</span>
+            </div>
+        </div>
+    </div>
+
+    <h3 style="margin-top: 50px;">2.3 开发逻辑递进</h3>
+    <div class="flow-diagram">
+        <div class="flow-item" style="background: rgba(102, 126, 234, 0.2);">
+            <div style="font-weight: 600;">技术基础</div>
+            <div style="font-size: 13px; color: #999;">架构设计</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item" style="background: rgba(102, 126, 234, 0.2);">
+            <div style="font-weight: 600;">核心能力</div>
+            <div style="font-size: 13px; color: #999;">功能开发</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item" style="background: rgba(102, 126, 234, 0.2);">
+            <div style="font-weight: 600;">用户体验</div>
+            <div style="font-size: 13px; color: #999;">联调测试</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item" style="background: rgba(102, 126, 234, 0.2);">
+            <div style="font-weight: 600;">价值交付</div>
+            <div style="font-size: 13px; color: #999;">上线运营</div>
+        </div>
+    </div>
+
+    <div class="slide-number">06</div>
+</div>
+
+<!-- Slide 7: 项目成本 -->
+<div class="slide">
+    <h2>三、项目成本</h2>
+    <h3>3.1 当前阶段成本需求</h3>
+
+    <div class="grid-2">
+        <div>
+            <table class="table">
+                <tr>
+                    <th>成本项目</th>
+                    <th>金额（万元）</th>
+                    <th>占比</th>
+                </tr>
+                <tr>
+                    <td>人力成本</td>
+                    <td style="color: #667eea; font-weight: 600;">180</td>
+                    <td>67%</td>
+                </tr>
+                <tr>
+                    <td> - 项目负责人</td>
+                    <td>30</td>
+                    <td>11%</td>
+                </tr>
+                <tr>
+                    <td> - 前端开发</td>
+                    <td>24</td>
+                    <td>9%</td>
+                </tr>
+                <tr>
+                    <td> - 后端开发</td>
+                    <td>24</td>
+                    <td>9%</td>
+                </tr>
+                <tr>
+                    <td> - 运维工程师</td>
+                    <td>24</td>
+                    <td>9%</td>
+                </tr>
+                <tr>
+                    <td> - 产品/运营</td>
+                    <td>21.6</td>
+                    <td>8%</td>
+                </tr>
+                <tr>
+                    <td>市场推广</td>
+                    <td style="color: #667eea; font-weight: 600;">50</td>
+                    <td>19%</td>
+                </tr>
+                <tr>
+                    <td>云服务器</td>
+                    <td>12</td>
+                    <td>4%</td>
+                </tr>
+                <tr>
+                    <td>办公/行政</td>
+                    <td>20</td>
+                    <td>7%</td>
+                </tr>
+                <tr>
+                    <td>AI工具</td>
+                    <td>1</td>
+                    <td>1%</td>
+                </tr>
+                <tr style="background: rgba(102, 126, 234, 0.1);">
+                    <td style="font-weight: 600;">合计</td>
+                    <td style="color: #667eea; font-weight: 700;">268</td>
+                    <td>100%</td>
+                </tr>
+            </table>
+        </div>
+
+        <div>
+            <div class="card" style="margin-bottom: 20px;">
+                <div class="card-title">💰 年度预算构成</div>
+                <div class="pie-chart"></div>
+                <div style="display: flex; justify-content: center; gap: 20px; margin-top: 15px; flex-wrap: wrap;">
+                    <div style="text-align: center;">
+                        <div style="width: 12px; height: 12px; background: #667eea; border-radius: 2px; display: inline-block;"></div>
+                        <div style="font-size: 12px; color: #999;">人力 67%</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 12px; height: 12px; background: #764ba2; border-radius: 2px; display: inline-block;"></div>
+                        <div style="font-size: 12px; color: #999;">市场 19%</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 12px; height: 12px; background: #f093fb; border-radius: 2px; display: inline-block;"></div>
+                        <div style="font-size: 12px; color: #999;">行政 11%</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 12px; height: 12px; background: #f5576c; border-radius: 2px; display: inline-block;"></div>
+                        <div style="font-size: 12px; color: #999;">其他 3%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📊 开发费用 vs 运营预算</div>
+                <div style="margin-top: 20px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span>开发费用（人力+云服务）</span>
+                        <span style="color: #667eea;">192万</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 72%;"></div>
+                    </div>
+                </div>
+                <div style="margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span>运营预算（市场+行政）</span>
+                        <span style="color: #764ba2;">70万</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 26%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-number">07</div>
+</div>
+
+<!-- Slide 8: 项目成本 - 预算分配 -->
+<div class="slide">
+    <h2>三、项目成本</h2>
+    <h3>3.2 项目预算分配</h3>
+
+    <div class="grid-3">
+        <div class="card" style="text-align: center; border: 2px solid #667eea;">
+            <div class="card-icon">👥</div>
+            <div class="card-title">人力成本</div>
+            <div class="card-value">180万</div>
+            <div class="card-desc">占比67%</div>
+            <div style="margin-top: 15px; text-align: left;">
+                <div style="font-size: 14px; color: #999;">包含：</div>
+                <div style="font-size: 13px; color: #ccc; margin-top: 8px;">• 项目负责人 2.5万/月</div>
+                <div style="font-size: 13px; color: #ccc;">• 前端开发 2.0万/月</div>
+                <div style="font-size: 13px; color: #ccc;">• 后端开发 2.0万/月</div>
+                <div style="font-size: 13px; color: #ccc;">• 运维工程师 2.0万/月</div>
+                <div style="font-size: 13px; color: #ccc;">• 产品/运营 1.8万/月</div>
+            </div>
+        </div>
+
+        <div class="card" style="text-align: center;">
+            <div class="card-icon">📢</div>
+            <div class="card-title">市场推广</div>
+            <div class="card-value">50万</div>
+            <div class="card-desc">占比19%</div>
+            <div style="margin-top: 15px; text-align: left;">
+                <div style="font-size: 14px; color: #999;">包含：</div>
+                <div style="font-size: 13px; color: #ccc; margin-top: 8px;">• 物业合作推广</div>
+                <div style="font-size: 13px; color: #ccc;">• 社区地推活动</div>
+                <div style="font-size: 13px; color: #ccc;">• 品牌曝光（≤10万硬广）</div>
+                <div style="font-size: 13px; color: #ccc;">• 微信生态运营</div>
+            </div>
+        </div>
+
+        <div class="card" style="text-align: center;">
+            <div class="card-icon">🏢</div>
+            <div class="card-title">运营支持</div>
+            <div class="card-value">38万</div>
+            <div class="card-desc">占比14%</div>
+            <div style="margin-top: 15px; text-align: left;">
+                <div style="font-size: 14px; color: #999;">包含：</div>
+                <div style="font-size: 13px; color: #ccc; margin-top: 8px;">• 云服务器 12万/年</div>
+                <div style="font-size: 13px; color: #ccc;">• 办公/行政 20万/年</div>
+                <div style="font-size: 13px; color: #ccc;">• AI工具 1万/年</div>
+                <div style="font-size: 13px; color: #ccc;">• 第三方服务 5万/年</div>
+            </div>
+        </div>
+    </div>
+
+    <div style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2)); border-radius: 16px; padding: 30px; margin-top: 40px; text-align: center;">
+        <div style="font-size: 18px; color: #999;">年度总预算</div>
+        <div style="font-size: 64px; font-weight: 700; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 10px 0;">268万元</div>
+        <div style="font-size: 14px; color: #999;">覆盖团队组建、产品开发、市场推广、运营支持全周期</div>
+    </div>
+
+    <div class="slide-number">08</div>
+</div>
+
+<!-- Slide 9: 市场规划 -->
+<div class="slide">
+    <h2>四、市场规划</h2>
+    <h3>4.1 前期市场策略：物业联动社区运营</h3>
+
+    <div class="flow-diagram" style="flex-direction: column; gap: 30px;">
+        <div style="display: flex; gap: 40px; align-items: center;">
+            <div class="card" style="min-width: 200px;">
+                <div class="card-title" style="text-align: center;">🏠 物业/居委会</div>
+                <div style="margin-top: 15px; font-size: 14px; color: #ccc;">
+                    • 社区覆盖能力<br>
+                    • 居民信任基础<br>
+                    • 物业费缴纳场景
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
+                <div style="font-size: 24px; color: #667eea;">联合推广 + 利润共享</div>
+                <div style="width: 2px; height: 30px; background: #667eea;"></div>
+                <div style="font-size: 24px; color: #667eea;">用户触达 + 服务落地</div>
+                <div style="width: 2px; height: 30px; background: #667eea;"></div>
+                <div style="font-size: 24px; color: #667eea;">口碑传播 + 持续增长</div>
+            </div>
+
+            <div class="card" style="min-width: 200px;">
+                <div class="card-title" style="text-align: center;">👨‍👩‍👧‍👦 社区居民</div>
+                <div style="margin-top: 15px; font-size: 14px; color: #ccc;">
+                    • 便捷电工服务<br>
+                    • 积分抵物业费<br>
+                    • 社区生活便利
+                </div>
+            </div>
+        </div>
+
+        <div style="font-size: 28px; color: #667eea; text-align: center; margin: 20px 0;">↑ ↓</div>
+
+        <div class="card" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2)); border: 2px solid #667eea;">
+            <div class="card-title" style="text-align: center; font-size: 24px;">🔄 安电通平台</div>
+            <div style="display: flex; justify-content: space-around; margin-top: 20px;">
+                <div style="text-align: center;">
+                    <div style="font-size: 24px;">🎯</div>
+                    <div style="font-size: 14px; color: #ccc;">精准获客</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 24px;">🔗</div>
+                    <div style="font-size: 14px; color: #ccc;">服务闭环</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 24px;">📈</div>
+                    <div style="font-size: 14px; color: #ccc;">持续增长</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-number">09</div>
+</div>
+
+<!-- Slide 10: 市场规划 - 渠道占比 -->
+<div class="slide">
+    <h2>四、市场规划</h2>
+    <h3>4.2 获客渠道占比预估</h3>
+
+    <div class="grid-2">
+        <div>
+            <table class="table">
+                <tr>
+                    <th>渠道</th>
+                    <th>占比</th>
+                    <th>策略</th>
+                </tr>
+                <tr>
+                    <td><strong>社区/物业推广</strong></td>
+                    <td style="color: #667eea; font-weight: 600;">40%</td>
+                    <td>利润分成驱动，替代硬广告</td>
+                </tr>
+                <tr>
+                    <td><strong>口碑传播</strong></td>
+                    <td style="color: #667eea; font-weight: 600;">20%</td>
+                    <td>群体效应，低成本高转化</td>
+                </tr>
+                <tr>
+                    <td><strong>微信生态</strong></td>
+                    <td style="color: #667eea; font-weight: 600;">25%</td>
+                    <td>公众号+小程序+社群</td>
+                </tr>
+                <tr>
+                    <td><strong>应用商店</strong></td>
+                    <td style="color: #667eea; font-weight: 600;">15%</td>
+                    <td>ASO优化，有限投放</td>
+                </tr>
+            </table>
+
+            <div style="margin-top: 30px;">
+                <div class="card-title" style="margin-bottom: 15px;">📊 渠道效果对比</div>
+                <div style="margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span>物业联动</span>
+                        <span style="color: #667eea;">★★★★★</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 100%;"></div></div>
+                </div>
+                <div style="margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span>口碑传播</span>
+                        <span style="color: #667eea;">★★★★</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div>
+                </div>
+                <div style="margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span>微信生态</span>
+                        <span style="color: #667eea;">★★★★</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div>
+                </div>
+                <div style="margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span>应用商店</span>
+                        <span style="color: #999;">★★★</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 60%; background: #999;"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="card">
+                <div class="card-title">🎯 核心策略：物业联动</div>
+                <div style="margin-top: 20px; padding: 20px; background: rgba(102, 126, 234, 0.1); border-radius: 12px;">
+                    <div style="font-size: 48px; text-align: center; color: #667eea;">40%</div>
+                    <div style="text-align: center; color: #999; margin-top: 10px;">获客占比</div>
+                </div>
+                <div class="timeline" style="margin-top: 20px;">
+                    <div style="margin-bottom: 15px; padding: 10px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                        <div style="font-size: 14px; color: #667eea;">传统硬广</div>
+                        <div style="font-size: 13px; color: #999; margin-top: 5px;">年预算≤10万，效果不可控</div>
+                    </div>
+                    <div style="margin-bottom: 15px; padding: 10px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+                        <div style="font-size: 14px; color: #667eea;">物业联动</div>
+                        <div style="font-size: 13px; color: #999; margin-top: 5px;">15%利润分成，精准触达</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 20px;">
+                <div class="card-title">👥 目标用户群体</div>
+                <div style="margin-top: 15px;">
+                    <span class="tag" style="font-size: 14px; padding: 8px 20px;">银发用户 55岁+</span>
+                    <span class="tag" style="font-size: 14px; padding: 8px 20px;">家庭用户 35-55岁</span>
+                    <span class="tag" style="font-size: 14px; padding: 8px 20px;">租房青年 25-35岁</span>
+                </div>
+                <div style="margin-top: 15px; font-size: 14px; color: #999;">
+                    地域策略：一线城市（上海）为首 → 逐步下沉
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-number">10</div>
+</div>
+
+<!-- Slide 11: 营收模式 -->
+<div class="slide">
+    <h2>五、营收模式</h2>
+    <h3>5.1 第一阶段商业化价值</h3>
+
+    <div class="grid-3">
+        <div class="card" style="text-align: center; border: 2px solid #667eea;">
+            <div style="font-size: 48px; margin-bottom: 15px;">💰</div>
+            <div class="card-title">服务佣金</div>
+            <div class="card-value">60%</div>
+            <div class="card-desc">收入占比</div>
+            <div style="margin-top: 15px; text-align: left; font-size: 14px; color: #ccc;">
+                • 交易抽成（前期20-25%）<br>
+                • 相比竞品40-50%减半<br>
+                • 吸引优质电工入驻
+            </div>
+        </div>
+
+        <div class="card" style="text-align: center;">
+            <div style="font-size: 48px; margin-bottom: 15px;">📦</div>
+            <div class="card-title">材料差价</div>
+            <div class="card-value">25%</div>
+            <div class="card-desc">收入占比</div>
+            <div style="margin-top: 15px; text-align: left; font-size: 14px; color: #ccc;">
+                • 平台统一供货<br>
+                • 批量采购优惠<br>
+                • 质量有保障
+            </div>
+        </div>
+
+        <div class="card" style="text-align: center;">
+            <div style="font-size: 48px; margin-bottom: 15px;">👑</div>
+            <div class="card-title">会员订阅</div>
+            <div class="card-value">15%</div>
+            <div class="card-desc">收入占比</div>
+            <div style="margin-top: 15px; text-align: left; font-size: 14px; color: #ccc;">
+                • 月度免费检测次数<br>
+                • 优先派单权益<br>
+                • 专属客服服务
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 40px;">
+        <div class="card-title" style="margin-bottom: 20px;">💎 核心：积分物业费抵扣体系</div>
+        <div class="flow-diagram">
+            <div class="flow-item">
+                <div style="font-size: 28px;">🛒</div>
+                <div style="font-weight: 600; margin-top: 10px;">商城消费</div>
+                <div style="font-size: 13px; color: #999;">用户购买</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item">
+                <div style="font-size: 28px;">💰</div>
+                <div style="font-weight: 600; margin-top: 10px;">获得积分</div>
+                <div style="font-size: 13px; color: #999;">消费积分</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-item" style="background: rgba(102, 126, 234, 0.3); border-color: #667eea;">
+                <div style="font-size: 28px;">🏠</div>
+                <div style="font-weight: 600; margin-top: 10px;">抵物业费</div>
+                <div style="font-size: 13px; color: #999;">用户留存</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-number">11</div>
+</div>
+
+<!-- Slide 12: 营收模式 - 定价 -->
+<div class="slide">
+    <h2>五、营收模式</h2>
+    <h3>5.2 途虎模式：一次性透明定价</h3>
+
+    <div class="grid-2">
+        <div>
+            <div class="card" style="background: rgba(245, 87, 108, 0.1); border-color: #f5576c;">
+                <div class="card-title" style="color: #f5576c;">❌ 传统模式（痛点）</div>
+                <div style="margin-top: 15px; color: #ccc; font-size: 14px;">
+                    <div style="margin-bottom: 10px;">上门费 +</div>
+                    <div style="margin-bottom: 10px;">检测费 +</div>
+                    <div style="margin-bottom: 10px;">维修费 +</div>
+                    <div style="margin-bottom: 10px;">材料费 +</div>
+                    <div style="margin-bottom: 10px;">上门安装费 ...</div>
+                    <div style="color: #f5576c; margin-top: 15px;">每项单独收费，用户感觉被坑</div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="card" style="background: rgba(102, 126, 234, 0.1); border-color: #667eea;">
+                <div class="card-title" style="color: #667eea;">✅ 安电通模式（解决）</div>
+                <div style="margin-top: 15px; color: #ccc; font-size: 14px;">
+                    <div style="margin-bottom: 10px;">检查免费 →</div>
+                    <div style="margin-bottom: 10px;">问题修复 + 材料打包 →</div>
+                    <div style="margin-bottom: 10px; color: #667eea; font-weight: 600;">一次性收费</div>
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: rgba(102, 126, 234, 0.2); border-radius: 8px; text-align: center;">
+                    <div style="font-size: 24px;">199元 / 299元</div>
+                    <div style="font-size: 12px; color: #999; margin-top: 5px;">包含检测+维修+后续服务</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 40px;">
+        <div class="card-title" style="margin-bottom: 20px;">📈 商业价值量化</div>
+        <div class="stat-row">
+            <div class="stat-item">
+                <div class="stat-value">150元</div>
+                <div class="stat-label">单客单价（含服务+材料）</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">3次/年</div>
+                <div class="stat-label">年均下单频次</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">1500元</div>
+                <div class="stat-label">用户5年LTV</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">33倍</div>
+                <div class="stat-label">LTV/CAC比值</div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 30px; background: rgba(102, 126, 234, 0.1); border-radius: 12px; padding: 25px;">
+        <div class="card-title">🎯 抽成策略对比</div>
+        <div style="display: flex; justify-content: space-around; margin-top: 20px;">
+            <div style="text-align: center;">
+                <div style="font-size: 36px; color: #f5576c;">40-50%</div>
+                <div style="font-size: 14px; color: #999; margin-top: 5px;">竞品抽成</div>
+            </div>
+            <div style="font-size: 36px; color: #667eea;">→</div>
+            <div style="text-align: center;">
+                <div style="font-size: 36px; color: #667eea;">20-25%</div>
+                <div style="font-size: 14px; color: #999; margin-top: 5px;">安电通前期</div>
+            </div>
+            <div style="font-size: 36px; color: #667eea;">→</div>
+            <div style="text-align: center;">
+                <div style="font-size: 36px; color: #764ba2;">30-35%</div>
+                <div style="font-size: 14px; color: #999; margin-top: 5px;">安电通后期</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-number">12</div>
+</div>
+
+<!-- Slide 13: 营收模式 - 盈利预测 -->
+<div class="slide">
+    <h2>五、营收模式</h2>
+    <h3>5.3 收入预测（5年）</h3>
+
+    <table class="table">
+        <tr>
+            <th>收入来源</th>
+            <th>2026年</th>
+            <th>2027年</th>
+            <th>2028年</th>
+            <th>2029年</th>
+            <th>2030年</th>
+        </tr>
+        <tr>
+            <td><strong>服务佣金</strong></td>
+            <td>50万</td>
+            <td>400万</td>
+            <td>1,200万</td>
+            <td>3,000万</td>
+            <td>6,000万</td>
+        </tr>
+        <tr>
+            <td><strong>材料差价</strong></td>
+            <td>20万</td>
+            <td>150万</td>
+            <td>500万</td>
+            <td>1,200万</td>
+            <td>2,500万</td>
+        </tr>
+        <tr>
+            <td><strong>会员订阅</strong></td>
+            <td>5万</td>
+            <td>50万</td>
+            <td>200万</td>
+            <td>500万</td>
+            <td>1,000万</td>
+        </tr>
+        <tr style="background: rgba(102, 126, 234, 0.15);">
+            <td style="font-weight: 600;"><strong>合计</strong></td>
+            <td style="color: #667eea; font-weight: 600;"><strong>75万</strong></td>
+            <td style="color: #667eea; font-weight: 600;"><strong>600万</strong></td>
+            <td style="color: #667eea; font-weight: 600;"><strong>1,900万</strong></td>
+            <td style="color: #667eea; font-weight: 600;"><strong>4,700万</strong></td>
+            <td style="color: #667eea; font-weight: 600;"><strong>9,500万</strong></td>
+        </tr>
+    </table>
+
+    <div class="grid-3" style="margin-top: 40px;">
+        <div class="card" style="text-align: center;">
+            <div class="card-value">75万</div>
+            <div class="card-desc">2026年Q4首年营收</div>
+            <div style="margin-top: 15px; font-size: 13px; color: #999;">验证模型，小规模起步</div>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div class="card-value">1900万</div>
+            <div class="card-desc">2028年营收</div>
+            <div style="margin-top: 15px; font-size: 13px; color: #999;">一线城市全面覆盖</div>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div class="card-value">9500万</div>
+            <div class="card-desc">2030年营收</div>
+            <div style="margin-top: 15px; font-size: 13px; color: #999;">全国主要城市，生态成型</div>
+        </div>
+    </div>
+
+    <div style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2)); border-radius: 16px; padding: 25px; margin-top: 30px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <div style="font-size: 18px; font-weight: 600;">盈亏平衡预测</div>
+                <div style="color: #999; margin-top: 5px;">预计2027年下半年实现盈亏平衡</div>
+            </div>
+            <div style="text-align: right;">
+                <div style="font-size: 14px; color: #999;">累计用户</div>
+                <div style="font-size: 24px; color: #667eea;">10万+</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-number">13</div>
+</div>
+
+<!-- Slide 14: 融资需求 -->
+<div class="slide">
+    <h2>融资需求</h2>
+    <h3>天使轮融资计划</h3>
+
+    <div class="grid-2">
+        <div>
+            <div class="card" style="border: 2px solid #667eea; padding: 40px;">
+                <div style="text-align: center;">
+                    <div style="font-size: 16px; color: #999;">融资金额</div>
+                    <div style="font-size: 72px; font-weight: 700; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 15px 0;">300万</div>
+                    <div style="font-size: 16px; color: #667eea;">天使轮</div>
+                </div>
+
+                <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid #333;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                        <span style="color: #999;">估值</span>
+                        <span style="color: #fff;">1,500万</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                        <span style="color: #999;">股权释放</span>
+                        <span style="color: #fff;">20%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: #999;">资金到账</span>
+                        <span style="color: #fff;">2026年Q2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="card">
+                <div class="card-title">💼 资金用途</div>
+                <table class="table" style="margin-top: 15px;">
+                    <tr>
+                        <td>产品开发</td>
+                        <td style="text-align: right; color: #667eea; font-weight: 600;">180万</td>
+                        <td style="text-align: right; color: #999;">60%</td>
+                    </tr>
+                    <tr>
+                        <td>团队组建</td>
+                        <td style="text-align: right; color: #667eea; font-weight: 600;">60万</td>
+                        <td style="text-align: right; color: #999;">20%</td>
+                    </tr>
+                    <tr>
+                        <td>市场推广</td>
+                        <td style="text-align: right; color: #667eea; font-weight: 600;">40万</td>
+                        <td style="text-align: right; color: #999;">13%</td>
+                    </tr>
+                    <tr>
+                        <td>运营储备</td>
+                        <td style="text-align: right; color: #667eea; font-weight: 600;">20万</td>
+                        <td style="text-align: right; color: #999;">7%</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="card" style="margin-top: 20px;">
+                <div class="card-title">🎯 里程碑承诺</div>
+                <div class="timeline" style="margin-top: 15px;">
+                    <div style="margin-bottom: 15px; padding: 12px; background: rgba(102, 126, 234, 0.1); border-radius: 8px;">
+                        <div style="font-size: 14px; color: #667eea;">M1 - 2026年Q2</div>
+                        <div style="font-size: 13px; color: #ccc; margin-top: 5px;">产品开发完成，团队组建完毕</div>
+                    </div>
+                    <div style="margin-bottom: 15px; padding: 12px; background: rgba(102, 126, 234, 0.1); border-radius: 8px;">
+                        <div style="font-size: 14px; color: #667eea;">M2 - 2026年Q3</div>
+                        <div style="font-size: 13px; color: #ccc; margin-top: 5px;">内测上线，500用户</div>
+                    </div>
+                    <div style="padding: 12px; background: rgba(102, 126, 234, 0.1); border-radius: 8px;">
+                        <div style="font-size: 14px; color: #667eea;">M3 - 2026年Q4</div>
+                        <div style="font-size: 13px; color: #ccc; margin-top: 5px;">正式上线，1万用户</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-number">14</div>
+</div>
+
+<!-- Slide 15: 总结 -->
+<div class="slide">
+    <h2>项目总结</h2>
+
+    <div class="summary-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="card" style="text-align: center;">
+            <div class="card-icon">🎯</div>
+            <div class="card-title">项目规划</div>
+            <div style="margin-top: 15px; color: #999; font-size: 14px;">
+                物业+商城闭环<br>
+                社区生态自驱动增长<br>
+                APP功能完善
+            </div>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div class="card-icon">⏱️</div>
+            <div class="card-title">开发周期</div>
+            <div style="margin-top: 15px; color: #999; font-size: 14px;">
+                4-6个月开发<br>
+                Q4正式上线<br>
+                6人团队高效协作
+            </div>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div class="card-icon">💰</div>
+            <div class="card-title">项目成本</div>
+            <div style="margin-top: 15px; color: #999; font-size: 14px;">
+                年度预算268万<br>
+                开发费用192万<br>
+                运营预算70万
+            </div>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div class="card-icon">📊</div>
+            <div class="card-title">市场规划</div>
+            <div style="margin-top: 15px; color: #999; font-size: 14px;">
+                物业联动为核心<br>
+                40%获客占比<br>
+                上海→全国扩展
+            </div>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div class="card-icon">💎</div>
+            <div class="card-title">营收模式</div>
+            <div style="margin-top: 15px; color: #999; font-size: 14px;">
+                服务+材料+会员<br>
+                积分物业费抵扣<br>
+                2027年盈亏平衡
+            </div>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div class="card-icon">🚀</div>
+            <div class="card-title">融资计划</div>
+            <div style="margin-top: 15px; color: #999; font-size: 14px;">
+                天使轮300万<br>
+                估值1500万<br>
+                里程碑清晰
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 60px;">
+        <div style="font-size: 24px; color: #999; margin-bottom: 20px;">联系我们</div>
+        <div style="font-size: 20px; color: #667eea;">未来申活（上海）数字科技有限公司</div>
+        <div style="font-size: 16px; color: #666; margin-top: 10px;">让每一个家庭用电更安全、更便捷</div>
+    </div>
+
+    <div class="slide-number">15</div>
+</div>
+
+</body>
+</html>

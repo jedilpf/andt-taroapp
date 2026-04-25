@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安电通项目计划书</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 60px 80px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #2563eb;
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            color: #1e40af;
+            margin-bottom: 15px;
+        }
+
+        .header .meta {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .header .meta span {
+            margin: 0 15px;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #1e40af;
+            border-left: 5px solid #2563eb;
+            padding-left: 15px;
+            margin: 40px 0 25px;
+        }
+
+        h3 {
+            font-size: 18px;
+            color: #2563eb;
+            margin: 25px 0 15px;
+        }
+
+        h4 {
+            font-size: 16px;
+            color: #3b82f6;
+            margin: 20px 0 12px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        th, td {
+            border: 1px solid #e5e7eb;
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        th {
+            background: #2563eb;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        tr:hover {
+            background: #eff6ff;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-left: 4px solid #2563eb;
+            padding: 20px 25px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .formula-box {
+            background: #1e293b;
+            color: #10b981;
+            padding: 25px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .diagram {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 25px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            white-space: pre;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .success-box {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .danger-box {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .section-break {
+            border-top: 1px dashed #cbd5e1;
+            margin: 35px 0;
+        }
+
+        .sign-table {
+            margin-top: 40px;
+        }
+
+        .sign-table td {
+            height: 50px;
+            vertical-align: bottom;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #e5e7eb;
+            color: #666;
+            font-size: 13px;
+        }
+
+        .toc {
+            background: #f8fafc;
+            padding: 25px 30px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #1e40af;
+        }
+
+        .toc ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .toc li {
+            margin-bottom: 6px;
+        }
+
+        .toc a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        @media print {
+            body {
+                background: #fff;
+            }
+            .container {
+                box-shadow: none;
+                padding: 40px 50px;
+            }
+            h2 {
+                page-break-after: avoid;
+            }
+            table {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div style="color: #1a365d; font-size: 16px; font-weight: bold; margin-bottom: 10px;">未来申活（上海）数字科技有限公司</div>
+            <h1>安电通项目计划书</h1>
+            <div class="meta">
+                <span>编制日期：2026年4月7日</span>
+                <span>预算总额：290万元</span>
+                <span>项目周期：24个月</span>
+            </div>
+        </div>
+
+        <div class="toc">
+            <h3>目录</h3>
+            <ol>
+                <li><a href="#section1">项目概述</a></li>
+                <li><a href="#section2">商业闭环逻辑</a></li>
+                <li><a href="#section3">项目团队</a></li>
+                <li><a href="#section4">预算规划</a></li>
+                <li><a href="#section5">项目周期</a></li>
+                <li><a href="#section6">验收标准</a></li>
+                <li><a href="#section7">风险管理</a></li>
+                <li><a href="#section8">审批签字</a></li>
+            </ol>
+        </div>
+
+        <h2 id="section1">一、项目概述</h2>
+
+        <h3>1.1 项目简介</h3>
+        <p><strong>安电通</strong>是社区电力服务O2O平台，通过APP+小程序连接居民与专业电工，提供：</p>
+        <ul>
+            <li><strong>应急维修</strong>：电路故障、跳闸、短路、插座损坏</li>
+            <li><strong>便民安装</strong>：灯具、开关、插座、智能家居</li>
+            <li><strong>安全检测</strong>：家庭电路安全检测、隐患排查</li>
+            <li><strong>社区商城</strong>：电器配件、智能家居产品</li>
+        </ul>
+
+        <h3>1.2 项目目标</h3>
+        <table>
+            <tr>
+                <th>阶段</th>
+                <th>周期</th>
+                <th>投入</th>
+                <th>核心目标</th>
+            </tr>
+            <tr>
+                <td>第1期 MVP验证</td>
+                <td>M1-M6 (6个月)</td>
+                <td>50万</td>
+                <td>APP+小程序上线，验证需求</td>
+            </tr>
+            <tr>
+                <td>第2期 商业验证</td>
+                <td>M7-M12 (6个月)</td>
+                <td>68万</td>
+                <td>用户>3000，月收>5万</td>
+            </tr>
+            <tr>
+                <td>第3期 规模运营</td>
+                <td>M13-M24 (12个月)</td>
+                <td>170万</td>
+                <td>用户>15000，实现盈利</td>
+            </tr>
+        </table>
+
+        <h2 id="section2">二、商业闭环逻辑</h2>
+
+        <h3>2.1 闭环全景图</h3>
+        <div class="diagram">
+                        安电通商业闭环
+
+    ┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────┐
+    │  获客   │───▶│  载化   │───▶│  畵存   │───▶│  变现   │
+    │Acquisition│  │Conversion│  │Retention│  │Monetization│
+    └─────────┘    └─────────┘    └─────────┘    └─────────┘
+         ▲                                              │
+         │                                              │
+         └──────────────────────────────────────────────┘
+                            裂变 Referral
+        </div>
+
+        <h3>2.2 PMF验证方法论</h3>
+
+        <h4>核心假设与验证矩阵</h4>
+        <table>
+            <tr>
+                <th>假设编号</th>
+                <th>核心假设</th>
+                <th>PMF维度</th>
+                <th>验证方法</th>
+                <th>通过阈值</th>
+                <th>当前状态</th>
+            </tr>
+            <tr>
+                <td>H1</td>
+                <td>居民存在电工服务刚需</td>
+                <td>需求验证</td>
+                <td>用户访谈30人</td>
+                <td>70%有需求</td>
+                <td>待验证</td>
+            </tr>
+            <tr>
+                <td>H2</td>
+                <td>用户愿意付费转化</td>
+                <td>价值验证</td>
+                <td>MVP测试</td>
+                <td>付费转化>10%</td>
+                <td>待验证</td>
+            </tr>
+            <tr>
+                <td>H3</td>
+                <td>电工愿意入驻平台</td>
+                <td>供给验证</td>
+                <td>电工调研</td>
+                <td>招募>20人</td>
+                <td>待验证</td>
+            </tr>
+            <tr>
+                <td>H4</td>
+                <td>政府愿意合作</td>
+                <td>渠道验证</td>
+                <td>政府对接</td>
+                <td>签约1街道</td>
+                <td>待验证</td>
+            </tr>
+            <tr>
+                <td>H5</td>
+                <td>服务流程可标准化</td>
+                <td>执行验证</td>
+                <td>试运行</td>
+                <td>投诉率<5%</td>
+                <td>待验证</td>
+            </tr>
+        </table>
+
+        <h4>PMF评分模型（Sean Ellis方法）</h4>
+        <div class="highlight-box">
+            <p><strong>PMF核心问题</strong>：如果安电通明天停止服务，你会有多失望？</p>
+            <ul>
+                <li>非常失望 (>40%) → PMF达成</li>
+                <li>有点失望 (25-40%) → PMF接近</li>
+                <li>不太失望 (<25%) → PMF未达成</li>
+            </ul>
+            <p><strong>目标</strong>：M6末PMF评分>40%</p>
+        </div>
+
+        <h3>2.3 用户分层与CLV计算模型</h3>
+
+        <h4>用户分层框架（RFM模型）</h4>
+        <table>
+            <tr>
+                <th>用户层级</th>
+                <th>R(最近活跃)</th>
+                <th>F(服务频次)</th>
+                <th>M(消费金额)</th>
+                <th>用户占比</th>
+                <th>CLV估算</th>
+                <th>运营策略</th>
+            </tr>
+            <tr>
+                <td><strong>核心用户</strong></td>
+                <td>&lt;7天</td>
+                <td>&gt;4次/年</td>
+                <td>&gt;500元</td>
+                <td>5%</td>
+                <td>1,500元</td>
+                <td>VIP服务，高粘性维护</td>
+            </tr>
+            <tr>
+                <td><strong>活跃用户</strong></td>
+                <td>&lt;30天</td>
+                <td>2-4次/年</td>
+                <td>200-500元</td>
+                <td>15%</td>
+                <td>600元</td>
+                <td>定期触达，促进升级</td>
+            </tr>
+            <tr>
+                <td><strong>普通用户</strong></td>
+                <td>&lt;90天</td>
+                <td>1-2次/年</td>
+                <td>100-200元</td>
+                <td>25%</td>
+                <td>300元</td>
+                <td>促销激活，提升频次</td>
+            </tr>
+            <tr>
+                <td><strong>低活用户</strong></td>
+                <td>&gt;90天</td>
+                <td>&lt;1次/年</td>
+                <td>&lt;100元</td>
+                <td>35%</td>
+                <td>100元</td>
+                <td>公益安检唤醒</td>
+            </tr>
+            <tr>
+                <td><strong>沉睡用户</strong></td>
+                <td>&gt;180天</td>
+                <td>0次</td>
+                <td>0元</td>
+                <td>20%</td>
+                <td>50元</td>
+                <td>重新激活或放弃</td>
+            </tr>
+        </table>
+
+        <h4>CLV动态计算模型</h4>
+        <div class="formula-box">
+CLV基础公式：
+CLV = (ARPU × 平均生命周期) × 毛利率
+
+参数定义：
+├── ARPU (人均月收入) = 总收入 / 活跃用户数
+├── 平均生命周期 = 1 / 月流失率
+└── 毛利率 = (收入 - 变动成本) / 收入
+
+加权平均CLV计算：
+CLV_avg = 625×5% + 150×15% + 37.5×25% + 15×35% + 5×20%
+         = 31.25 + 22.5 + 9.4 + 5.3 + 1 = 69.2元
+        </div>
+
+        <h3>2.4 CAC模型与回收周期</h3>
+
+        <h4>CAC分层计算</h4>
+        <table>
+            <tr>
+                <th>渠道类型</th>
+                <th>月投入</th>
+                <th>月新增付费用户</th>
+                <th>CAC</th>
+            </tr>
+            <tr>
+                <td>公益安检转化</td>
+                <td>3,000元</td>
+                <td>30人</td>
+                <td>100元</td>
+            </tr>
+            <tr>
+                <td>社区活动推广</td>
+                <td>5,000元</td>
+                <td>20人</td>
+                <td>250元</td>
+            </tr>
+            <tr>
+                <td>业主群推广</td>
+                <td>1,000元</td>
+                <td>10人</td>
+                <td>100元</td>
+            </tr>
+            <tr>
+                <td>口碑推荐</td>
+                <td>0元</td>
+                <td>15人</td>
+                <td>0元</td>
+            </tr>
+            <tr>
+                <td><strong>加权平均</strong></td>
+                <td>9,000元</td>
+                <td>75人</td>
+                <td><strong>120元</strong></td>
+            </tr>
+        </table>
+
+        <div class="success-box">
+            <strong>结论</strong>：政府试点模式CAC（120元）比传统模式（280-350元）降低60-70%
+        </div>
+
+        <h4>LTV/CAC健康度评估</h4>
+        <table>
+            <tr>
+                <th>LTV/CAC比值</th>
+                <th>健康度</th>
+                <th>说明</th>
+                <th>决策建议</th>
+            </tr>
+            <tr>
+                <td>&gt;3:1</td>
+                <td>✅ 健康</td>
+                <td>用户价值远超获客成本</td>
+                <td>可加大获客投入</td>
+            </tr>
+            <tr>
+                <td>2-3:1</td>
+                <td>⚠️ 一般</td>
+                <td>边际收益合理</td>
+                <td>保持当前策略</td>
+            </tr>
+            <tr>
+                <td>1-2:1</td>
+                <td>❌ 不健康</td>
+                <td>获客成本过高</td>
+                <td>优化CAC渠道</td>
+            </tr>
+            <tr>
+                <td>&lt;1:1</td>
+                <td>🔴 危险</td>
+                <td>商业模式失败</td>
+                <td>需调整或止损</td>
+            </tr>
+        </table>
+
+        <h3>2.5 增长飞轮设计</h3>
+        <div class="diagram">
+                    增长飞轮闭环模型
+
+                    ┌─────────────────┐
+                    │   政府背书      │
+                    │   信任杠杆      │
+                    └────────┬────────┘
+                             │
+    ┌────────────────────────┼────────────────────────┐
+    │                        │                        │
+    ▼                        ▼                        ▼
+┌─────────┐            ┌─────────┐            ┌─────────┐
+│ 公益安检│──────────→│ 用户增长│──────────→│ 付费转化│
+│ 免费引流│            │ 规模扩大│            │ 收入提升│
+└─────────┘            └─────────┘            └─────────┘
+    │                        │                        │
+    ▼                        ▼                        ▼
+┌─────────┐            ┌─────────┐            ┌─────────┐
+│ 口碑传播│←──────────│ 服务满意│←──────────│ 电工收益│
+│ 自然裂变│            │ 品牌提升│            │ 供给稳定│
+└─────────┘            └─────────┘            └─────────┘
+
+飞轮运转逻辑：
+1. 政府背书 → 降低信任门槛 → 用户愿意尝试
+2. 公益安检 → 零成本体验 → 用户基数扩大
+3. 服务满意 → 口碑传播 → 自然裂变增长
+4. 付费转化 → 电工收益 → 供给端稳定
+5. 供给稳定 → 服务质量 → 循环加强
+        </div>
+
+        <h3>2.6 护城河分析</h3>
+        <table>
+            <tr>
+                <th>护城河类型</th>
+                <th>当前强度</th>
+                <th>M6目标</th>
+                <th>M12目标</th>
+                <th>构建策略</th>
+            </tr>
+            <tr>
+                <td>政府关系壁垒</td>
+                <td>弱</td>
+                <td>中</td>
+                <td>强</td>
+                <td>签约3个街道，建立排他性合作</td>
+            </tr>
+            <tr>
+                <td>社区密度壁垒</td>
+                <td>无</td>
+                <td>弱</td>
+                <td>中</td>
+                <td>覆盖20个社区，形成区域密度</td>
+            </tr>
+            <tr>
+                <td>电工网络壁垒</td>
+                <td>弱</td>
+                <td>中</td>
+                <td>强</td>
+                <td>签约80名电工，建立忠诚度</td>
+            </tr>
+            <tr>
+                <td>品牌认知壁垒</td>
+                <td>无</td>
+                <td>弱</td>
+                <td>中</td>
+                <td>口碑传播，NPS>50</td>
+            </tr>
+            <tr>
+                <td>规模壁垒</td>
+                <td>无</td>
+                <td>无</td>
+                <td>弱</td>
+                <td>用户基数>3000，网络效应初显</td>
+            </tr>
+        </table>
+
+        <h3>2.7 UE单位经济模型</h3>
+
+        <h4>单订单经济模型</h4>
+        <div class="formula-box">
+单订单UE计算：
+
+收入端：
+├── 维修订单客单价：150元
+├── 安装订单客单价：200元
+├── 平均客单价：170元
+
+成本端（变动成本）：
+├── 电工结算：170 × 80% = 136元
+├── 服务保险摊销：5元/单
+├── 客服支持摊销：3元/单
+├── 技术支持摊销：2元/单
+├── 变动成本合计：146元
+
+单订单UE：
+├── 单订单收入：170元
+├── 单订单变动成本：146元
+├── 单订单毛利：24元
+├── 毛利率：14%
+        </div>
+
+        <h4>盈亏平衡点计算</h4>
+        <div class="highlight-box">
+            <p><strong>月固定成本</strong>：5万/月（人力+技术+办公）</p>
+            <p><strong>单订单边际贡献</strong>：24元</p>
+            <p><strong>盈亏平衡订单量</strong> = 50,000 / 24 = <strong>2,083单/月</strong></p>
+            <p><strong>盈亏平衡收入</strong> = 2,083 × 170 = <strong>35.4万/月</strong></p>
+        </div>
+
+        <h3>2.8 商业闭环核心指标</h3>
+        <table>
+            <tr>
+                <th>环节</th>
+                <th>核心指标</th>
+                <th>M6目标</th>
+                <th>M12目标</th>
+            </tr>
+            <tr>
+                <td><strong>获客</strong></td>
+                <td>获客成本(CAC)</td>
+                <td>&lt;50元</td>
+                <td>&lt;30元</td>
+            </tr>
+            <tr>
+                <td><strong>转化</strong></td>
+                <td>首单转化率</td>
+                <td>&gt;10%</td>
+                <td>&gt;15%</td>
+            </tr>
+            <tr>
+                <td><strong>留存</strong></td>
+                <td>30日留存率</td>
+                <td>&gt;12%</td>
+                <td>&gt;18%</td>
+            </tr>
+            <tr>
+                <td><strong>变现</strong></td>
+                <td>ARPU(月均)</td>
+                <td>&gt;20元</td>
+                <td>&gt;35元</td>
+            </tr>
+            <tr>
+                <td><strong>裂变</strong></td>
+                <td>K因子</td>
+                <td>&gt;1.0</td>
+                <td>&gt;1.5</td>
+            </tr>
+        </table>
+
+        <div class="section-break"></div>
+
+        <h2 id="section3">三、项目团队</h2>
+
+        <h3>3.1 团队架构</h3>
+        <div class="diagram">
+┌─────────────────────────────────────────┐
+│     项目负责人/产品 (1人)            │
+│         项目统筹 / PRD / 产品决策         │
+└───────────────┬─────────────────────────┘
+                │
+    ┌───────────┼───────────┐
+    │           │           │
+┌───▼───┐   ┌───▼───┐   ┌───▼───┐
+│前端开发│   │后端开发│   │运维工程│
+│ (1人)  │   │ (1人)  │   │ (1人)  │
+└───────┘   └───────┘   └───────┘
+
+    UI设计 (外包按需)
+        </div>
+
+        <h3>3.2 团队配置明细</h3>
+        <table>
+            <tr>
+                <th>岗位</th>
+                <th>人数</th>
+                <th>模式</th>
+                <th>月薪</th>
+                <th>月数</th>
+                <th>成本</th>
+            </tr>
+            <tr>
+                <td><strong>项目负责人</strong></td>
+                <td>1人</td>
+                <td>全职</td>
+                <td>15,000元</td>
+                <td>6月</td>
+                <td>9.0万</td>
+            </tr>
+            <tr>
+                <td><strong>前端开发</strong></td>
+                <td>1人</td>
+                <td>全职</td>
+                <td>20,000元</td>
+                <td>6月</td>
+                <td>12.0万</td>
+            </tr>
+            <tr>
+                <td><strong>后端开发</strong></td>
+                <td>1人</td>
+                <td>全职</td>
+                <td>20,000元</td>
+                <td>6月</td>
+                <td>12.0万</td>
+            </tr>
+            <tr>
+                <td><strong>运维工程师</strong></td>
+                <td>1人</td>
+                <td>全职</td>
+                <td>15,000元</td>
+                <td>6月</td>
+                <td>9.0万</td>
+            </tr>
+            <tr>
+                <td><strong>UI设计(外包)</strong></td>
+                <td>-</td>
+                <td>按需</td>
+                <td>-</td>
+                <td>-</td>
+                <td>2.0万</td>
+            </tr>
+            <tr>
+                <td><strong>人力小计</strong></td>
+                <td><strong>4人</strong></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><strong>44.0万</strong></td>
+            </tr>
+        </table>
+
+        <h3>3.3 岗位职责</h3>
+        <table>
+            <tr>
+                <th>岗位</th>
+                <th>核心职责</th>
+            </tr>
+            <tr>
+                <td><strong>项目负责人</strong></td>
+                <td>项目统筹、预算控制、团队管理、对外协调、产品决策、运营支持</td>
+            </tr>
+            <tr>
+                <td><strong>前端开发</strong></td>
+                <td>APP开发、小程序开发、页面优化、组件封装</td>
+            </tr>
+            <tr>
+                <td><strong>后端开发</strong></td>
+                <td>API开发、数据库设计、支付对接、业务逻辑</td>
+            </tr>
+            <tr>
+                <td><strong>运维工程师</strong></td>
+                <td>服务器部署、监控告警、安全维护、备份恢复、CI/CD搭建</td>
+            </tr>
+            <tr>
+                <td><strong>UI设计(外包)</strong></td>
+                <td>界面设计、图标设计、营销物料、设计规范</td>
+            </tr>
+        </table>
+
+        <div class="section-break"></div>
+
+        <h2 id="section4">四、预算规划</h2>
+
+        <h3>4.1 总预算分配</h3>
+        <table>
+            <tr>
+                <th>阶段</th>
+                <th>周期</th>
+                <th>预算</th>
+                <th>占比</th>
+                <th>核心目标</th>
+            </tr>
+            <tr>
+                <td>第1期</td>
+                <td>M1-M6</td>
+                <td>50万</td>
+                <td>17%</td>
+                <td>MVP验证</td>
+            </tr>
+            <tr>
+                <td>第2期</td>
+                <td>M7-M12</td>
+                <td>68万</td>
+                <td>23%</td>
+                <td>商业验证</td>
+            </tr>
+            <tr>
+                <td>第3期</td>
+                <td>M13-M24</td>
+                <td>170万</td>
+                <td>59%</td>
+                <td>规模运营</td>
+            </tr>
+            <tr>
+                <td><strong>合计</strong></td>
+                <td>24个月</td>
+                <td><strong>290万</strong></td>
+                <td>100%</td>
+                <td></td>
+            </tr>
+        </table>
+
+        <h3>4.2 第1期预算明细（50万）</h3>
+
+        <h4>人力成本（43.2万，86%）</h4>
+        <table>
+            <tr>
+                <th>项目</th>
+                <th>金额</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>项目负责人(兼产品)</td>
+                <td>9.0万</td>
+                <td>1.5万/月 × 6月</td>
+            </tr>
+            <tr>
+                <td>前端开发</td>
+                <td>12.0万</td>
+                <td>2.0万/月 × 6月</td>
+            </tr>
+            <tr>
+                <td>后端开发</td>
+                <td>12.0万</td>
+                <td>2.0万/月 × 6月</td>
+            </tr>
+            <tr>
+                <td>运维工程师</td>
+                <td>9.0万</td>
+                <td>1.5万/月 × 6月</td>
+            </tr>
+            <tr>
+                <td>UI设计外包</td>
+                <td>1.2万</td>
+                <td>按项目结算（16页设计）</td>
+            </tr>
+            <tr>
+                <td><strong>小计</strong></td>
+                <td><strong>43.2万</strong></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <h4>其他成本（8万，16%）</h4>
+        <table>
+            <tr>
+                <th>项目</th>
+                <th>金额</th>
+                <th>说明</th>
+            </tr>
+            <tr>
+                <td>服务器/云服务</td>
+                <td>3.0万</td>
+                <td>阿里云/腾讯云</td>
+            </tr>
+            <tr>
+                <td>第三方服务</td>
+                <td>1.5万</td>
+                <td>短信、支付、地图API</td>
+            </tr>
+            <tr>
+                <td>营销推广</td>
+                <td>2.5万</td>
+                <td>社区活动、物料</td>
+            </tr>
+            <tr>
+                <td>办公杂费</td>
+                <td>1.0万</td>
+                <td>办公用品、交通</td>
+            </tr>
+            <tr>
+                <td><strong>小计</strong></td>
+                <td><strong>8万</strong></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <h3>4.3 月度预算使用</h3>
+        <table>
+            <tr>
+                <th>月份</th>
+                <th>预算</th>
+                <th>重点支出</th>
+            </tr>
+            <tr>
+                <td>M1 (4月)</td>
+                <td>8万</td>
+                <td>团队组建、环境搭建、资质申请</td>
+            </tr>
+            <tr>
+                <td>M2 (5月)</td>
+                <td>9万</td>
+                <td>产品开发、UI设计、服务器部署</td>
+            </tr>
+            <tr>
+                <td>M3 (6月)</td>
+                <td>9万</td>
+                <td>功能完善、测试验收、软启动</td>
+            </tr>
+            <tr>
+                <td>M4 (7月)</td>
+                <td>9万</td>
+                <td>正式运营、市场推广</td>
+            </tr>
+            <tr>
+                <td>M5 (8月)</td>
+                <td>9万</td>
+                <td>优化迭代、数据分析、扩展社区</td>
+            </tr>
+            <tr>
+                <td>M6 (9月)</td>
+                <td>8万</td>
+                <td>验证总结、第2期规划、复盘报告</td>
+            </tr>
+        </table>
+
+        <div class="section-break"></div>
+
+        <h2 id="section5">五、项目周期</h2>
+
+        <h3>5.1 第1期里程碑（M1-M6）</h3>
+        <table>
+            <tr>
+                <th>里程碑</th>
+                <th>时间</th>
+                <th>目标</th>
+                <th>验收标准</th>
+            </tr>
+            <tr>
+                <td>M1 启动准备</td>
+                <td>4月末</td>
+                <td>团队就绪、环境搭建</td>
+                <td>4人到岗，开发环境可用</td>
+            </tr>
+            <tr>
+                <td>M2 产品开发</td>
+                <td>5月末</td>
+                <td>APP/小程序内测版</td>
+                <td>核心流程可运行</td>
+            </tr>
+            <tr>
+                <td>M3 验收上线</td>
+                <td>6月末</td>
+                <td>正式版发布</td>
+                <td>无阻塞Bug，通过测试</td>
+            </tr>
+            <tr>
+                <td>M4 运营启动</td>
+                <td>7月末</td>
+                <td>首批用户服务</td>
+                <td>用户>100，电工>20</td>
+            </tr>
+            <tr>
+                <td>M5 数据验证</td>
+                <td>8月末</td>
+                <td>业务数据达标</td>
+                <td>月收>3000元</td>
+            </tr>
+            <tr>
+                <td>M6 验证完成</td>
+                <td>9月末</td>
+                <td>MVP验证成功</td>
+                <td>用户>500，月收>5000元</td>
+            </tr>
+        </table>
+
+        <h3>5.2 M1执行计划（4月）</h3>
+        <table>
+            <tr>
+                <th>周</th>
+                <th>任务</th>
+                <th>负责人</th>
+                <th>交付物</th>
+            </tr>
+            <tr>
+                <td>W1</td>
+                <td>团队招聘启动</td>
+                <td>项目负责人</td>
+                <td>招聘信息发布</td>
+            </tr>
+            <tr>
+                <td>W1</td>
+                <td>微信支付申请</td>
+                <td>后端开发</td>
+                <td>商户号提交</td>
+            </tr>
+            <tr>
+                <td>W1</td>
+                <td>阿里云短信申请</td>
+                <td>后端开发</td>
+                <td>短信服务开通</td>
+            </tr>
+            <tr>
+                <td>W2</td>
+                <td>后端框架搭建</td>
+                <td>后端开发</td>
+                <td>Gateway/User服务框架</td>
+            </tr>
+            <tr>
+                <td>W2</td>
+                <td>前端环境配置</td>
+                <td>前端开发</td>
+                <td>开发环境就绪</td>
+            </tr>
+            <tr>
+                <td>W2</td>
+                <td>服务器购买配置</td>
+                <td>运维工程师</td>
+                <td>云服务器可用</td>
+            </tr>
+            <tr>
+                <td>W3</td>
+                <td>数据库设计</td>
+                <td>后端开发</td>
+                <td>表结构设计文档</td>
+            </tr>
+            <tr>
+                <td>W3</td>
+                <td>UI设计启动</td>
+                <td>UI(外包)</td>
+                <td>设计稿初稿</td>
+            </tr>
+            <tr>
+                <td>W3</td>
+                <td>CI/CD搭建</td>
+                <td>运维工程师</td>
+                <td>自动化部署流程</td>
+            </tr>
+            <tr>
+                <td>W4</td>
+                <td>用户调研</td>
+                <td>项目负责人</td>
+                <td>访谈报告</td>
+            </tr>
+            <tr>
+                <td>W4</td>
+                <td>电工招募启动</td>
+                <td>项目负责人</td>
+                <td>招募话术、渠道</td>
+            </tr>
+        </table>
+
+        <div class="section-break"></div>
+
+        <h2 id="section6">六、验收标准</h2>
+
+        <h3>6.1 产品验收</h3>
+        <table>
+            <tr>
+                <th>指标</th>
+                <th>目标</th>
+                <th>验收方法</th>
+            </tr>
+            <tr>
+                <td>功能完整性</td>
+                <td>核心流程100%可用</td>
+                <td>功能测试</td>
+            </tr>
+            <tr>
+                <td>性能达标</td>
+                <td>页面加载&lt;3秒</td>
+                <td>性能测试</td>
+            </tr>
+            <tr>
+                <td>兼容性</td>
+                <td>安卓8.0+，微信最新版</td>
+                <td>兼容测试</td>
+            </tr>
+            <tr>
+                <td>安全性</td>
+                <td>无高危漏洞</td>
+                <td>安全扫描</td>
+            </tr>
+        </table>
+
+        <h3>6.2 业务验收</h3>
+        <table>
+            <tr>
+                <th>指标</th>
+                <th>M6目标</th>
+                <th>验收方法</th>
+            </tr>
+            <tr>
+                <td>注册用户</td>
+                <td>&gt;500人</td>
+                <td>数据库统计</td>
+            </tr>
+            <tr>
+                <td>月活用户</td>
+                <td>&gt;150人</td>
+                <td>数据统计</td>
+            </tr>
+            <tr>
+                <td>月收入</td>
+                <td>&gt;5000元</td>
+                <td>财务核算</td>
+            </tr>
+            <tr>
+                <td>用户满意度</td>
+                <td>&gt;75%</td>
+                <td>问卷调查</td>
+            </tr>
+            <tr>
+                <td>电工团队</td>
+                <td>&gt;40人</td>
+                <td>系统统计</td>
+            </tr>
+            <tr>
+                <td>服务社区</td>
+                <td>&gt;5个</td>
+                <td>运营统计</td>
+            </tr>
+        </table>
+
+        <div class="section-break"></div>
+
+        <h2 id="section7">七、风险管理</h2>
+
+        <h3>7.1 风险清单</h3>
+        <table>
+            <tr>
+                <th>风险</th>
+                <th>概率</th>
+                <th>影响</th>
+                <th>等级</th>
+                <th>应对措施</th>
+            </tr>
+            <tr>
+                <td>支付资质延迟</td>
+                <td>中</td>
+                <td>高</td>
+                <td>🔴 高</td>
+                <td>本周申请，备选聚合支付</td>
+            </tr>
+            <tr>
+                <td>后端开发滞后</td>
+                <td>中</td>
+                <td>高</td>
+                <td>🔴 高</td>
+                <td>紧盯进度，必要时外包</td>
+            </tr>
+            <tr>
+                <td>用户增长不及预期</td>
+                <td>中</td>
+                <td>中</td>
+                <td>🟡 中</td>
+                <td>加强推广，优化转化</td>
+            </tr>
+            <tr>
+                <td>电工供给不足</td>
+                <td>中</td>
+                <td>中</td>
+                <td>🟡 中</td>
+                <td>多渠道招募，提高分成</td>
+            </tr>
+            <tr>
+                <td>服务质量问题</td>
+                <td>低</td>
+                <td>高</td>
+                <td>🟡 中</td>
+                <td>培训体系，服务规范</td>
+            </tr>
+        </table>
+
+        <h3>7.2 止损机制</h3>
+        <table>
+            <tr>
+                <th>风险等级</th>
+                <th>触发条件</th>
+                <th>行动</th>
+            </tr>
+            <tr>
+                <td>🟢 绿色</td>
+                <td>全部达标</td>
+                <td>继续执行</td>
+            </tr>
+            <tr>
+                <td>🟡 黄色</td>
+                <td>1-2项未达标</td>
+                <td>分析优化</td>
+            </tr>
+            <tr>
+                <td>🟠 橙色</td>
+                <td>多项未达标</td>
+                <td>缩减规模</td>
+            </tr>
+            <tr>
+                <td>🔴 红色</td>
+                <td>核心指标失败</td>
+                <td>评估止损</td>
+            </tr>
+            <tr>
+                <td>⚫ 黑色</td>
+                <td>现金流&lt;2月</td>
+                <td>立即止损</td>
+            </tr>
+        </table>
+
+        <div class="section-break"></div>
+
+        <h2 id="section8">八、审批签字</h2>
+
+        <table class="sign-table">
+            <tr>
+                <th>角色</th>
+                <th>签字</th>
+                <th>日期</th>
+            </tr>
+            <tr>
+                <td>项目负责人</td>
+                <td></td>
+                <td>2026.04.__</td>
+            </tr>
+            <tr>
+                <td>财务审批</td>
+                <td></td>
+                <td>2026.04.__</td>
+            </tr>
+            <tr>
+                <td>总经理</td>
+                <td></td>
+                <td>2026.04.__</td>
+            </tr>
+        </table>
+
+        <div class="footer">
+            <p>本计划书由项目管理部编制</p>
+            <p>编制日期：2026年4月7日 | 版本：v1.0</p>
+        </div>
+    </div>
+</body>
+</html>

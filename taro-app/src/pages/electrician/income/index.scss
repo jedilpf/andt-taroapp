@@ -1,0 +1,200 @@
+.income-page {
+  min-height: 100vh;
+  background-color: #F7F8FA;
+  padding-bottom: 32PX;
+
+  /* 头部 Banner */
+  .header-section {
+    position: relative;
+    padding: 48PX 24PX 64PX;
+    overflow: hidden;
+
+    .header-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(160deg, #E60012 0%, #9e000c 100%);
+      z-index: 0;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+
+      .icon-wrap {
+        width: 80PX;
+        height: 80PX;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 16PX;
+        backdrop-filter: blur(8PX);
+      }
+
+      .title {
+        font-size: 28PX;
+        font-weight: 800;
+        color: #FFFFFF;
+        letter-spacing: 4PX;
+        display: block;
+        margin-bottom: 8PX;
+        text-shadow: 0 2PX 4PX rgba(0, 0, 0, 0.1);
+      }
+
+      .subtitle {
+        font-size: 14PX;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 300;
+        letter-spacing: 2PX;
+      }
+    }
+
+    .decoration-circle {
+      position: absolute;
+      width: 200PX;
+      height: 200PX;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      bottom: -60PX;
+      right: -40PX;
+      z-index: 0;
+    }
+  }
+
+  /* 统计卡片 */
+  .stats-container {
+    margin: -24PX 24PX 24PX;
+    position: relative;
+    z-index: 2;
+
+    .stats-card {
+      background: #FFFFFF;
+      border-radius: 20PX;
+      padding: 24PX;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 16PX 40PX rgba(0, 0, 0, 0.06), 0 8PX 16PX rgba(230, 0, 18, 0.04);
+
+      .stat-item {
+        flex: 1;
+        display: flex;
+        align-items: center;
+
+        .stat-icon-wrap {
+          width: 48PX;
+          height: 48PX;
+          border-radius: 14PX;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 12PX;
+          flex-shrink: 0;
+
+          &.total {
+            background: linear-gradient(135deg, #ff6b6b 0%, #E60012 100%);
+          }
+
+          &.pending {
+            background: linear-gradient(135deg, #ffa726 0%, #ff9800 100%);
+          }
+        }
+
+        .stat-info {
+          .stat-label {
+            font-size: 13PX;
+            color: #999999;
+            display: block;
+            margin-bottom: 4PX;
+          }
+
+          .stat-value {
+            font-size: 20PX;
+            font-weight: 700;
+            color: #111111;
+          }
+        }
+      }
+
+      .stat-divider {
+        width: 1PX;
+        height: 40PX;
+        background: #F2F2F2;
+        margin: 0 16PX;
+      }
+    }
+  }
+
+  /* 内容区域 */
+  .content-section {
+    margin: 0 24PX;
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16PX;
+
+      .section-title {
+        font-size: 18PX;
+        font-weight: 700;
+        color: #111111;
+      }
+
+      .section-count {
+        font-size: 13PX;
+        color: #999999;
+      }
+    }
+
+    .records-list {
+      .empty-state {
+        background: #FFFFFF;
+        border-radius: 20PX;
+        padding: 48PX 24PX;
+        text-align: center;
+        box-shadow: 0 16PX 40PX rgba(0, 0, 0, 0.06), 0 8PX 16PX rgba(230, 0, 18, 0.04);
+      }
+
+      .record-card {
+        background: #FFFFFF;
+        border-radius: 16PX;
+        padding: 16PX 20PX;
+        margin-bottom: 12PX;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4PX 16PX rgba(0, 0, 0, 0.04);
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        .record-info {
+          .record-order {
+            font-size: 15PX;
+            font-weight: 600;
+            color: #333333;
+            display: block;
+            margin-bottom: 4PX;
+          }
+
+          .record-date {
+            font-size: 13PX;
+            color: #999999;
+          }
+        }
+
+        .record-amount {
+          font-size: 18PX;
+          font-weight: 700;
+          color: #E60012;
+        }
+      }
+    }
+  }
+}

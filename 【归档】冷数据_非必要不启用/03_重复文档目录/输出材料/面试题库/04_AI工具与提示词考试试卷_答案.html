@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>AI工具与提示词考试试卷答案</title>
+    <style>
+        @page { size: A4; margin: 15mm; }
+        body { font-family: 'SimSun', serif; font-size: 12pt; line-height: 1.6; max-width: 210mm; margin: 0 auto; padding: 20px; }
+        h1 { text-align: center; font-size: 18pt; margin-bottom: 5px; }
+        h2 { font-size: 14pt; margin-top: 15px; border-bottom: 1px solid #333; padding-bottom: 3px; }
+        .company { text-align: center; font-size: 14pt; font-weight: bold; margin-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+        table td, table th { border: 1px solid #333; padding: 5px 10px; }
+        .answer { margin: 10px 0; }
+        .code-box { border: 1px solid #999; background: #f5f5f5; padding: 10px; font-family: 'Consolas', monospace; margin: 10px 0; white-space: pre-wrap; }
+        .footer { text-align: center; margin-top: 20px; font-size: 10pt; }
+        hr { border: none; border-top: 2px solid #333; margin: 10px 0; }
+        .points { color: #666; font-size: 10pt; }
+        @media print { body { padding: 0; } }
+    </style>
+</head>
+<body>
+    <h1>AI工具与提示词考试试卷答案</h1>
+    <p class="company">未来申活（上海）数字科技有限公司</p>
+    <hr>
+
+    <h2>一、选择题答案（每题3分）</h2>
+    <table>
+        <tr><th>题号</th><th>答案</th><th>解析</th></tr>
+        <tr><td>1</td><td>C</td><td>ChatGPT是OpenAI公司的产品</td></tr>
+        <tr><td>2</td><td>C</td><td>Stable Diffusion是图像生成模型，不是语言模型</td></tr>
+        <tr><td>3</td><td>B</td><td>Token是AI处理文本的基本单位</td></tr>
+        <tr><td>4</td><td>C</td><td>AI生成的内容不一定正确，需要人工验证</td></tr>
+        <tr><td>5</td><td>B</td><td>好的提示词应包含角色、任务、背景、约束等要素</td></tr>
+    </table>
+
+    <h2>二、填空题答案（每空2分）</h2>
+    <table>
+        <tr><th>题号</th><th>答案</th></tr>
+        <tr><td>6</td><td>给AI的输入指令、任务</td></tr>
+        <tr><td>7</td><td>少量示例</td></tr>
+        <tr><td>8</td><td>调整/优化</td></tr>
+        <tr><td>9</td><td>逐步</td></tr>
+        <tr><td>10</td><td>bug/错误</td></tr>
+    </table>
+
+    <h2>三、简答题答案（每题8分）</h2>
+
+    <p class="answer"><strong>11. 什么是RAG（检索增强生成）？它有什么价值？</strong></p>
+    <p class="points">评分要点：</p>
+    <ul>
+        <li>定义：先从知识库检索相关信息，再让AI基于检索结果生成回答（4分）</li>
+        <li>价值：使用企业内部知识、减少幻觉、知识可更新（4分）</li>
+    </ul>
+
+    <p class="answer"><strong>12. 如何让AI扮演特定角色回答问题？请举例说明。</strong></p>
+    <p class="points">评分要点：</p>
+    <ul>
+        <li>在提示词开头指定角色（4分）</li>
+        <li>示例："你是一位有10年经验的Java开发工程师..."（4分）</li>
+    </ul>
+
+    <p class="answer"><strong>13. 当AI生成的代码有bug时，你会如何处理？</strong></p>
+    <p class="points">评分要点：</p>
+    <ul>
+        <li>先理解bug原因（2分）</li>
+        <li>把错误信息发给AI（2分）</li>
+        <li>让AI分析并修复（2分）</li>
+        <li>验证修复方案（2分）</li>
+    </ul>
+
+    <p class="answer"><strong>14. 如何通过提示词让AI输出JSON格式的数据？</strong></p>
+    <p class="points">评分要点：</p>
+    <ul>
+        <li>明确要求输出JSON格式（4分）</li>
+        <li>提供示例格式（4分）</li>
+    </ul>
+
+    <p class="answer"><strong>15. 使用AI工具时，如何保护敏感信息？</strong></p>
+    <p class="points">评分要点：</p>
+    <ul>
+        <li>不输入密码、密钥等敏感信息（3分）</li>
+        <li>使用匿名数据测试（3分）</li>
+        <li>了解AI的数据使用政策（2分）</li>
+    </ul>
+
+    <h2>四、提示词编写题答案</h2>
+
+    <p class="answer"><strong>16. 登录表单组件生成提示词（10分）</strong></p>
+    <p class="points">参考答案：</p>
+    <div class="code-box">请帮我生成一个React登录表单组件，要求：
+
+功能要求：
+1. 包含手机号输入框（验证11位数字格式）
+2. 包含验证码输入框（6位数字）
+3. 包含"获取验证码"按钮
+4. 包含"登录"按钮
+
+样式要求：
+1. 使用Tailwind CSS
+2. 表单居中显示
+3. 输入框有边框和圆角
+4. 按钮为橙色背景、白色文字
+
+输出要求：
+1. TypeScript代码
+2. 包含类型定义</div>
+    <p class="points">评分标准：功能要求清晰（4分）、样式要求具体（3分）、输出格式明确（3分）</p>
+
+    <p class="answer"><strong>17. SQL优化提示词（15分）</strong></p>
+    <p class="points">参考答案：</p>
+    <div class="code-box">请帮我分析以下SQL的性能问题并给出优化方案：
+
+SQL语句：
+[粘贴SQL]
+
+表结构：
+[粘贴表结构]
+
+请分析：
+1. 是否使用了索引？如果没有，建议添加什么索引？
+2. 是否存在全表扫描？
+3. 是否有不必要的子查询？
+4. 请给出优化后的SQL语句
+5. 预估优化后的性能提升
+
+数据库版本：MySQL 8.0</div>
+    <p class="points">评分标准：提供待分析内容（4分）、明确分析维度（6分）、指定输出要求（5分）</p>
+
+    <h2>五、场景应用题答案</h2>
+
+    <p class="answer"><strong>18. 学习新框架提示词示例</strong></p>
+    <div class="code-box">我想学习Spring Security框架，请帮我：
+
+1. 介绍Spring Security的核心概念（认证、授权）
+2. 提供一个简单的入门示例代码
+3. 说明常见的配置方式
+4. 列出需要重点学习的内容
+5. 推荐官方文档或学习资源
+
+我是Java开发工程师，熟悉Spring Boot基础。</div>
+
+    <hr>
+    <div class="footer">
+        <strong>未来申活（上海）数字科技有限公司</strong><br>
+        编制日期：2026年4月8日
+    </div>
+</body>
+</html>

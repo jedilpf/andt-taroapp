@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>基于OpenClaw设计思路的项目管理智能体设计</title>
+    <style>
+        @page { size: A4; margin: 15mm; }
+        body { font-family: 'Microsoft YaHei', sans-serif; font-size: 11pt; line-height: 1.6; max-width: 210mm; margin: 0 auto; padding: 20px; }
+        h1 { text-align: center; font-size: 18pt; margin-bottom: 5px; }
+        h2 { font-size: 14pt; margin-top: 20px; border-bottom: 2px solid #333; padding-bottom: 5px; }
+        h3 { font-size: 12pt; margin-top: 15px; background: #f5f5f5; padding: 5px 10px; }
+        .company { text-align: center; font-size: 14pt; font-weight: bold; margin-bottom: 15px; }
+        table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 10pt; }
+        table td, table th { border: 1px solid #333; padding: 4px 6px; text-align: left; }
+        table th { background: #f5f5f5; }
+        .code-block { border: 1px solid #ccc; background: #f8f8f8; padding: 8px; font-family: 'Consolas', monospace; font-size: 8pt; margin: 10px 0; white-space: pre-wrap; overflow-x: auto; }
+        .diagram { border: 1px solid #ccc; background: #fff; padding: 10px; font-family: 'Consolas', monospace; font-size: 7pt; margin: 10px 0; white-space: pre; }
+        .footer { text-align: center; margin-top: 30px; font-size: 10pt; }
+        hr { border: none; border-top: 2px solid #333; margin: 15px 0; }
+        .highlight { background: #e8f5e9; padding: 10px; margin: 10px 0; border-left: 4px solid #4caf50; }
+        .phase { background: #e3f2fd; padding: 10px; margin: 10px 0; border-left: 4px solid #2196f3; }
+        .warning { background: #fff3e0; padding: 10px; margin: 10px 0; border-left: 4px solid #ff9800; }
+        @media print { body { padding: 0; } }
+    </style>
+</head>
+<body>
+    <h1>基于OpenClaw设计思路的项目管理智能体设计</h1>
+    <p class="company">未来申活（上海）数字科技有限公司</p>
+    <hr>
+
+    <h2>一、OpenClaw 核心设计思路解析</h2>
+
+    <h3>1.1 架构哲学</h3>
+    <table>
+        <tr><th>设计原则</th><th>OpenClaw实现</th><th>核心思想</th></tr>
+        <tr><td><strong>本地优先</strong></td><td>Gateway在本地运行</td><td>数据和计算在用户设备，不依赖云端</td></tr>
+        <tr><td><strong>控制平面分离</strong></td><td>Gateway是控制层，Assistant是产品</td><td>基础设施服务于用户体验</td></tr>
+        <tr><td><strong>多通道统一</strong></td><td>22+消息渠道统一接入</td><td>一个Assistant覆盖所有场景</td></tr>
+        <tr><td><strong>职责分离</strong></td><td>Gateway协调，Node执行</td><td>关注点分离，便于扩展</td></tr>
+        <tr><td><strong>安全默认</strong></td><td>权限门控、DM pairing</td><td>安全不是可选项</td></tr>
+    </table>
+
+    <h3>1.2 核心组件设计思想</h3>
+    <div class="diagram">
+OpenClaw架构精髓
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+┌─────────────────────────────────────────────────────────────┐
+│  设计哲学：Gateway是控制平面 —— Assistant才是产品           │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  【Gateway】本地控制平面                                     │
+│  ├── 职责：协调、路由、状态管理                              │
+│  ├── 特点：单一入口点(ws://127.0.0.1:18789)                │
+│  └── 思想：控制层不持有业务逻辑                              │
+│                                                             │
+│  【Skills】三层技能架构                                      │
+│  ├── bundled：内置技能（开箱即用）                           │
+│  ├── managed：管理式技能（ClawHub发布）                      │
+│  └── workspace：工作区技能（用户自定义）                     │
+│  └── 思想：渐进式扩展，降低门槛                              │
+│                                                             │
+│  【Lobster】类型化工作流引擎                                 │
+│  ├── 对象/数组优先管道（非文本）                             │
+│  ├── 审批门控（approval gates）                              │
+│  └── 思想：复杂操作封装为单步调用，节省tokens                │
+│                                                             │
+│  【Session】会话模型                                         │
+│  ├── main会话 + 群组隔离                                     │
+│  ├── 激活模式、队列模式、回复策略                            │
+│  └── 思想：细粒度控制，上下文隔离                            │
+│                                                             │
+│  【Device Node】设备节点                                     │
+│  ├── 执行设备本地操作                                        │
+│  ├── 通过Gateway广播能力                                     │
+│  └── 思想：边缘计算，隐私保护                                │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+    </div>
+
+    <hr>
+
+    <h2>二、借鉴OpenClaw的项目管理智能体设计</h2>
+
+    <h3>2.1 设计哲学对标</h3>
+    <table>
+        <tr><th>OpenClaw原则</th><th>项目管理智能体设计</th></tr>
+        <tr><td><strong>本地优先</strong></td><td>项目数据本地存储，可选云同步</td></tr>
+        <tr><td><strong>控制平面分离</strong></td><td>PM-Gateway协调，PM-Agent执行业务</td></tr>
+        <tr><td><strong>多通道统一</strong></td><td>微信/钉钉/飞书/CLI统一接入</td></tr>
+        <tr><td><strong>职责分离</strong></td><td>Gateway调度，Skill执行具体任务</td></tr>
+        <tr><td><strong>安全默认</strong></td><td>权限分级、操作审批门控</td></tr>
+    </table>
+
+    <h3>2.2 核心架构设计</h3>
+    <div class="diagram">
+┌─────────────────────────────────────────────────────────────────┐
+│              PM-Agent 项目管理智能体架构                         │
+│          （借鉴OpenClaw设计思路）                                │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌─────────────────────────────────────────────────────────┐   │
+│  │                 PM-Gateway（控制平面）                   │   │
+│  │                                                         │   │
+│  │  设计思想：Gateway只负责协调，不持有业务逻辑              │   │
+│  │                                                         │   │
+│  │  ├── Session管理：main会话 + 项目隔离                    │   │
+│  │  ├── Channel路由：微信/钉钉/CLI → 统一分发               │   │
+│  │  ├── Tool调度：协调各Skill执行                           │   │
+│  │  └── 状态持久化：会话配置、上下文、历史                   │   │
+│  │                                                         │   │
+│  │  单一入口：ws://pm-gateway:18789                         │   │
+│  └─────────────────────────────────────────────────────────┘   │
+│                              │                                  │
+│                              ▼                                  │
+│  ┌─────────────────────────────────────────────────────────┐   │
+│  │                 PM-Skills（三层技能架构）                │   │
+│  │                                                         │   │
+│  │  设计思想：渐进式扩展，onboarding-driven setup            │   │
+│  │                                                         │   │
+│  │  【bundled skills - 内置技能】                           │   │
+│  │  ├── requirement-analyzer  需求分析                      │   │
+│  │  ├── task-decomposer       任务分解                      │   │
+│  │  └── progress-reporter     进度报告                      │   │
+│  │                                                         │   │
+│  │  【managed skills - 理式技能】                         │   │
+│  │  ├── risk-predictor        风险预测（需授权）             │   │
+│  │  ├── auto-scheduler        智能排期（需订阅）             │   │
+│  │  └── code-reviewer         代码审查（需配置）             │   │
+│  │                                                         │   │
+│  │  【workspace skills - 工作区技能】                        │   │
+│  │  └── 企业自定义流程、特定场景技能                         │   │
+│  │                                                         │   │
+│  └─────────────────────────────────────────────────────────┘   │
+│                              │                                  │
+│                              ▼                                  │
+│  ┌─────────────────────────────────────────────────────────┐   │
+│  │                 PM-Workflows（Lobster理念）              │   │
+│  │                                                         │   │
+│  │  设计思想：复杂操作封装为单步调用，节省tokens             │   │
+│  │                                                         │   │
+│  │  类型化管道（对象/数组优先，非文本）                      │   │
+│  │  审批门控（Approval Gates）：关键操作需确认               │   │
+│  │                                                         │   │
+│  └─────────────────────────────────────────────────────────┘   │
+│                              │                                  │
+│                              ▼                                  │
+│  ┌─────────────────────────────────────────────────────────┐   │
+│  │                 PM-Nodes（设备节点理念）                 │   │
+│  │                                                         │   │
+│  │  设计思想：边缘执行，隐私保护，本地操作                   │   │
+│  │                                                         │   │
+│  │  ├── Git Node：本地Git操作（commit/branch/PR）          │   │
+│  │  ├── File Node：文件系统操作（读写项目文档）             │   │
+│  │  ├── DB Node：数据库操作（查询项目状态）                 │   │
+│  │  └── Notify Node：通知发送（微信/钉钉/邮件）             │   │
+│  │                                                         │   │
+│  │  通过Gateway广播能力：node.list / node.describe          │   │
+│  │  权限门控：敏感操作需审批                                │   │
+│  │                                                         │   │
+│  └─────────────────────────────────────────────────────────┘   │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+    </div>
+
+    <hr>
+
+    <h2>三、核心组件详细设计</h2>
+
+    <h3>3.1 PM-Gateway 控制平面</h3>
+    <div class="code-block">
+// PM-Gateway 核心职责
+interface PMGateway {
+  // Session管理（借鉴OpenClaw Session模型）
+  sessions: {
+    main: Session;          // 主会话
+    projects: Map&lt;string, Session&gt;;  // 项目隔离会话
+  };
+
+  // Channel路由（借鉴OpenClaw多通道）
+  channels: {
+    wechat: ChannelAdapter;
+    dingtalk: ChannelAdapter;
+    feishu: ChannelAdapter;
+    cli: ChannelAdapter;
+    web: ChannelAdapter;
+  };
+
+  // Tool调度（借鉴OpenClaw Tool系统）
+  tools: {
+    invoke(skill: string, input: any): Promise&lt;any&gt;;
+    list(): Skill[];
+    publish(skill: Skill): void;
+  };
+
+  // 状态持久化
+  persistence: {
+    sessionConfig: SessionConfig;
+    context: ProjectContext;
+    history: Message[];
+  };
+}
+
+// Session模型（借鉴OpenClaw）
+interface Session {
+  id: string;
+  type: 'main' | 'project';
+  config: {
+    thinkingLevel: 'low' | 'medium' | 'high';
+    verboseLevel: 'quiet' | 'normal' | 'verbose';
+    model: string;
+  };
+  context: ProjectContext;
+  queue: MessageQueue;
+  activation: 'auto' | 'manual';
+}
+    </div>
+
+    <h3>3.2 PM-Skills 三层架构</h3>
+    <div class="code-block">
+# bundled skill: requirement-analyzer
+name: requirement-analyzer
+description: 需求分析智能体
+version: 1.0.0
+type: bundled  # 内置技能
+
+config:
+  requires:
+    env:
+      - OPENAI_API_KEY  # 或国内API
+    tools:
+      - github-api
+      - database-query
+
+  permissions:
+    - read:tasks
+    - write:tasks
+    - create:issues
+
+behavior:
+  input:
+    type: object
+    properties:
+      requirement: { type: string }
+      context: { type: object }
+
+  output:
+    type: object
+    properties:
+      understanding: { type: string }
+      tasks: { type: array }
+      risks: { type: array }
+      priority: { type: string, enum: [P0, P1, P2] }
+
+  steps:
+    - name: understand
+      action: llm.invoke
+    - name: decompose
+      action: llm.invoke
+    - name: validate
+      action: approval.gate
+      message: "确认任务分解方案？"
+    </div>
+
+    <h3>3.3 PM-Workflows 工作流引擎</h3>
+    <div class="code-block">
+# 工作流：新功能开发全流程
+name: feature-development-pipeline
+description: 新功能开发全流程自动化
+
+args:
+  requirement: { type: string, required: true }
+  deadline: { type: date, required: false }
+
+steps:
+  # Step 1: 需求分析
+  - id: analyze
+    skill: requirement-analyzer
+    input: { requirement: $args.requirement }
+    output: [tasks: array, risks: array, estimate: object]
+
+  # Step 2: 人工审批门控
+  - id: approve_tasks
+    approval:
+      message: |
+        需求分析完成，任务分解如下：
+        {{ $analyze.tasks | table }}
+        确认执行？
+      channels: [wechat, dingtalk]
+    when: $analyze.tasks
+
+  # Step 3: 创建任务
+  - id: create_tasks
+    skill: task-creator
+    input: $analyze.tasks
+    when: $approve_tasks.approved
+
+  # Step 4: 排期建议
+  - id: schedule
+    skill: auto-scheduler
+    input: { tasks: $create_tasks.ids, deadline: $args.deadline }
+    when: $create_tasks.success
+
+  # Step 5: 通知团队
+  - id: notify
+    skill: team-notifier
+    input:
+      message: |
+        新功能开发任务已创建：
+        需求：{{ $args.requirement }}
+        任务数：{{ $create_tasks.count }}
+        预计完成：{{ $schedule.endDate }}
+      channels: [wechat, dingtalk]
+    </div>
+
+    <h3>3.4 PM-Nodes 设备节点</h3>
+    <div class="code-block">
+// Git Node - 本地Git操作
+class GitNode implements PMNode {
+  capabilities = {
+    name: 'git-node',
+    actions: [
+      { name: 'status', description: '查看Git状态' },
+      { name: 'commit', description: '提交代码', requiresApproval: true },
+      { name: 'push', description: '推送代码', requiresApproval: true },
+      { name: 'create-branch', description: '创建分支' },
+      { name: 'create-pr', description: '创建PR', requiresApproval: true }
+    ],
+    permissions: ['git:read', 'git:write']
+  };
+
+  async invoke(action: string, params: any) {
+    switch (action) {
+      case 'status':
+        return exec('git status');
+      case 'commit':
+        if (params.requireApproval) {
+          await this.requestApproval(`确认提交: ${params.message}`);
+        }
+        return exec(`git commit -m "${params.message}"`);
+    }
+  }
+}
+
+// Notify Node - 通知发送
+class NotifyNode implements PMNode {
+  capabilities = {
+    name: 'notify-node',
+    actions: [
+      { name: 'send-wechat', description: '发送微信通知' },
+      { name: 'send-dingtalk', description: '发送钉钉通知' },
+      { name: 'send-email', description: '发送邮件' }
+    ],
+    permissions: ['notify:send']
+  };
+}
+    </div>
+
+    <hr>
+
+    <h2>四、关键技术决策对比</h2>
+    <table>
+        <tr><th>维度</th><th>OpenClaw方案</th><th>PM-Agent借鉴设计</th></tr>
+        <tr><td><strong>控制平面</strong></td><td>Gateway(ws://127.0.0.1:18789)</td><td>PM-Gateway(统一入口)</td></tr>
+        <tr><td><strong>技能扩展</strong></td><td>SKILL.md + 三层架构</td><td>PM-Skill.yaml + 三层架构</td></tr>
+        <tr><td><strong>工作流</strong></td><td>Lobster类型化管道</td><td>PM-Workflow类型化管道</td></tr>
+        <tr><td><strong>会话模型</strong></td><td>main + 群组隔离</td><td>main + 项目隔离</td></tr>
+        <tr><td><strong>设备节点</strong></td><td>macOS/iOS/Android</td><td>Git/File/DB/Notify</td></tr>
+        <tr><td><strong>权限模型</strong></td><td>TCC权限 + approval gates</td><td>RBAC + approval gates</td></tr>
+        <tr><td><strong>数据存储</strong></td><td>本地优先</td><td>本地优先 + 可选云同步</td></tr>
+    </table>
+
+    <hr>
+
+    <h2>五、与安电通项目集成示例</h2>
+
+    <h3>5.1 场景：新需求分析</h3>
+    <div class="diagram">
+用户输入 → 微信/钉钉
+    │
+    ▼
+PM-Gateway 路由
+    │
+    ▼
+PM-Workflow: feature-development-pipeline
+    │
+    ├── Step 1: requirement-analyzer
+    │   输入："添加广告模块"
+    │   输出：{tasks: [...], risks: [...], estimate: {...}}
+    │
+    ├── Step 2: approval gate
+    │   消息："确认任务分解方案？"
+    │   等待审批...
+    │
+    ├── Step 3: task-creator
+    │   创建GitHub Issues
+    │   更新项目数据库
+    │
+    └── Step 4: team-notifier
+        发送通知到微信群/钉钉群
+    </div>
+
+    <h3>5.2 技能定义示例</h3>
+    <div class="code-block">
+# 安电通项目专用技能
+name: andiantong-task-creator
+description: 安电通任务创建器
+version: 1.0.0
+type: workspace
+
+config:
+  requires:
+    env:
+      - GITHUB_TOKEN
+      - DATABASE_URL
+    tools:
+      - github-api
+      - mysql-query
+
+behavior:
+  input:
+    type: object
+    properties:
+      tasks: { type: array }
+
+  output:
+    type: object
+    properties:
+      created: { type: array }
+
+  steps:
+    - name: create_github_issues
+      action: github.createIssues
+      repo: andiantong/app
+
+    - name: update_database
+      action: mysql.insert
+      table: tasks
+
+    - name: notify
+      action: notify.send
+      channels: [wechat, dingtalk]
+    </div>
+
+    <hr>
+
+    <h2>六、实施路径</h2>
+
+    <h3>6.1 分阶段实施</h3>
+    <table>
+        <tr><th>阶段</th><th>目标</th><th>借鉴点</th><th>时间</th></tr>
+        <tr><td><strong>Phase 1</strong></td><td>搭建PM-Gateway</td><td>Gateway控制平面</td><td>1周</td></tr>
+        <tr><td><strong>Phase 2</strong></td><td>开发bundled skills</td><td>Skills三层架构</td><td>2周</td></tr>
+        <tr><td><strong>Phase 3</strong></td><td>实现PM-Workflows</td><td>Lobster工作流</td><td>2周</td></tr>
+        <tr><td><strong>Phase 4</strong></td><td>集成PM-Nodes</td><td>Device Node机制</td><td>1周</td></tr>
+        <tr><td><strong>Phase 5</strong></td><td>多通道接入</td><td>Channel路由</td><td>1周</td></tr>
+    </table>
+
+    <h3>6.2 技术栈</h3>
+    <table>
+        <tr><th>组件</th><th>技术选型</th><th>理由</th></tr>
+        <tr><td>Gateway</td><td>Node.js + WebSocket</td><td>与OpenClaw一致</td></tr>
+        <tr><td>Skills</td><td>YAML + TypeScript</td><td>类型安全</td></tr>
+        <tr><td>Workflows</td><td>YAML + Lobster理念</td><td>可读性好</td></tr>
+        <tr><td>Nodes</td><td>TypeScript</td><td>类型安全</td></tr>
+        <tr><td>存储</td><td>SQLite/MySQL</td><td>本地优先</td></tr>
+    </table>
+
+    <hr>
+
+    <h2>七、设计决策记录</h2>
+
+    <h3>7.1 为什么借鉴OpenClaw</h3>
+    <table>
+        <tr><th>理由</th><th>说明</th></tr>
+        <tr><td><strong>成熟架构</strong></td><td>35万+Stars验证</td></tr>
+        <tr><td><strong>本地优先</strong></td><td>数据安全，响应快</td></tr>
+        <tr><td><strong>渐进扩展</strong></td><td>三层技能架构降低门槛</td></tr>
+        <tr><td><strong>类型安全</strong></td><td>Lobster类型化管道减少错误</td></tr>
+        <tr><td><strong>权限设计</strong></td><td>审批门控确保安全</td></tr>
+    </table>
+
+    <h3>7.2 与OpenClaw的差异</h3>
+    <table>
+        <tr><th>差异点</th><th>原因</th></tr>
+        <tr><td><strong>无设备节点</strong></td><td>项目管理不需要摄像头等</td></tr>
+        <tr><td><strong>无语音模式</strong></td><td>文本交互足够</td></tr>
+        <tr><td><strong>增加DB Node</strong></td><td>项目管理需要数据存储</td></tr>
+        <tr><td><strong>增加Git Node</strong></td><td>软件项目需要代码操作</td></tr>
+    </table>
+
+    <hr>
+    <div class="footer">
+        <strong>未来申活（上海）数字科技有限公司</strong><br>
+        编制日期：2026年4月8日
+    </div>
+</body>
+</html>

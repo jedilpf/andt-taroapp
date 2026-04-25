@@ -1,0 +1,282 @@
+.inspection-page {
+  min-height: 100vh;
+  background-color: #F7F8FA;
+  padding-bottom: 32PX;
+
+  /* 头部 Banner */
+  .header-section {
+    position: relative;
+    padding: 40PX 24PX 56PX;
+    overflow: hidden;
+
+    .header-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(160deg, #E60012 0%, #9e000c 100%);
+      z-index: 0;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+
+      .title {
+        font-size: 28PX;
+        font-weight: 800;
+        color: #FFFFFF;
+        letter-spacing: 4PX;
+        display: block;
+        margin-bottom: 8PX;
+        text-shadow: 0 2PX 4PX rgba(0, 0, 0, 0.1);
+      }
+
+      .subtitle {
+        font-size: 14PX;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 300;
+        letter-spacing: 4PX;
+      }
+    }
+
+    .decoration-circle {
+      position: absolute;
+      width: 200PX;
+      height: 200PX;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      bottom: -60PX;
+      right: -40PX;
+      z-index: 0;
+    }
+  }
+
+  /* 通用 section header */
+  .section-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20PX;
+
+    .header-line {
+      width: 4PX;
+      height: 18PX;
+      background: linear-gradient(180deg, #ff6b6b 0%, #E60012 100%);
+      border-radius: 4PX;
+      margin-right: 12PX;
+    }
+
+    .header-title {
+      font-size: 18PX;
+      font-weight: 600;
+      color: #111111;
+    }
+  }
+
+  /* 服务类型容器 */
+  .services-container {
+    margin: -24PX 24PX 24PX;
+    background: #FFFFFF;
+    border-radius: 20PX;
+    padding: 24PX;
+    box-shadow: 0 16PX 40PX rgba(0, 0, 0, 0.06), 0 8PX 16PX rgba(230, 0, 18, 0.04);
+    position: relative;
+    z-index: 2;
+
+    .service-list {
+      .service-card {
+        background: #FFFFFF;
+        border: 1PX solid #F2F2F2;
+        border-radius: 16PX;
+        padding: 20PX;
+        margin-bottom: 16PX;
+        transition: all 0.2s;
+
+        &:active {
+          transform: scale(0.98);
+          box-shadow: 0 4PX 12PX rgba(0, 0, 0, 0.08);
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        .card-main {
+          display: flex;
+          margin-bottom: 16PX;
+
+          .service-icon-wrap {
+            width: 48PX;
+            height: 48PX;
+            background: linear-gradient(135deg, #FFF2F2 0%, #FFEBEB 100%);
+            border-radius: 12PX;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16PX;
+            flex-shrink: 0;
+          }
+
+          .service-info {
+            flex: 1;
+
+            .title-row {
+              display: flex;
+              align-items: center;
+              margin-bottom: 8PX;
+
+              .card-title {
+                font-size: 16PX;
+                font-weight: 600;
+                color: #111111;
+                margin-right: 8PX;
+              }
+
+              .service-badge {
+                font-size: 11PX !important;
+                padding: 2PX 8PX !important;
+                border-radius: 10PX !important;
+              }
+            }
+
+            .card-desc {
+              font-size: 13PX;
+              color: #666666;
+              line-height: 1.5;
+            }
+          }
+        }
+
+        .card-footer {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding-top: 12PX;
+          border-top: 1PX solid #F2F2F2;
+
+          .price-section {
+            display: flex;
+            align-items: baseline;
+
+            .price {
+              font-size: 24PX;
+              font-weight: 700;
+              color: #E60012;
+              margin-right: 8PX;
+            }
+
+            .original-price {
+              font-size: 13PX;
+              color: #999999;
+              text-decoration: line-through;
+            }
+          }
+
+          .book-btn {
+            height: 36PX !important;
+            padding: 0 20PX !important;
+            font-size: 14PX !important;
+            font-weight: 500;
+            background: linear-gradient(135deg, #ff6b6b 0%, #E60012 100%) !important;
+            border: none !important;
+            border-radius: 18PX !important;
+            box-shadow: 0 4PX 12PX rgba(230, 0, 18, 0.2);
+
+            &:active {
+              transform: scale(0.98);
+            }
+          }
+        }
+      }
+    }
+
+    /* 我的订单入口 */
+    .my-orders-section {
+      margin-top: 24PX;
+      padding-top: 24PX;
+      border-top: 1PX solid #F2F2F2;
+
+      .my-orders-btn {
+        display: flex;
+        align-items: center;
+        background: #F7F8FA;
+        padding: 16PX 20PX;
+        border-radius: 12PX;
+        transition: all 0.2s;
+
+        &:active {
+          background: #F2F2F2;
+        }
+
+        .btn-icon {
+          margin-right: 12PX;
+        }
+
+        .btn-text {
+          flex: 1;
+          font-size: 15PX;
+          color: #333333;
+          font-weight: 500;
+        }
+
+        .btn-arrow {
+          font-size: 20PX;
+          color: #CCCCCC;
+        }
+      }
+    }
+  }
+
+  /* 服务流程卡片 */
+  .process-card {
+    margin: 0 24PX;
+    background: #FFFFFF;
+    border-radius: 20PX;
+    padding: 24PX;
+    box-shadow: 0 16PX 40PX rgba(0, 0, 0, 0.06), 0 8PX 16PX rgba(230, 0, 18, 0.04);
+
+    .process-steps {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 8PX;
+
+      .process-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+
+        .step-number {
+          width: 36PX;
+          height: 36PX;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #FFF2F2 0%, #FFEBEB 100%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 8PX;
+
+          .step-text {
+            font-size: 14PX;
+            font-weight: 700;
+            color: #E60012;
+          }
+        }
+
+        .step-title {
+          font-size: 13PX;
+          font-weight: 500;
+          color: #333333;
+          margin-bottom: 4PX;
+        }
+
+        .step-desc {
+          font-size: 11PX;
+          color: #999999;
+        }
+      }
+    }
+  }
+}

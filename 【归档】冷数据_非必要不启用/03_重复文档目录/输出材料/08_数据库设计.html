@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>安电通数据库设计</title>
+    <style>
+        @page { size: A4; margin: 15mm; }
+        body { font-family: 'Microsoft YaHei', sans-serif; font-size: 11pt; line-height: 1.6; max-width: 210mm; margin: 0 auto; padding: 20px; }
+        h1 { text-align: center; font-size: 18pt; margin-bottom: 5px; }
+        h2 { font-size: 14pt; margin-top: 20px; border-bottom: 2px solid #333; padding-bottom: 5px; }
+        h3 { font-size: 12pt; margin-top: 15px; }
+        .company { text-align: center; font-size: 14pt; font-weight: bold; margin-bottom: 15px; }
+        table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 10pt; }
+        table td, table th { border: 1px solid #333; padding: 4px 6px; text-align: left; }
+        table th { background: #f5f5f5; }
+        .code-block { border: 1px solid #ccc; background: #f8f8f8; padding: 8px; font-family: 'Consolas', monospace; font-size: 8pt; margin: 10px 0; white-space: pre-wrap; overflow-x: auto; }
+        .diagram { border: 1px solid #ccc; background: #fff; padding: 10px; font-family: 'Consolas', monospace; font-size: 7pt; margin: 10px 0; white-space: pre; }
+        .footer { text-align: center; margin-top: 30px; font-size: 10pt; }
+        hr { border: none; border-top: 2px solid #333; margin: 15px 0; }
+        .note { background: #fffbe6; padding: 8px; margin: 10px 0; border: 1px solid #ffe58f; }
+        ul { margin: 10px 0; padding-left: 20px; }
+        @media print { body { padding: 0; } }
+    </style>
+</head>
+<body>
+    <h1>安电通数据库设计</h1>
+    <p class="company">未来申活（上海）数字科技有限公司</p>
+    <hr>
+
+    <h2>一、数据库规划</h2>
+
+    <h3>1.1 数据库策略</h3>
+    <table>
+        <tr><th>库名</th><th>说明</th></tr>
+        <tr><td>andiantong</td><td>安电通业务主库，包含所有业务表</td></tr>
+    </table>
+
+    <h3>1.2 表设计原则</h3>
+    <ul>
+        <li>主键使用BIGINT自增</li>
+        <li>必须有created_at、updated_at字段</li>
+        <li>状态字段使用TINYINT枚举</li>
+        <li>外键关系通过索引维护，不建物理外键</li>
+        <li>字段添加comment注释</li>
+    </ul>
+
+    <h2>二、用户模块</h2>
+
+    <h3>2.1 用户表 (user)</h3>
+    <div class="code-block">
+CREATE TABLE `user` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+  `phone` VARCHAR(11) NOT NULL COMMENT '手机号',
+  `password` VARCHAR(64) NOT NULL COMMENT '密码(BCrypt加密)',
+  `nickname` VARCHAR(50) DEFAULT NULL COMMENT '昵称',
+  `avatar` VARCHAR(255) DEFAULT NULL COMMENT '头像URL',
+  `gender` TINYINT DEFAULT 0 COMMENT '性别:0未知/1男/2女',
+  `role` TINYINT NOT NULL DEFAULT 1 COMMENT '角色:1普通用户/2电工',
+  `status` TINYINT NOT NULL DEFAULT 1 COMMENT '状态:0禁用/1正常',
+  `openid` VARCHAR(64) DEFAULT NULL COMMENT '微信openid',
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_phone` (`phone`),
+  UNIQUE KEY `uk_openid` (`openid`),
+  KEY `idx_role` (`role`),
+  KEY `idx_status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
+    </div>
+
+    <h3>2.2 电工表 (electrician)</h3>
+    <div class="code-block">
+CREATE TABLE `electrician` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '电工ID',
+  `user_id` BIGINT NOT NULL COMMENT '关联用户ID',
+  `name` VARCHAR(50) NOT NULL COMMENT '姓名',
+  `cert_no` VARCHAR(30) DEFAULT NULL COMMENT '电工证号',
+  `cert_level` TINYINT DEFAULT 1 COMMENT '等级:1初级/2中级/3高级',
+  `service_area` VARCHAR(200) DEFAULT NULL COMMENT '服务区域(JSON)',
+  `skills` VARCHAR(500) DEFAULT NULL COMMENT '技能标签(JSON)',
+  `rating` DECIMAL(3,2) DEFAULT 5.00 COMMENT '评分',
+  `order_count` INT DEFAULT 0 COMMENT '接单数',
+  `income_total` DECIMAL(12,2) DEFAULT 0.00 COMMENT '累计收入',
+  `status` TINYINT NOT NULL DEFAULT 1 COMMENT '状态:0禁用/1空闲/2工作中',
+  `verified` TINYINT DEFAULT 0 COMMENT '认证状态:0未认证/1已认证',
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_user_id` (`user_id`),
+  KEY `idx_status` (`status`),
+  KEY `idx_rating` (`rating`),
+  KEY `idx_verified` (`verified`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='电工表';
+    </div>
+
+    <h3>2.3 电工位置表 (electrician_location)</h3>
+    <div class="code-block">
+CREATE TABLE `electrician_location` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `elec_id` BIGINT NOT NULL COMMENT '电工ID',
+  `latitude` DECIMAL(10,6) NOT NULL COMMENT '纬度',
+  `longitude` DECIMAL(10,6) NOT NULL COMMENT '经度',
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_elec_id` (`elec_id`),
+  KEY `idx_location` (`latitude`, `longitude`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='电工位置表';
+    </div>
+
+    <h2>三、订单模块</h2>
+
+    <h3>3.1 订单表 (order)</h3>
+    <div class="code-block">
+CREATE TABLE `order` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '订单ID',
+  `order_no` VARCHAR(32) NOT NULL COMMENT '订单号',
+  `user_id` BIGINT NOT NULL COMMENT '用户ID',
+  `elec_id` BIGINT DEFAULT NULL COMMENT '电工ID',
+  `service_type` TINYINT NOT NULL COMMENT '服务类型:1维修/2安装/3安检',
+  `service_name` VARCHAR(50) NOT NULL COMMENT '服务名称',
+  `description` VARCHAR(500) DEFAULT NULL COMMENT '问题描述',
+  `address_id` BIGINT NOT NULL COMMENT '地址ID',
+  `address_text` VARCHAR(200) NOT NULL COMMENT '地址文本',
+  `contact_phone` VARCHAR(11) NOT NULL COMMENT '联系电话',
+  `appointment_time` DATETIME DEFAULT NULL COMMENT '预约时间',
+  `amount` DECIMAL(10,2) NOT NULL COMMENT '订单金额',
+  `status` TINYINT NOT NULL DEFAULT 0 COMMENT '状态:-1取消/0待支付/10已支付/20已接单/30服务中/40已完成/50已评价',
+  `cancel_reason` VARCHAR(200) DEFAULT NULL COMMENT '取消原因',
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_order_no` (`order_no`),
+  KEY `idx_user_id` (`user_id`),
+  KEY `idx_elec_id` (`elec_id`),
+  KEY `idx_status` (`status`),
+  KEY `idx_created_at` (`created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='订单表';
+    </div>
+
+    <h3>3.2 订单状态枚举</h3>
+    <table>
+        <tr><th>值</th><th>状态</th><th>说明</th></tr>
+        <tr><td>-1</td><td>已取消</td><td>订单被取消</td></tr>
+        <tr><td>0</td><td>待支付</td><td>刚创建，等待支付</td></tr>
+        <tr><td>10</td><td>已支付</td><td>支付成功，等待电工接单</td></tr>
+        <tr><td>20</td><td>已接单</td><td>电工已接单，等待服务</td></tr>
+        <tr><td>30</td><td>服务中</td><td>电工正在服务</td></tr>
+        <tr><td>40</td><td>已完成</td><td>服务完成，等待评价</td></tr>
+        <tr><td>50</td><td>已评价</td><td>用户已评价，订单结束</td></tr>
+    </table>
+
+    <h3>3.3 订单日志表 (order_log)</h3>
+    <div class="code-block">
+CREATE TABLE `order_log` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `order_id` BIGINT NOT NULL COMMENT '订单ID',
+  `action` VARCHAR(50) NOT NULL COMMENT '操作类型',
+  `from_status` TINYINT DEFAULT NULL COMMENT '原状态',
+  `to_status` TINYINT DEFAULT NULL COMMENT '新状态',
+  `operator_id` BIGINT DEFAULT NULL COMMENT '操作人ID',
+  `operator_type` TINYINT DEFAULT 1 COMMENT '操作人类型:1用户/2电工/3系统',
+  `remark` VARCHAR(200) DEFAULT NULL COMMENT '备注',
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_order_id` (`order_id`),
+  KEY `idx_created_at` (`created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='订单日志表';
+    </div>
+
+    <h3>3.4 订单评价表 (order_review)</h3>
+    <div class="code-block">
+CREATE TABLE `order_review` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `order_id` BIGINT NOT NULL COMMENT '订单ID',
+  `user_id` BIGINT NOT NULL COMMENT '用户ID',
+  `elec_id` BIGINT NOT NULL COMMENT '电工ID',
+  `rating` TINYINT NOT NULL COMMENT '评分:1-5',
+  `content` VARCHAR(500) DEFAULT NULL COMMENT '评价内容',
+  `tags` VARCHAR(200) DEFAULT NULL COMMENT '评价标签(JSON)',
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_order_id` (`order_id`),
+  KEY `idx_elec_id` (`elec_id`),
+  KEY `idx_rating` (`rating`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='订单评价表';
+    </div>
+
+    <h3>3.5 支付表 (payment)</h3>
+    <div class="code-block">
+CREATE TABLE `payment` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `payment_no` VARCHAR(32) NOT NULL COMMENT '支付流水号',
+  `order_id` BIGINT NOT NULL COMMENT '订单ID',
+  `order_no` VARCHAR(32) NOT NULL COMMENT '订单号',
+  `user_id` BIGINT NOT NULL COMMENT '用户ID',
+  `amount` DECIMAL(10,2) NOT NULL COMMENT '支付金额',
+  `channel` TINYINT NOT NULL COMMENT '支付渠道:1微信/2支付宝',
+  `status` TINYINT NOT NULL DEFAULT 0 COMMENT '状态:0待支付/1已支付/2退款中/3已退款',
+  `transaction_id` VARCHAR(64) DEFAULT NULL COMMENT '第三方交易号',
+  `refund_no` VARCHAR(32) DEFAULT NULL COMMENT '退款单号',
+  `refund_amount` DECIMAL(10,2) DEFAULT NULL COMMENT '退款金额',
+  `refund_reason` VARCHAR(200) DEFAULT NULL COMMENT '退款原因',
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_payment_no` (`payment_no`),
+  KEY `idx_order_id` (`order_id`),
+  KEY `idx_user_id` (`user_id`),
+  KEY `idx_status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='支付表';
+    </div>
+
+    <h2>四、商品模块</h2>
+
+    <h3>4.1 商品分类表 (category)</h3>
+    <div class="code-block">
+CREATE TABLE `category` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NOT NULL COMMENT '分类名称',
+  `parent_id` BIGINT DEFAULT 0 COMMENT '父分类ID',
+  `level` TINYINT DEFAULT 1 COMMENT '层级',
+  `sort` INT DEFAULT 0 COMMENT '排序',
+  `icon` VARCHAR(255) DEFAULT NULL COMMENT '图标',
+  `status` TINYINT DEFAULT 1 COMMENT '状态:0禁用/1正常',
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_parent_id` (`parent_id`),
+  KEY `idx_sort` (`sort`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品分类表';
+    </div>
+
+    <h3>4.2 商品表 (goods)</h3>
+    <div class="code-block">
+CREATE TABLE `goods` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `category_id` BIGINT NOT NULL COMMENT '分类ID',
+  `name` VARCHAR(100) NOT NULL COMMENT '商品名称',
+  `description` VARCHAR(500) DEFAULT NULL COMMENT '商品描述',
+  `price` DECIMAL(10,2) NOT NULL COMMENT '售价',
+  `original_price` DECIMAL(10,2) DEFAULT NULL COMMENT '原价',
+  `stock` INT DEFAULT 0 COMMENT '库存',
+  `sales` INT DEFAULT 0 COMMENT '销量',
+  `main_image` VARCHAR(255) NOT NULL COMMENT '主图',
+  `images` VARCHAR(1000) DEFAULT NULL COMMENT '图片列表(JSON)',
+  `unit` VARCHAR(10) DEFAULT '件' COMMENT '单位',
+  `status` TINYINT DEFAULT 1 COMMENT '状态:0下架/1上架',
+  `sort` INT DEFAULT 0 COMMENT '排序',
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_category_id` (`category_id`),
+  KEY `idx_status` (`status`),
+  KEY `idx_sales` (`sales`),
+  KEY `idx_sort` (`sort`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品表';
+    </div>
+
+    <h3>4.3 购物车表 (cart)</h3>
+    <div class="code-block">
+CREATE TABLE `cart` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `user_id` BIGINT NOT NULL COMMENT '用户ID',
+  `goods_id` BIGINT NOT NULL COMMENT '商品ID',
+  `quantity` INT NOT NULL DEFAULT 1 COMMENT '数量',
+  `selected` TINYINT DEFAULT 1 COMMENT '选中状态:0否/1是',
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_user_goods` (`user_id`, `goods_id`),
+  KEY `idx_user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='购物车表';
+    </div>
+
+    <h2>五、公共模块</h2>
+
+    <h3>5.1 用户地址表 (address)</h3>
+    <div class="code-block">
+CREATE TABLE `address` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `user_id` BIGINT NOT NULL COMMENT '用户ID',
+  `name` VARCHAR(50) NOT NULL COMMENT '联系人',
+  `phone` VARCHAR(11) NOT NULL COMMENT '电话',
+  `province` VARCHAR(50) NOT NULL COMMENT '省',
+  `city` VARCHAR(50) NOT NULL COMMENT '市',
+  `district` VARCHAR(50) NOT NULL COMMENT '区',
+  `detail` VARCHAR(200) NOT NULL COMMENT '详细地址',
+  `latitude` DECIMAL(10,6) DEFAULT NULL COMMENT '纬度',
+  `longitude` DECIMAL(10,6) DEFAULT NULL COMMENT '经度',
+  `is_default` TINYINT DEFAULT 0 COMMENT '默认地址:0否/1是',
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_user_id` (`user_id`),
+  KEY `idx_is_default` (`is_default`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户地址表';
+    </div>
+
+    <h3>5.2 系统配置表 (config)</h3>
+    <div class="code-block">
+CREATE TABLE `config` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `key` VARCHAR(50) NOT NULL COMMENT '配置键',
+  `value` VARCHAR(500) NOT NULL COMMENT '配置值',
+  `description` VARCHAR(200) DEFAULT NULL COMMENT '描述',
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_key` (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统配置表';
+    </div>
+
+    <h3>5.3 消息通知表 (message)</h3>
+    <div class="code-block">
+CREATE TABLE `message` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `user_id` BIGINT NOT NULL COMMENT '接收用户ID',
+  `type` TINYINT NOT NULL COMMENT '类型:1系统/2订单/3支付/4活动',
+  `title` VARCHAR(100) NOT NULL COMMENT '标题',
+  `content` VARCHAR(500) NOT NULL COMMENT '内容',
+  `data` VARCHAR(500) DEFAULT NULL COMMENT '附加数据(JSON)',
+  `is_read` TINYINT DEFAULT 0 COMMENT '已读:0否/1是',
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_user_id` (`user_id`),
+  KEY `idx_is_read` (`is_read`),
+  KEY `idx_created_at` (`created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='消息通知表';
+    </div>
+
+    <h3>5.4 服务定价表 (service_price)</h3>
+    <div class="code-block">
+CREATE TABLE `service_price` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `service_type` TINYINT NOT NULL COMMENT '服务类型:1维修/2安装/3安检',
+  `service_name` VARCHAR(50) NOT NULL COMMENT '服务名称',
+  `base_price` DECIMAL(10,2) NOT NULL COMMENT '基础价格',
+  `unit` VARCHAR(10) DEFAULT '次' COMMENT '计价单位',
+  `description` VARCHAR(200) DEFAULT NULL COMMENT '服务说明',
+  `sort` INT DEFAULT 0 COMMENT '排序',
+  `status` TINYINT DEFAULT 1 COMMENT '状态:0禁用/1正常',
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_service_type` (`service_type`),
+  KEY `idx_status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='服务定价表';
+    </div>
+
+    <h2>六、广告模块</h2>
+
+    <h3>6.1 广告位表 (ad_position)</h3>
+    <div class="code-block">
+CREATE TABLE `ad_position` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `code` VARCHAR(50) NOT NULL COMMENT '位置编码(splash/home_banner/order_complete)',
+  `name` VARCHAR(50) NOT NULL COMMENT '位置名称',
+  `type` TINYINT NOT NULL COMMENT '类型:1开屏/2横幅/3插屏',
+  `width` INT DEFAULT NULL COMMENT '推荐宽度(px)',
+  `height` INT DEFAULT NULL COMMENT '推荐高度(px)',
+  `max_count` INT DEFAULT 1 COMMENT '最大广告数',
+  `status` TINYINT DEFAULT 1 COMMENT '状态:0禁用/1启用',
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_code` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='广告位表';
+    </div>
+
+    <h3>6.2 广告表 (ad)</h3>
+    <div class="code-block">
+CREATE TABLE `ad` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `position_id` BIGINT NOT NULL COMMENT '广告位ID',
+  `title` VARCHAR(100) NOT NULL COMMENT '广告标题',
+  `image_url` VARCHAR(255) NOT NULL COMMENT '图片URL',
+  `video_url` VARCHAR(255) DEFAULT NULL COMMENT '视频URL(开屏广告)',
+  `link_url` VARCHAR(255) DEFAULT NULL COMMENT '跳转链接',
+  `link_type` TINYINT DEFAULT 1 COMMENT '链接类型:1页面/2商品/3活动/4外部',
+  `duration` INT DEFAULT 5 COMMENT '展示时长(秒)',
+  `sort` INT DEFAULT 0 COMMENT '排序',
+  `start_time` DATETIME NOT NULL COMMENT '开始时间',
+  `end_time` DATETIME NOT NULL COMMENT '结束时间',
+  `status` TINYINT DEFAULT 1 COMMENT '状态:0禁用/1启用',
+  `show_count` BIGINT DEFAULT 0 COMMENT '展示次数',
+  `click_count` BIGINT DEFAULT 0 COMMENT '点击次数',
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_position_id` (`position_id`),
+  KEY `idx_status` (`status`),
+  KEY `idx_time` (`start_time`, `end_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='广告表';
+    </div>
+
+    <h3>6.3 广告日志表 (ad_log)</h3>
+    <div class="code-block">
+CREATE TABLE `ad_log` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `ad_id` BIGINT NOT NULL COMMENT '广告ID',
+  `user_id` BIGINT DEFAULT NULL COMMENT '用户ID',
+  `action` TINYINT NOT NULL COMMENT '行为:1展示/2点击',
+  `device_id` VARCHAR(64) DEFAULT NULL COMMENT '设备ID',
+  `ip` VARCHAR(50) DEFAULT NULL COMMENT 'IP地址',
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_ad_id` (`ad_id`),
+  KEY `idx_created_at` (`created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='广告日志表';
+    </div>
+
+    <h2>七、ER关系图</h2>
+    <div class="diagram">
+数据库: andiantong
+================================================================================
+
+┌─────────────┐       ┌─────────────┐       ┌─────────────────┐
+│    user     │       │ electrician │       │ elec_location   │
+├─────────────┤       ├─────────────┤       ├─────────────────┤
+│ id(PK)      │←──────│ user_id(FK) │       │ id(PK)          │
+│ phone(UK)   │       │ id(PK)      │──────→│ elec_id(FK)     │
+│ password    │       │ cert_no     │       │ latitude        │
+│ nickname    │       │ rating      │       │ longitude       │
+│ role        │       │ status      │       └─────────────────┘
+│ status      │       └─────────────┘
+└─────────────┘
+      │
+      │
+      ▼
+┌─────────────┐
+│   address   │
+├─────────────┤
+│ id(PK)      │
+│ user_id(FK) │──→user.id
+│ name        │
+│ phone       │
+│ detail      │
+└─────────────┘
+      │
+      │
+      ▼
+┌─────────────────────────────────────┐
+│              order                   │
+├─────────────────────────────────────┤
+│ id(PK)                              │
+│ order_no(UK)                        │
+│ user_id(FK)──→user.id               │
+│ elec_id(FK)──→electrician.id        │
+│ address_id(FK)──→address.id         │
+│ service_type                        │
+│ amount                              │
+│ status                              │
+└─────────────────────────────────────┘
+      │
+      ├────────────────────┬────────────────────┐
+      ▼                    ▼                    ▼
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│ order_log   │     │order_review │     │  payment    │
+├─────────────┤     ├─────────────┤     ├─────────────┤
+│ id(PK)      │     │ id(PK)      │     │ id(PK)      │
+│ order_id(FK)│     │ order_id(FK)│     │ order_id(FK)│
+│ action      │     │ rating      │     │ payment_no  │
+│ from_status │     │ content     │     │ amount      │
+│ to_status   │     │ tags        │     │ channel     │
+└─────────────┘     └─────────────┘     │ status      │
+                                        └─────────────┘
+
+┌─────────────┐       ┌─────────────┐       ┌─────────────┐
+│  category   │       │   goods     │       │    cart     │
+├─────────────┤       ├─────────────┤       ├─────────────┤
+│ id(PK)      │←──────│ category_id │       │ id(PK)      │
+│ name        │       │ id(PK)      │──────→│ user_id(FK) │
+│ parent_id   │       │ name        │       │ goods_id(FK)│
+│ level       │       │ price       │       │ quantity    │
+│ sort        │       │ stock       │       │ selected    │
+└─────────────┘       │ status      │       └─────────────┘
+                      └─────────────┘
+
+┌─────────────┐       ┌─────────────┐       ┌─────────────────┐
+│   config    │       │  message    │       │  service_price  │
+├─────────────┤       ├─────────────┤       ├─────────────────┤
+│ id(PK)      │       │ id(PK)      │       │ id(PK)          │
+│ key(UK)     │       │ user_id(FK) │       │ service_type    │
+│ value       │       │ type        │       │ service_name    │
+│ description │       │ title       │       │ base_price      │
+└─────────────┘       │ content     │       │ unit            │
+                      │ is_read     │       │ description     │
+                      └─────────────┘       └─────────────────┘
+
+┌─────────────────┐       ┌─────────────────┐       ┌─────────────────┐
+│   ad_position   │       │       ad        │       │     ad_log      │
+├─────────────────┤       ├─────────────────┤       ├─────────────────┤
+│ id(PK)          │←──────│ position_id(FK) │       │ id(PK)          │
+│ code(UK)        │       │ id(PK)          │──────→│ ad_id(FK)       │
+│ name            │       │ title           │       │ user_id(FK)     │──→user.id
+│ type            │       │ image_url       │       │ action          │
+│ width           │       │ video_url       │       │ device_id       │
+│ height          │       │ link_url        │       │ ip              │
+│ max_count       │       │ link_type       │       └─────────────────┘
+│ status          │       │ duration        │
+└─────────────────┘       │ sort            │
+                          │ start_time      │
+                          │ end_time        │
+                          │ status          │
+                          │ show_count      │
+                          │ click_count     │
+                          └─────────────────┘
+    </div>
+
+    <h2>八、索引设计原则</h2>
+
+    <h3>8.1 索引类型</h3>
+    <table>
+        <tr><th>类型</th><th>使用场景</th><th>示例</th></tr>
+        <tr><td>主键</td><td>每表必建</td><td>PRIMARY KEY (id)</td></tr>
+        <tr><td>唯一索引</td><td>防重复数据</td><td>UNIQUE KEY uk_phone</td></tr>
+        <tr><td>普通索引</td><td>查询条件</td><td>KEY idx_status</td></tr>
+        <tr><td>联合索引</td><td>多条件查询</td><td>KEY idx_user_status</td></tr>
+        <tr><td>外键索引</td><td>关联查询</td><td>KEY idx_user_id</td></tr>
+    </table>
+
+    <h3>8.2 索引设计规则</h3>
+    <ul>
+        <li>选择区分度高的字段</li>
+        <li>联合索引遵循最左匹配</li>
+        <li>避免冗余索引</li>
+        <li>定期分析慢查询优化索引</li>
+    </ul>
+
+    <h2>九、数据字典</h2>
+
+    <h3>9.1 服务类型枚举</h3>
+    <table>
+        <tr><th>值</th><th>类型</th><th>说明</th></tr>
+        <tr><td>1</td><td>维修</td><td>电路维修、故障排除</td></tr>
+        <tr><td>2</td><td>安装</td><td>设备安装、线路铺设</td></tr>
+        <tr><td>3</td><td>安检</td><td>安全检查、隐患排查</td></tr>
+    </table>
+
+    <h3>9.2 用户角色枚举</h3>
+    <table>
+        <tr><th>值</th><th>角色</th><th>说明</th></tr>
+        <tr><td>1</td><td>普通用户</td><td>社区业主</td></tr>
+        <tr><td>2</td><td>电工</td><td>服务师傅</td></tr>
+    </table>
+
+    <h3>9.3 支付渠道枚举</h3>
+    <table>
+        <tr><th>值</th><th>渠道</th><th>说明</th></tr>
+        <tr><td>1</td><td>微信支付</td><td>APP/小程序</td></tr>
+        <tr><td>2</td><td>支付宝</td><td>APP端</td></tr>
+    </table>
+
+    <h2>十、初始化数据</h2>
+
+    <h3>10.1 分类初始化</h3>
+    <div class="code-block">
+INSERT INTO `category` (`name`, `parent_id`, `level`, `sort`, `status`) VALUES
+('数码专区', 0, 1, 1, 1),
+('便民服务', 0, 1, 2, 1),
+('公益福利', 0, 1, 3, 1),
+('活动专区', 0, 1, 4, 1);
+    </div>
+
+    <h3>10.2 服务定价初始化</h3>
+    <div class="code-block">
+INSERT INTO `service_price` (`service_type`, `service_name`, `base_price`, `unit`, `description`) VALUES
+(1, '电路维修', 50.00, '次', '基础电路故障维修'),
+(1, '开关更换', 30.00, '个', '开关面板更换'),
+(1, '灯具安装', 80.00, '个', '灯具安装调试'),
+(2, '插座安装', 60.00, '个', '新插座安装'),
+(2, '线路铺设', 100.00, '米', '室内线路铺设'),
+(3, '基础安检', 30.00, '次', '基础电路安全检查'),
+(3, '深度安检', 80.00, '次', '全面电路安全检查');
+    </div>
+
+    <h3>10.3 系统配置初始化</h3>
+    <div class="code-block">
+INSERT INTO `config` (`key`, `value`, `description`) VALUES
+('app_name', '安电通', '应用名称'),
+('service_hotline', '400-888-8888', '服务热线'),
+('order_timeout', '30', '订单超时分钟数'),
+('cancel_fee_rate', '0.1', '取消订单违约金比例'),
+('min_order_amount', '10.00', '最小订单金额');
+    </div>
+
+    <h2>十一、数据库运维建议</h2>
+
+    <h3>11.1 备份策略</h3>
+    <table>
+        <tr><th>类型</th><th>频率</th><th>保留时间</th></tr>
+        <tr><td>全量备份</td><td>每日凌晨2点</td><td>30天</td></tr>
+        <tr><td>增量备份</td><td>每小时</td><td>7天</td></tr>
+        <tr><td>binlog</td><td>实时</td><td>3天</td></tr>
+    </table>
+
+    <h3>11.2 性能优化建议</h3>
+    <ul>
+        <li>开启慢查询日志，阈值设为1秒</li>
+        <li>定期分析表，优化索引</li>
+        <li>大表考虑分库分表（订单表）</li>
+        <li>使用Redis缓存热点数据</li>
+    </ul>
+
+    <hr>
+    <div class="footer">
+        <strong>未来申活（上海）数字科技有限公司</strong><br>
+        编制日期：2026年4月8日
+    </div>
+</body>
+</html>

@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目负责人工作汇报 - 安电通项目</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Microsoft YaHei", "PingFang SC", "SimHei", sans-serif;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 50px 40px;
+            color: #333;
+            background: #fff;
+        }
+        h1 {
+            text-align: center;
+            font-size: 26pt;
+            color: #1a1a1a;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 4px solid #1E3A8A;
+        }
+        h2 {
+            font-size: 17pt;
+            color: #1E3A8A;
+            border-left: 5px solid #1E3A8A;
+            padding-left: 15px;
+            margin-top: 40px;
+            margin-bottom: 18px;
+        }
+        h3 {
+            font-size: 13pt;
+            color: #1E40AF;
+            margin-top: 22px;
+            margin-bottom: 12px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 18px 0;
+            font-size: 10pt;
+        }
+        th, td {
+            border: 1px solid #d1d5db;
+            padding: 10px 14px;
+            text-align: left;
+        }
+        th {
+            background-color: #EFF6FF;
+            font-weight: bold;
+            color: #1E40AF;
+        }
+        tr:nth-child(even) {
+            background-color: #F9FAFB;
+        }
+        p {
+            margin: 8px 0;
+        }
+        .header-info {
+            text-align: center;
+            margin-bottom: 35px;
+            padding: 22px;
+            background: linear-gradient(135deg, #EFF6FF 0%, #F0FDF4 100%);
+            border-radius: 12px;
+        }
+        .header-info p {
+            margin: 6px 0;
+        }
+        .info-box {
+            background-color: #EFF6FF;
+            border-left: 4px solid #3B82F6;
+            padding: 15px 18px;
+            margin: 18px 0;
+        }
+        .success-box {
+            background-color: #F0FDF4;
+            border-left: 4px solid #22C55E;
+            padding: 15px 18px;
+            margin: 18px 0;
+        }
+        .warning-box {
+            background-color: #FEF2F2;
+            border-left: 4px solid #EF4444;
+            padding: 15px 18px;
+            margin: 18px 0;
+        }
+        .highlight-box {
+            background-color: #FEF3C7;
+            border-left: 4px solid #F59E0B;
+            padding: 15px 18px;
+            margin: 18px 0;
+        }
+        ul, ol {
+            margin: 12px 0;
+            padding-left: 28px;
+        }
+        li {
+            margin: 6px 0;
+        }
+        .metric-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .metric-card {
+            background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%);
+            color: white;
+            padding: 14px 22px;
+            border-radius: 10px;
+            margin: 8px;
+            text-align: center;
+            min-width: 130px;
+        }
+        .metric-card .number {
+            font-size: 22pt;
+            font-weight: bold;
+            display: block;
+        }
+        .metric-card .label {
+            font-size: 9pt;
+            opacity: 0.9;
+        }
+        .metric-card.green {
+            background: linear-gradient(135deg, #166534 0%, #22C55E 100%);
+        }
+        .metric-card.orange {
+            background: linear-gradient(135deg, #9A3412 0%, #F97316 100%);
+        }
+        .timeline {
+            position: relative;
+            padding-left: 28px;
+            margin: 18px 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 9px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #3B82F6;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #3B82F6;
+            border: 2px solid white;
+        }
+        .timeline-item .time {
+            font-size: 9pt;
+            color: #6B7280;
+            margin-bottom: 4px;
+        }
+        .timeline-item .content {
+            font-weight: 500;
+            color: #1E3A8A;
+        }
+        .duty-card {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 10px;
+            padding: 18px;
+            margin: 12px 0;
+        }
+        .duty-card .duty-title {
+            font-weight: bold;
+            color: #1E3A8A;
+            font-size: 12pt;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .duty-card .duty-title .num {
+            background: #1E3A8A;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 11pt;
+        }
+        .duty-card .duty-content {
+            padding-left: 38px;
+        }
+        .duty-card ul {
+            margin: 8px 0;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-indent-0 {
+            text-indent: 0;
+        }
+        .progress-bar {
+            background: #E5E7EB;
+            border-radius: 10px;
+            height: 8px;
+            margin: 8px 0;
+        }
+        .progress-bar .fill {
+            background: linear-gradient(90deg, #1E3A8A, #3B82F6);
+            border-radius: 10px;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<h1>项目负责人工作汇报</h1>
+
+<div class="header-info">
+    <p><strong>汇报人</strong>：陆芃非</p>
+    <p><strong>项目名称</strong>：安电通上门电工服务系统</p>
+    <p><strong>汇报日期</strong>：2026年3月</p>
+</div>
+
+<div class="metric-row">
+    <div class="metric-card">
+        <span class="number">8</span>
+        <span class="label">核心职责</span>
+    </div>
+    <div class="metric-card green">
+        <span class="number">5</span>
+        <span class="label">在岗人员</span>
+    </div>
+    <div class="metric-card orange">
+        <span class="number">3</span>
+        <span class="label">选型进行中</span>
+    </div>
+    <div class="metric-card">
+        <span class="number">Demo</span>
+        <span class="label">演示版本</span>
+    </div>
+</div>
+
+<h2>一、项目负责人八大核心职责</h2>
+
+<div class="duty-card">
+    <div class="duty-title">
+        <span class="num">1</span>
+        战略规划
+    </div>
+    <div class="duty-content">
+        <p><strong>职责描述</strong>：制定产品的中长期发展规划，确保产品方向与公司战略一致。</p>
+        <ul>
+            <li>制定年度/季度产品路线图（Roadmap）</li>
+            <li>拆解OKR目标，确保上下对齐</li>
+            <li>规划资源预算，合理分配人力财力</li>
+        </ul>
+        <p><strong>当前工作</strong>：已完成项目V1.0规划，制定2026年度产品路线图</p>
+    </div>
+</div>
+
+<div class="duty-card">
+    <div class="duty-title">
+        <span class="num">2</span>
+        团队管理
+    </div>
+    <div class="duty-content">
+        <p><strong>职责描述</strong>：搭建核心团队，明确角色分工，建立协作机制。</p>
+        <ul>
+            <li>组建核心团队（招聘、分工）</li>
+            <li>制定RACI职责矩阵，明确责任边界</li>
+            <li>建立绩效考核与激励机制</li>
+        </ul>
+        <p><strong>当前工作</strong>：核心团队已组建5人，后端开发和运营岗位待补充</p>
+    </div>
+</div>
+
+<div class="duty-card">
+    <div class="duty-title">
+        <span class="num">3</span>
+        进度管控
+    </div>
+    <div class="duty-content">
+        <p><strong>职责描述</strong>：管理项目迭代进度，确保按时交付里程碑。</p>
+        <ul>
+            <li>制定迭代计划（Sprint Planning）</li>
+            <li>组织每日站会（Daily Standup）</li>
+            <li>编写周报/月报，向上级汇报进展</li>
+        </ul>
+        <p><strong>当前工作</strong>：前端开发完成100%，正在进行后端对接准备</p>
+    </div>
+</div>
+
+<div class="duty-card">
+    <div class="duty-title">
+        <span class="num">4</span>
+        质量管理
+    </div>
+    <div class="duty-content">
+        <p><strong>职责描述</strong>：建立质量标准，确保交付产品质量。</p>
+        <ul>
+            <li>制定上线标准与检查清单</li>
+            <li>统筹测试工作，跟踪Bug修复</li>
+            <li>执行代码规范，确保代码质量</li>
+        </ul>
+        <p><strong>当前工作</strong>：已建立功能测试清单，完成39+功能点测试</p>
+    </div>
+</div>
+
+<div class="duty-card">
+    <div class="duty-title">
+        <span class="num">5</span>
+        风险控制
+    </div>
+    <div class="duty-content">
+        <p><strong>职责描述</strong>：主动识别项目风险，制定应对措施。</p>
+        <ul>
+            <li>识别项目风险，建立风险清单</li>
+            <li>制定应急预案，确保快速响应</li>
+            <li>定期跟踪风险状态，及时升级汇报</li>
+        </ul>
+        <p><strong>当前工作</strong>：已识别5项主要风险，制定应对措施</p>
+    </div>
+</div>
+
+<div class="duty-card">
+    <div class="duty-title">
+        <span class="num">6</span>
+        成本管理
+    </div>
+    <div class="duty-content">
+        <p><strong>职责描述</strong>：制定项目预算，控制成本消耗。</p>
+        <ul>
+            <li>制定年度预算，合理规划支出</li>
+            <li>审批大额支出，控制非必要开销</li>
+            <li>每月跟踪成本消耗，分析偏差原因</li>
+        </ul>
+        <p><strong>当前工作</strong>：已完成年度预算规划，总预算268万元</p>
+    </div>
+</div>
+
+<div class="duty-card">
+    <div class="duty-title">
+        <span class="num">7</span>
+        沟通协调
+    </div>
+    <div class="duty-content">
+        <p><strong>职责描述</strong>：建立高效沟通机制，确保信息透明。</p>
+        <ul>
+            <li>组织各类会议（站会、周会、月会）</li>
+            <li>向上级汇报进展，争取资源支持</li>
+            <li>跨团队协作，推进问题解决</li>
+        </ul>
+        <p><strong>当前工作</strong>：已建立周报机制，定期向上级汇报</p>
+    </div>
+</div>
+
+<div class="duty-card">
+    <div class="duty-title">
+        <span class="num">8</span>
+        干系人管理
+    </div>
+    <div class="duty-content">
+        <p><strong>职责描述</strong>：管理项目干系人期望，维护各方关系。</p>
+        <ul>
+            <li>识别项目干系人，制定沟通策略</li>
+            <li>管理干系人期望，避免预期偏差</li>
+            <li>维护合作伙伴关系，争取资源合作</li>
+        </ul>
+        <p><strong>当前工作</strong>：已完成干系人识别，制定沟通计划</p>
+    </div>
+</div>
+
+<div class="page-break"></div>
+
+<h2>二、团队现状</h2>
+
+<h3>2.1 人员配置</h3>
+
+<table>
+    <tr>
+        <th>角色</th>
+        <th>人数</th>
+        <th>职责</th>
+        <th>状态</th>
+    </tr>
+    <tr>
+        <td>项目负责人</td>
+        <td>1</td>
+        <td>项目管理、进度把控</td>
+        <td>✅ 已到位</td>
+    </tr>
+    <tr>
+        <td>产品经理</td>
+        <td>1</td>
+        <td>需求分析、产品设计</td>
+        <td>✅ 已到位</td>
+    </tr>
+    <tr>
+        <td>前端开发</td>
+        <td>2</td>
+        <td>Demo前端开发</td>
+        <td>✅ 已到位</td>
+    </tr>
+    <tr>
+        <td>UI设计</td>
+        <td>1</td>
+        <td>界面设计、交互设计</td>
+        <td>✅ 已到位</td>
+    </tr>
+    <tr>
+        <td>后端开发</td>
+        <td>待定</td>
+        <td>技术选型中</td>
+        <td>⏳ 选型中</td>
+    </tr>
+    <tr>
+        <td>运营专员</td>
+        <td>待定</td>
+        <td>待启动</td>
+        <td>⏳ 待补充</td>
+    </tr>
+</table>
+
+<h3>2.2 团队配置（目标规模）</h3>
+
+<table>
+    <tr>
+        <th>层级</th>
+        <th>角色</th>
+        <th>人数</th>
+        <th>预算（万/年）</th>
+    </tr>
+    <tr>
+        <td rowspan="2">管理层</td>
+        <td>项目负责人</td>
+        <td>1</td>
+        <td>36</td>
+    </tr>
+    <tr>
+        <td>产品经理</td>
+        <td>1</td>
+        <td>24</td>
+    </tr>
+    <tr>
+        <td rowspan="3">技术组</td>
+        <td>前端开发</td>
+        <td>2</td>
+        <td>40</td>
+    </tr>
+    <tr>
+        <td>后端开发</td>
+        <td>2</td>
+        <td>44</td>
+    </tr>
+    <tr>
+        <td>UI设计</td>
+        <td>1</td>
+        <td>20</td>
+    </tr>
+    <tr>
+        <td>运营组</td>
+        <td>运营专员</td>
+        <td>1</td>
+        <td>16</td>
+    </tr>
+    <tr>
+        <td colspan="2"><strong>合计</strong></td>
+        <td><strong>8</strong></td>
+        <td><strong>180</strong></td>
+    </tr>
+</table>
+
+<h3>2.3 AI辅助开发工具</h3>
+
+<div class="info-box">
+    <p class="text-indent-0"><strong>已引入AI编程工具，提升开发效率30-50%</strong></p>
+</div>
+
+<table>
+    <tr>
+        <th>工具</th>
+        <th>用途</th>
+        <th>适用角色</th>
+        <th>效率提升</th>
+    </tr>
+    <tr>
+        <td><strong>Cursor</strong></td>
+        <td>AI代码补全、代码生成</td>
+        <td>前端/后端开发</td>
+        <td>30-40%</td>
+    </tr>
+    <tr>
+        <td><strong>通义灵码</strong></td>
+        <td>智能补全、代码解释</td>
+        <td>前端/后端开发</td>
+        <td>25-35%</td>
+    </tr>
+    <tr>
+        <td><strong>DeepSeek</strong></td>
+        <td>架构设计、代码审查</td>
+        <td>全体开发</td>
+        <td>20-30%</td>
+    </tr>
+    <tr>
+        <td><strong>Figma AI</strong></td>
+        <td>设计建议、自动布局</td>
+        <td>UI设计</td>
+        <td>20-25%</td>
+    </tr>
+    <tr>
+        <td><strong>Notion AI</strong></td>
+        <td>文档撰写、需求整理</td>
+        <td>产品/项目</td>
+        <td>40-50%</td>
+    </tr>
+</table>
+
+<div class="highlight-box">
+    <p class="text-indent-0"><strong>💰 AI工具成本优势：</strong></p>
+    <table>
+        <tr>
+            <th>方案</th>
+            <th>年成本</th>
+            <th>说明</th>
+        </tr>
+        <tr>
+            <td>资深工程师</td>
+            <td>8-12万</td>
+            <td>1人年成本</td>
+        </tr>
+        <tr>
+            <td>AI工具套装</td>
+            <td>约1万</td>
+            <td>Cursor/通义灵码等（月费约千元）</td>
+        </tr>
+        <tr>
+            <td><strong>1工程师+1AI</strong></td>
+            <td><strong>9-13万</td>
+            <td>效率提升30-50%，成本接近但产出更高</td>
+        </tr>
+    </table>
+</div>
+
+<div class="success-box">
+    <p class="text-indent-0"><strong>AI工具应用场景：</strong></p>
+    <ul>
+        <li>代码生成：通义灵码/Cursor 自动补全代码片段</li>
+        <li>需求分析：DeepSeek 辅助PRD文档撰写</li>
+        <li>UI设计：Figma AI 生成设计建议</li>
+        <li>技术方案：AI辅助架构设计与代码审查</li>
+        <li>项目管理：Notion AI 自动生成周报、会议纪要</li>
+    </ul>
+</div>
+
+<div class="warning-box">
+    <p class="text-indent-0"><strong>当前重点任务：</strong></p>
+    <ul>
+        <li><strong>后端架构选型</strong>：微服务架构（地图等核心功能拆分，单点故障隔离）</li>
+        <li><strong>基础设施</strong>：云服务器优先（年付模式，前期轻量启动）</li>
+        <li><strong>前端统一方案</strong>：Taro框架（iOS/Android/鸿蒙多端复用）</li>
+    </ul>
+</div>
+
+<h2>三、项目进度</h2>
+
+<h3>3.1 当前阶段：Demo演示版 + 技术选型</h3>
+
+<table>
+    <tr>
+        <th>模块</th>
+        <th>阶段</th>
+        <th>状态</th>
+    </tr>
+    <tr>
+        <td>用户端（APP）</td>
+        <td>Demo演示版</td>
+        <td>✅ 已完成</td>
+    </tr>
+    <tr>
+        <td>电工端（小程序）</td>
+        <td>Demo演示版</td>
+        <td>✅ 已完成</td>
+    </tr>
+    <tr>
+        <td>前端框架</td>
+        <td>Taro（多端复用）</td>
+        <td>✅ 已确定</td>
+    </tr>
+    <tr>
+        <td>后端架构</td>
+        <td>微服务架构</td>
+        <td>🔄 设计中</td>
+    </tr>
+    <tr>
+        <td>基础设施</td>
+        <td>云服务器</td>
+        <td>🔄 选型中</td>
+    </tr>
+</table>
+
+<div class="info-box">
+    <p class="text-indent-0"><strong>技术方案要点：</strong></p>
+    <ul>
+        <li><strong>前端</strong>：Taro框架（iOS/Android/鸿蒙多端复用，京东规模化应用）</li>
+        <li><strong>后端</strong>：微服务架构（地图等核心功能拆分，单点故障隔离）</li>
+        <li><strong>基础设施</strong>：云服务器年付（放弃自建机房，运维成本高、易被攻击）</li>
+    </ul>
+</div>
+
+<h3>3.2 项目里程碑</h3>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="time">2026 Q1（当前）</div>
+        <div class="content">完成Demo演示版，完成技术选型</div>
+    </div>
+    <div class="timeline-item">
+        <div class="time">2026 Q2</div>
+        <div class="content">完成后端开发，前后端联调</div>
+    </div>
+    <div class="timeline-item">
+        <div class="time">2026 Q3</div>
+        <div class="content">内测版本发布，启动运营</div>
+    </div>
+    <div class="timeline-item">
+        <div class="time">2026 Q4</div>
+        <div class="content">正式上线 V1.0</div>
+    </div>
+</div>
+
+<div class="success-box">
+    <p class="text-indent-0"><strong>已完成里程碑：</strong></p>
+    <ul>
+        <li>✅ 需求分析与产品设计</li>
+        <li>✅ 用户端APP Demo开发</li>
+        <li>✅ 电工端小程序Demo开发</li>
+        <li>✅ UI/UE设计</li>
+    </ul>
+</div>
+
+<h2>四、商业化闭环</h2>
+
+<div class="info-box">
+    <p class="text-indent-0"><strong>核心商业模式：安全检测 → 维修联动 → 居民服务（闭环）</strong></p>
+</div>
+
+<table>
+    <tr>
+        <th>环节</th>
+        <th>核心功能</th>
+        <th>变现方式</th>
+    </tr>
+    <tr>
+        <td><strong>安全检测</strong></td>
+        <td>电路隐患检测、用电安全评估</td>
+        <td>增值服务费</td>
+    </tr>
+    <tr>
+        <td><strong>维修联动</strong></td>
+        <td>一键下单、电工接单、进度追踪</td>
+        <td>服务抽成</td>
+    </tr>
+    <tr>
+        <td><strong>居民服务</strong></td>
+        <td>便民服务、社区资讯</td>
+        <td>广告/增值服务</td>
+    </tr>
+</table>
+
+<div class="warning-box">
+    <p class="text-indent-0"><strong>前期变现策略：</strong></p>
+    <ul>
+        <li>专注核心业务，不考虑广告、情绪类等非核心变现</li>
+        <li>验证"安全检测+维修"刚需闭环</li>
+        <li>打磨服务体验，建立用户信任</li>
+    </ul>
+</div>
+
+<h2>五、用户粘性策略</h2>
+
+<div class="highlight-box">
+    <p class="text-indent-0"><strong>核心指标：日均使用时长 + 半年留存率</strong></p>
+</div>
+
+<h3>5.1 增强实用性的功能</h3>
+<ul>
+    <li><strong>宠物医院查询</strong>：附近宠物医院信息、营业时间</li>
+    <li><strong>便民电话簿</strong>：物业、社区、紧急联系电话</li>
+    <li><strong>社区资讯</strong>：滚动更新的本地新闻、活动信息</li>
+</ul>
+
+<h3>5.2 行为动线设计</h3>
+<ul>
+    <li><strong>签到激励</strong>：每日签到积分、连续打卡奖励</li>
+    <li><strong>内容推送</strong>：诈骗预警、火灾通报、活动通知</li>
+    <li><strong>使用场景</strong>：从"为什么下载"到"凭什么每天打开"再到"什么功能让人离不开"</li>
+</ul>
+
+<div class="success-box">
+    <p class="text-indent-0"><strong>产品思维转换：</strong></p>
+    <ul>
+        <li>摒弃工程师思维，切换为终端用户视角</li>
+        <li>以普通居民身份反推使用逻辑</li>
+    </ul>
+</div>
+
+<h2>六、推广策略</h2>
+
+<div class="info-box">
+    <p class="text-indent-0"><strong>借鉴早期网约车补贴逻辑：高频低门槛触达</strong></p>
+</div>
+
+<h3>6.1 切入点选择</h3>
+<table>
+    <tr>
+        <th>方式</th>
+        <th>说明</th>
+    </tr>
+    <tr>
+        <td><strong>实用消耗品</strong></td>
+        <td>插座、灯泡等实用小物件（非泛泛礼品）</td>
+    </tr>
+    <tr>
+        <td><strong>社区渗透</strong></td>
+        <td>物业合作、社区活动</td>
+    </tr>
+</table>
+
+<h3>6.2 信任建立</h3>
+<ul>
+    <li><strong>诈骗预警</strong>：最新诈骗手法提醒</li>
+    <li><strong>火灾通报</strong>：本地安全事故警示</li>
+    <li><strong>活动通知</strong>：社区便民活动信息</li>
+</ul>
+
+<h3>6.3 用户习惯培养</h3>
+<ul>
+    <li>高频低门槛触达 → 培育使用惯性</li>
+    <li>从"偶尔用到天天用"的转化路径</li>
+</ul>
+
+<h2>七、风险与问题</h2>
+
+<h3>4.1 当前主要风险</h3>
+
+<table>
+    <tr>
+        <th>风险</th>
+        <th>影响</th>
+        <th>应对措施</th>
+        <th>状态</th>
+    </tr>
+    <tr>
+        <td>后端技术选型不明确</td>
+        <td>高</td>
+        <td>进行技术POC验证</td>
+        <td>⚠️ 监控中</td>
+    </tr>
+    <tr>
+        <td>Demo功能待完善</td>
+        <td>中</td>
+        <td>按优先级补充核心流程</td>
+        <td>⚠️ 监控中</td>
+    </tr>
+    <tr>
+        <td>电工招募进度</td>
+        <td>中</td>
+        <td>提前启动招募计划</td>
+        <td>⚠️ 监控中</td>
+    </tr>
+</table>
+
+<h3>4.2 需要支持的事项</h3>
+
+<div class="highlight-box">
+    <p class="text-indent-0"><strong>技术支持需求：</strong></p>
+    <ul>
+        <li>后端技术方案评审支持</li>
+        <li>云服务选型咨询</li>
+        <li>技术架构设计指导</li>
+    </ul>
+</div>
+
+<h2>八、年度预算</h2>
+
+<table>
+    <tr>
+        <th>成本项</th>
+        <th>金额（万元/年）</th>
+        <th>占比</th>
+    </tr>
+    <tr>
+        <td>人力成本（7人）</td>
+        <td>180</td>
+        <td>67%</td>
+    </tr>
+    <tr>
+        <td>市场推广</td>
+        <td>50</td>
+        <td>19%</td>
+    </tr>
+    <tr>
+        <td>服务器/云服务</td>
+        <td>12</td>
+        <td>4.5%</td>
+    </tr>
+    <tr>
+        <td>办公/行政</td>
+        <td>20</td>
+        <td>7.5%</td>
+    </tr>
+    <tr>
+        <td>其他</td>
+        <td>6</td>
+        <td>2%</td>
+    </tr>
+    <tr>
+        <td><strong>合计</strong></td>
+        <td><strong>268</strong></td>
+        <td>100%</td>
+    </tr>
+</table>
+
+<h2>九、工作计划</h2>
+
+<h3>6.1 本周工作</h3>
+
+<div class="info-box">
+    <ul>
+        <li>完善Demo演示流程</li>
+        <li>后端技术方案选型（POC测试）</li>
+        <li>云服务商对比评估</li>
+    </ul>
+</div>
+
+<h3>6.2 下周计划</h3>
+
+<div class="success-box">
+    <ul>
+        <li>确定后端技术选型方案</li>
+        <li>确定云服务部署方案</li>
+        <li>完成数据库技术选型</li>
+    </ul>
+</div>
+
+<h3>6.3 本月目标</h3>
+
+<div class="highlight-box">
+    <ul>
+        <li>完成技术选型</li>
+        <li>完成后端架构设计</li>
+        <li>确定团队组建方案</li>
+    </ul>
+</div>
+
+<hr style="margin-top: 40px;">
+
+<div class="text-center" style="margin-top: 30px; padding: 25px; background: linear-gradient(135deg, #EFF6FF 0%, #F0FDF4 100%); border-radius: 10px;">
+    <p style="font-size: 13pt; font-weight: bold; color: #1E3A8A; text-indent: 0;">汇报完毕，请各位领导指导！</p>
+    <p style="color: #6B7280; margin-top: 10px; text-indent: 0;">项目负责人：陆芃非</p>
+</div>
+
+</body>
+</html>

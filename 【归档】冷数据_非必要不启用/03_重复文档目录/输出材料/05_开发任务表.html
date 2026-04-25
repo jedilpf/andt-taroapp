@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安电通开发任务表</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #fff;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #1a365d;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        .company-name {
+            color: #1a365d;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        h1 {
+            color: #ed8936;
+            font-size: 26px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        h2 {
+            color: #1a365d;
+            font-size: 18px;
+            margin: 25px 0 12px 0;
+            padding-left: 12px;
+            border-left: 4px solid #ed8936;
+        }
+        h3 { color: #2d3748; font-size: 15px; margin: 15px 0 8px 0; }
+        .note {
+            background: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 12px 16px;
+            margin: 15px 0;
+            font-size: 14px;
+            color: #2d3748;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 13px;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 8px 10px;
+            text-align: left;
+        }
+        th {
+            background: #1a365d;
+            color: white;
+            font-weight: 600;
+        }
+        tr:nth-child(even) { background: #f7fafc; }
+        .done { color: #38a169; }
+        .pending { color: #718096; }
+        .subtotal { background: #edf2f7; font-weight: 600; }
+        .code-block {
+            background: #2d3748;
+            color: #68d391;
+            padding: 12px 15px;
+            border-radius: 6px;
+            font-family: 'Consolas', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            margin: 12px 0;
+            white-space: pre;
+        }
+        .footer {
+            text-align: center;
+            color: #718096;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 13px;
+        }
+        @media print { body { padding: 20px; } }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="company-name">未来申活（上海）数字科技有限公司</div>
+</div>
+
+<h1>安电通开发任务表</h1>
+
+<h2>一、第1期开发任务总览</h2>
+
+<div class="note">
+    <strong>架构说明：</strong>采用单体应用架构，后端为一个统一应用，包含用户、订单、支付、地址等业务模块，无需微服务基础设施（服务注册、配置中心等），开发运维更简单高效。
+</div>
+
+<table>
+    <tr><th>任务编号</th><th>任务名称</th><th>负责人</th><th>预估工时</th><th>优先级</th><th>状态</th></tr>
+    <tr><td>T001</td><td>后端框架搭建（单体）</td><td>后端开发</td><td>5人天</td><td>P0</td><td class="done">已完成</td></tr>
+    <tr><td>T002</td><td>数据库设计与初始化</td><td>后端开发</td><td>3人天</td><td>P0</td><td class="done">已完成</td></tr>
+    <tr><td>T003</td><td>CI/CD流程搭建</td><td>运维工程师</td><td>3人天</td><td>P0</td><td class="done">已完成</td></tr>
+    <tr><td>T004</td><td>用户认证API开发</td><td>后端开发</td><td>4人天</td><td>P0</td><td class="pending">待开始</td></tr>
+    <tr><td>T005</td><td>订单核心API开发</td><td>后端开发</td><td>7人天</td><td>P0</td><td class="pending">待开始</td></tr>
+    <tr><td>T006</td><td>支付对接开发</td><td>后端开发</td><td>7人天</td><td>P0</td><td class="pending">待开始</td></tr>
+    <tr><td>T007</td><td>前端API对接</td><td>前端开发</td><td>5人天</td><td>P0</td><td class="pending">待开始</td></tr>
+    <tr><td>T008</td><td>UI设计稿确认</td><td>UI外包</td><td>3人天</td><td>P1</td><td class="pending">待开始</td></tr>
+    <tr><td>T009</td><td>小程序开发</td><td>前端开发</td><td>10人天</td><td>P1</td><td class="pending">待开始</td></tr>
+    <tr><td>T010</td><td>测试与验收</td><td>全员</td><td>5人天</td><td>P0</td><td class="pending">待开始</td></tr>
+</table>
+
+<h2>二、后端开发任务明细（单体应用）</h2>
+
+<h3>2.1 用户模块（User Module） - 6个接口，4人天</h3>
+<table>
+    <tr><th>任务编号</th><th>任务名称</th><th>接口</th><th>工时</th><th>依赖</th></tr>
+    <tr><td>T004-01</td><td>用户注册</td><td>POST /user/register</td><td>0.5人天</td><td>T001</td></tr>
+    <tr><td>T004-02</td><td>用户登录</td><td>POST /user/login</td><td>0.5人天</td><td>T001</td></tr>
+    <tr><td>T004-03</td><td>微信登录</td><td>POST /user/wechat-login</td><td>1人天</td><td>T004-02</td></tr>
+    <tr><td>T004-04</td><td>获取用户信息</td><td>GET /user/info</td><td>0.5人天</td><td>T004-02</td></tr>
+    <tr><td>T004-05</td><td>更新用户信息</td><td>PUT /user/update</td><td>0.5人天</td><td>T004-02</td></tr>
+    <tr><td>T004-06</td><td>Token验证</td><td>POST /user/validate-token</td><td>1人天</td><td>T004-02</td></tr>
+    <tr class="subtotal"><td>小计</td><td></td><td>6个接口</td><td>4人天</td><td></td></tr>
+</table>
+
+<h3>2.2 订单模块（Order Module） - 7个接口，7人天</h3>
+<table>
+    <tr><th>任务编号</th><th>任务名称</th><th>接口</th><th>工时</th><th>依赖</th></tr>
+    <tr><td>T005-01</td><td>创建订单</td><td>POST /order/create</td><td>1人天</td><td>T004</td></tr>
+    <tr><td>T005-02</td><td>订单列表</td><td>GET /order/list</td><td>1人天</td><td>T005-01</td></tr>
+    <tr><td>T005-03</td><td>订单详情</td><td>GET /order/{id}</td><td>0.5人天</td><td>T005-01</td></tr>
+    <tr><td>T005-04</td><td>取消订单</td><td>POST /order/{id}/cancel</td><td>1人天</td><td>T005-01</td></tr>
+    <tr><td>T005-05</td><td>订单状态流转</td><td>POST /order/{id}/status</td><td>1.5人天</td><td>T005-01</td></tr>
+    <tr><td>T005-06</td><td>订单评价</td><td>POST /order/{id}/review</td><td>1人天</td><td>T005-01</td></tr>
+    <tr><td>T005-07</td><td>订单日志</td><td>GET /order/{id}/logs</td><td>1人天</td><td>T005-01</td></tr>
+    <tr class="subtotal"><td>小计</td><td></td><td>7个接口</td><td>7人天</td><td></td></tr>
+</table>
+
+<h3>2.3 支付模块（Payment Module） - 6个接口，7.5人天</h3>
+<table>
+    <tr><th>任务编号</th><th>任务名称</th><th>接口</th><th>工时</th><th>依赖</th></tr>
+    <tr><td>T006-01</td><td>发起支付</td><td>POST /payment/create</td><td>1.5人天</td><td>T005</td></tr>
+    <tr><td>T006-02</td><td>支付回调</td><td>POST /payment/callback</td><td>1.5人天</td><td>T006-01</td></tr>
+    <tr><td>T006-03</td><td>支付状态查询</td><td>GET /payment/{id}/status</td><td>1人天</td><td>T006-01</td></tr>
+    <tr><td>T006-04</td><td>发起退款</td><td>POST /payment/refund</td><td>1.5人天</td><td>T006-01</td></tr>
+    <tr><td>T006-05</td><td>退款回调</td><td>POST /payment/refund/callback</td><td>1人天</td><td>T006-04</td></tr>
+    <tr><td>T006-06</td><td>支付记录查询</td><td>GET /payment/list</td><td>1人天</td><td>T006-01</td></tr>
+    <tr class="subtotal"><td>小计</td><td></td><td>6个接口</td><td>7.5人天</td><td></td></tr>
+</table>
+
+<h3>2.4 地址模块（Address Module） - 4个接口，2人天</h3>
+<table>
+    <tr><th>任务编号</th><th>任务名称</th><th>接口</th><th>工时</th><th>依赖</th></tr>
+    <tr><td>T007-01</td><td>地址列表</td><td>GET /address/list</td><td>0.5人天</td><td>T004</td></tr>
+    <tr><td>T007-02</td><td>添加地址</td><td>POST /address/add</td><td>0.5人天</td><td>T004</td></tr>
+    <tr><td>T007-03</td><td>更新地址</td><td>PUT /address/update</td><td>0.5人天</td><td>T007-01</td></tr>
+    <tr><td>T007-04</td><td>删除地址</td><td>DELETE /address/{id}</td><td>0.5人天</td><td>T007-01</td></tr>
+    <tr class="subtotal"><td>小计</td><td></td><td>4个接口</td><td>2人天</td><td></td></tr>
+</table>
+
+<h2>三、前端开发任务明细</h2>
+
+<h3>3.1 APP端开发 - 12页，15人天</h3>
+<table>
+    <tr><th>任务编号</th><th>任务名称</th><th>页面/功能</th><th>工时</th><th>依赖</th></tr>
+    <tr><td>T008-01</td><td>登录注册页面</td><td>2页</td><td>1人天</td><td>T008</td></tr>
+    <tr><td>T008-02</td><td>首页优化</td><td>1页</td><td>2人天</td><td>T008</td></tr>
+    <tr><td>T008-03</td><td>订单流程页面</td><td>5页</td><td>3人天</td><td>T005, T008</td></tr>
+    <tr><td>T008-04</td><td>个人中心页面</td><td>4页</td><td>2人天</td><td>T004, T008</td></tr>
+    <tr><td>T008-05</td><td>API对接</td><td>全部接口</td><td>5人天</td><td>T004-T007</td></tr>
+    <tr><td>T008-06</td><td>性能优化</td><td>-</td><td>2人天</td><td>T008-05</td></tr>
+    <tr class="subtotal"><td>小计</td><td></td><td>12页</td><td>15人天</td><td></td></tr>
+</table>
+
+<h3>3.2 小程序开发 - 8页，10人天</h3>
+<table>
+    <tr><th>任务编号</th><th>任务名称</th><th>页面/功能</th><th>工时</th><th>依赖</th></tr>
+    <tr><td>T009-01</td><td>小程序框架搭建</td><td>-</td><td>2人天</td><td>T001</td></tr>
+    <tr><td>T009-02</td><td>核心页面迁移</td><td>8页</td><td>5人天</td><td>T008</td></tr>
+    <tr><td>T009-03</td><td>微信授权登录</td><td>-</td><td>1人天</td><td>T004-03</td></tr>
+    <tr><td>T009-04</td><td>微信支付对接</td><td>-</td><td>2人天</td><td>T006</td></tr>
+    <tr class="subtotal"><td>小计</td><td></td><td>8页</td><td>10人天</td><td></td></tr>
+</table>
+
+<h2>四、运维任务明细</h2>
+
+<table>
+    <tr><th>任务编号</th><th>任务名称</th><th>工时</th><th>状态</th></tr>
+    <tr><td>T003-01</td><td>服务器购买与配置</td><td>1人天</td><td class="done">已完成</td></tr>
+    <tr><td>T003-02</td><td>MySQL部署</td><td>0.5人天</td><td class="done">已完成</td></tr>
+    <tr><td>T003-03</td><td>Redis部署</td><td>0.5人天</td><td class="done">已完成</td></tr>
+    <tr><td>T003-04</td><td>监控系统搭建</td><td>2人天</td><td class="pending">待开始</td></tr>
+    <tr><td>T003-05</td><td>日志收集配置</td><td>1人天</td><td class="pending">待开始</td></tr>
+    <tr><td>T003-06</td><td>SSL证书配置</td><td>0.5人天</td><td class="pending">待开始</td></tr>
+    <tr><td>T003-07</td><td>自动化部署脚本</td><td>1.5人天</td><td class="done">已完成</td></tr>
+    <tr class="subtotal"><td>小计</td><td></td><td>7人天</td><td></td></tr>
+</table>
+
+<div class="note">
+    <strong>单体架构说明：</strong>采用单体应用架构，无需服务注册中心、配置中心等微服务基础设施，运维复杂度大幅降低。
+</div>
+
+<h2>五、UI设计任务明细</h2>
+
+<table>
+    <tr><th>任务编号</th><th>任务名称</th><th>页面数</th><th>工时</th><th>状态</th></tr>
+    <tr><td>T008-UI-01</td><td>用户端首页</td><td>3页</td><td>2人天</td><td class="pending">待开始</td></tr>
+    <tr><td>T008-UI-02</td><td>服务预约流程</td><td>5页</td><td>3人天</td><td class="pending">待开始</td></tr>
+    <tr><td>T008-UI-03</td><td>商城页面</td><td>4页</td><td>2.5人天</td><td class="pending">待开始</td></tr>
+    <tr><td>T008-UI-04</td><td>电工端核心</td><td>4页</td><td>2.5人天</td><td class="pending">待开始</td></tr>
+    <tr><td>T008-UI-05</td><td>小程序适配</td><td>-</td><td>2人天</td><td class="pending">待开始</td></tr>
+    <tr class="subtotal"><td>小计</td><td></td><td>16页</td><td>12人天</td><td></td></tr>
+</table>
+
+<h2>六、任务依赖关系</h2>
+
+<div class="code-block">T001 后端框架（单体应用）─────────────────────────┐
+    │                                             │
+    ├─→ T002 数据库设计 ──→ T004 用户API          │
+    │                         │                   │
+    │                         ├─→ T005 订单API    │
+    │                         │         │         │
+    │                         │         └─→ T006 支付API
+    │                         │                   │
+    │                         └─→ T007 地址API    │
+    │                                             │
+    └─→ T003 CI/CD ──→ T003-04 监控系统          │
+                             │                   │
+                             └─→ T003-05 日志    │
+                                                 │
+T008 UI设计 ──→ T008-01~05 设计稿                │
+                    │                             │
+                    └─→ T008 前端开发 ←──────────┘
+                              │
+                              └─→ T009 小程序开发</div>
+
+<div class="note">
+    <strong>架构优势：</strong>单体架构简化了服务间调用，无需考虑服务注册发现、配置中心、分布式事务等问题，开发效率提升约20%。
+</div>
+
+<h2>七、里程碑节点</h2>
+
+<table>
+    <tr><th>里程碑</th><th>时间</th><th>任务</th><th>交付物</th></tr>
+    <tr><td>M1</td><td>4月末</td><td>T001-T003完成</td><td>框架、数据库、CI/CD</td></tr>
+    <tr><td>M2</td><td>5月末</td><td>T004-T007完成</td><td>后端API全部完成</td></tr>
+    <tr><td>M3</td><td>6月初</td><td>T008完成</td><td>UI设计稿、前端对接完成</td></tr>
+    <tr><td>M4</td><td>6月中</td><td>T009完成</td><td>小程序上线</td></tr>
+    <tr><td>M5</td><td>6月末</td><td>测试验收</td><td>正式版本发布</td></tr>
+</table>
+
+<div class="footer">
+    <strong>未来申活（上海）数字科技有限公司</strong><br>
+    编制日期：2026年4月8日
+</div>
+
+</body>
+</html>

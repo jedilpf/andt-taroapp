@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>后端开发工程师面试试卷答案</title>
+    <style>
+        @page { size: A4; margin: 15mm; }
+        body { font-family: 'SimSun', serif; font-size: 12pt; line-height: 1.6; max-width: 210mm; margin: 0 auto; padding: 20px; }
+        h1 { text-align: center; font-size: 18pt; margin-bottom: 5px; }
+        h2 { font-size: 14pt; margin-top: 15px; border-bottom: 1px solid #333; padding-bottom: 3px; }
+        .company { text-align: center; font-size: 14pt; font-weight: bold; margin-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+        table td, table th { border: 1px solid #333; padding: 5px 10px; }
+        .answer { margin: 10px 0; }
+        .code-box { border: 1px solid #999; background: #f5f5f5; padding: 10px; font-family: 'Consolas', monospace; margin: 10px 0; white-space: pre-wrap; }
+        .footer { text-align: center; margin-top: 20px; font-size: 10pt; }
+        hr { border: none; border-top: 2px solid #333; margin: 10px 0; }
+        .points { color: #666; font-size: 10pt; }
+        @media print { body { padding: 0; } }
+    </style>
+</head>
+<body>
+    <h1>后端开发工程师面试试卷答案</h1>
+    <p class="company">未来申活（上海）数字科技有限公司</p>
+    <hr>
+
+    <h2>一、选择题答案（每题3分）</h2>
+    <table>
+        <tr><th>题号</th><th>答案</th><th>解析</th></tr>
+        <tr><td>1</td><td>C</td><td>static是修饰符，不是访问修饰符</td></tr>
+        <tr><td>2</td><td>B</td><td>Spring Boot默认使用Logback作为日志实现</td></tr>
+        <tr><td>3</td><td>B</td><td>InnoDB支持事务和外键，MyISAM不支持</td></tr>
+        <tr><td>4</td><td>A</td><td>Redis默认使用0号数据库</td></tr>
+        <tr><td>5</td><td>B</td><td>404表示请求的资源不存在</td></tr>
+    </table>
+
+    <h2>二、填空题答案（每空2分）</h2>
+    <table>
+        <tr><th>题号</th><th>答案</th></tr>
+        <tr><td>6</td><td>匿名内部类（或函数式接口实现）</td></tr>
+        <tr><td>7</td><td>构造器、Setter</td></tr>
+        <tr><td>8</td><td>B+、O(log n)</td></tr>
+        <tr><td>9</td><td>Hash、ZSet</td></tr>
+        <tr><td>10</td><td>一致性、持久性</td></tr>
+    </table>
+
+    <h2>三、简答题答案（每题8分）</h2>
+
+    <p class="answer"><strong>11. 什么是Spring的依赖注入？它有什么优点？</strong></p>
+    <p class="points">评分要点：</p>
+    <ul>
+        <li>定义：对象不自己创建依赖，由容器注入（3分）</li>
+        <li>优点：降低耦合、便于测试、便于维护（5分）</li>
+    </ul>
+
+    <p class="answer"><strong>12. 如何优化MySQL慢查询？</strong></p>
+    <p class="points">评分要点：</p>
+    <ul>
+        <li>使用EXPLAIN分析执行计划（2分）</li>
+        <li>检查索引使用情况（2分）</li>
+        <li>避免SELECT *、优化WHERE条件（2分）</li>
+        <li>合理使用索引、分页优化（2分）</li>
+    </ul>
+
+    <p class="answer"><strong>13. Redis有哪些使用场景？请列举至少3个。</strong></p>
+    <p class="points">评分要点：</p>
+    <ul>
+        <li>缓存（3分）</li>
+        <li>会话存储（2分）</li>
+        <li>分布式锁（2分）</li>
+        <li>计数器/排行榜（1分）</li>
+    </ul>
+
+    <p class="answer"><strong>14. 什么是JWT？它的工作原理是什么？</strong></p>
+    <p class="points">评分要点：</p>
+    <ul>
+        <li>定义：JSON Web Token，用于认证的令牌（3分）</li>
+        <li>组成：Header.Payload.Signature（2分）</li>
+        <li>工作原理：登录生成token、请求携带token、服务端验证（3分）</li>
+    </ul>
+
+    <p class="answer"><strong>15. 如何保证接口的幂等性？</strong></p>
+    <p class="points">评分要点：</p>
+    <ul>
+        <li>使用唯一标识（订单号、token）（3分）</li>
+        <li>数据库唯一索引（2分）</li>
+        <li>Redis分布式锁（2分）</li>
+        <li>状态机校验（1分）</li>
+    </ul>
+
+    <h2>四、编程题答案</h2>
+
+    <p class="answer"><strong>16. SQL查询题（10分）</strong></p>
+    <div class="code-box">SELECT
+    u.id,
+    u.name,
+    COUNT(o.id) as order_count,
+    IFNULL(SUM(o.amount), 0) as total_amount
+FROM user u
+LEFT JOIN `order` o ON u.id = o.user_id
+GROUP BY u.id, u.name;</div>
+    <p class="points">评分标准：LEFT JOIN正确（3分）、COUNT和SUM函数正确（4分）、GROUP BY正确（3分）</p>
+
+    <p class="answer"><strong>17. 单例模式（15分）</strong></p>
+    <div class="code-box">public class Singleton {
+    private static volatile Singleton instance;
+
+    private Singleton() {}
+
+    public static Singleton getInstance() {
+        if (instance == null) {
+            synchronized (Singleton.class) {
+                if (instance == null) {
+                    instance = new Singleton();
+                }
+            }
+        }
+        return instance;
+    }
+}</div>
+    <p class="points">评分标准：私有构造函数（3分）、volatile关键字（4分）、双重检查锁（5分）、线程安全（3分）</p>
+
+    <h2>五、AI工具应用题答案</h2>
+
+    <p class="answer"><strong>18. 用户实体类提示词示例</strong></p>
+    <div class="code-box">请帮我生成一个MyBatis Plus的用户实体类，要求：
+1. 类名：User，包名：com.example.entity
+2. 字段：id（主键）、phone（手机号）、password（密码）、nickname（昵称）
+3. 使用Lombok注解：@Data、@Builder
+4. 字段添加数据库注解和中文注释</div>
+
+    <hr>
+    <div class="footer">
+        <strong>未来申活（上海）数字科技有限公司</strong><br>
+        编制日期：2026年4月8日
+    </div>
+</body>
+</html>

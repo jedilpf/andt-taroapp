@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>后端开发工程师面试试卷</title>
+    <style>
+        @page { size: A4; margin: 15mm; }
+        body { font-family: 'SimSun', serif; font-size: 12pt; line-height: 1.6; max-width: 210mm; margin: 0 auto; padding: 20px; }
+        h1 { text-align: center; font-size: 18pt; margin-bottom: 5px; }
+        h2 { font-size: 14pt; margin-top: 15px; border-bottom: 1px solid #333; padding-bottom: 3px; }
+        .company { text-align: center; font-size: 14pt; font-weight: bold; margin-bottom: 10px; }
+        table.info { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+        table.info td { border: 1px solid #333; padding: 5px 10px; }
+        table.choice { width: 100%; margin-bottom: 10px; }
+        table.choice td { padding: 3px 0; }
+        .question { margin: 10px 0; font-weight: bold; }
+        .answer-box { border: 1px solid #999; min-height: 80px; padding: 10px; margin: 10px 0; }
+        .code-box { border: 1px solid #999; background: #f5f5f5; padding: 10px; font-family: 'Consolas', monospace; margin: 10px 0; }
+        .footer { text-align: center; margin-top: 20px; font-size: 10pt; }
+        .rubric { background: #f9f9f9; padding: 10px; margin-top: 15px; }
+        hr { border: none; border-top: 2px solid #333; margin: 10px 0; }
+        @media print { body { padding: 0; } }
+    </style>
+</head>
+<body>
+    <h1>后端开发工程师面试试卷</h1>
+    <p class="company">未来申活（上海）数字科技有限公司</p>
+    <hr>
+
+    <table class="info">
+        <tr>
+            <td width="15%">姓名</td><td width="35%">____________</td>
+            <td width="15%">应聘岗位</td><td width="35%">后端开发工程师</td>
+        </tr>
+        <tr>
+            <td>面试日期</td><td>____________</td>
+            <td>面试官</td><td>____________</td>
+        </tr>
+        <tr>
+            <td>总分</td><td>______ / 100</td>
+            <td>评定等级</td><td>□优秀 □良好 □合格 □不合格</td>
+        </tr>
+    </table>
+    <hr>
+
+    <h2>一、选择题（每题3分，共15分）</h2>
+    <p><strong>请将正确答案填写在括号内</strong></p>
+
+    <p class="question">1. Java中，以下哪个不是访问修饰符？（   ）</p>
+    <table class="choice">
+        <tr><td>A. public</td><td>B. private</td><td>C. static</td><td>D. protected</td></tr>
+    </table>
+
+    <p class="question">2. Spring Boot默认使用什么作为日志框架？（   ）</p>
+    <table class="choice">
+        <tr><td>A. Log4j</td><td>B. Logback</td><td>C. SLF4J</td><td>D. JUL</td></tr>
+    </table>
+
+    <p class="question">3. MySQL中，以下哪个存储引擎支持事务？（   ）</p>
+    <table class="choice">
+        <tr><td>A. MyISAM</td><td>B. InnoDB</td><td>C. MEMORY</td><td>D. ARCHIVE</td></tr>
+    </table>
+
+    <p class="question">4. Redis默认使用多少号数据库？（   ）</p>
+    <table class="choice">
+        <tr><td>A. 0</td><td>B. 1</td><td>C. 15</td><td>D. 16</td></tr>
+    </table>
+
+    <p class="question">5. HTTP状态码中，404表示什么？（   ）</p>
+    <table class="choice">
+        <tr><td>A. 服务器错误</td><td>B. 资源未找到</td><td>C. 权限不足</td><td>D. 请求格式错误</td></tr>
+    </table>
+
+    <h2>二、填空题（每空2分，共20分）</h2>
+
+    <p class="question">6. Java 8引入的Lambda表达式主要用于简化<code>__________</code>的写法。</p>
+
+    <p class="question">7. Spring的依赖注入有三种方式：<code>__________</code>注入、<code>__________</code>注入、字段注入。</p>
+
+    <p class="question">8. MySQL索引使用<code>__________</code>树结构，查询时间复杂度为<code>__________</code>。</p>
+
+    <p class="question">9. Redis的5种基本数据类型是：String、List、Set、<code>__________</code>、<code>__________</code>。</p>
+
+    <p class="question">10. 事务的ACID特性是指：原子性、<code>__________</code>、隔离性、<code>__________</code>。</p>
+
+    <h2>三、简答题（每题8分，共40分）</h2>
+    <p><strong>请在下方答题区域作答</strong></p>
+
+    <p class="question">11. 什么是Spring的依赖注入？它有什么优点？</p>
+    <div class="answer-box">
+        答：<br><br><br><br>
+    </div>
+
+    <p class="question">12. 如何优化MySQL慢查询？</p>
+    <div class="answer-box">
+        答：<br><br><br><br>
+    </div>
+
+    <p class="question">13. Redis有哪些使用场景？请列举至少3个。</p>
+    <div class="answer-box">
+        答：<br><br><br><br>
+    </div>
+
+    <p class="question">14. 什么是JWT？它的工作原理是什么？</p>
+    <div class="answer-box">
+        答：<br><br><br><br>
+    </div>
+
+    <p class="question">15. 如何保证接口的幂等性？</p>
+    <div class="answer-box">
+        答：<br><br><br><br>
+    </div>
+
+    <h2>四、编程题（共25分）</h2>
+
+    <p class="question">16. SQL查询题（10分）</p>
+    <p>有用户表user(id, name, phone)和订单表order(id, user_id, amount, create_time)</p>
+    <p>请写出SQL：查询每个用户的订单数量和订单总额</p>
+    <div class="code-box">
+-- 请在下方写SQL<br>
+<br>
+<br>
+<br>
+    </div>
+
+    <p class="question">17. 实现单例模式（15分）</p>
+    <p>要求：线程安全的懒加载单例模式</p>
+    <div class="code-box">
+public class Singleton {<br>
+  // 请补充代码<br>
+  <br>
+  <br>
+  <br>
+  <br>
+}
+    </div>
+
+    <h2>五、AI工具应用题（附加题10分）</h2>
+
+    <p class="question">18. 请写一个提示词，让AI帮你生成一个用户实体类（包含id、手机号、密码、昵称字段）</p>
+    <div class="answer-box">
+        <br><br><br><br><br>
+    </div>
+
+    <div class="rubric">
+        <strong>阅卷说明：</strong><br>
+        - 选择题：每题3分，选错不得分<br>
+        - 填空题：每空2分，意思对即可给分<br>
+        - 简答题：每题8分，要点清晰给6分以上<br>
+        - 编程题：代码正确给满分，逻辑正确有小错给一半分
+    </div>
+
+    <hr>
+    <div class="footer">
+        <strong>未来申活（上海）数字科技有限公司</strong><br>
+        编制日期：2026年4月8日
+    </div>
+</body>
+</html>

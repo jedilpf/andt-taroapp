@@ -1,0 +1,2057 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安电通 - 商业计划书</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* 密码验证层 */
+        .password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 50%, #0ea5e9 100%);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .password-overlay.hidden {
+            display: none;
+        }
+
+        .password-box {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .password-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+
+        .password-logo svg {
+            width: 48px;
+            height: 48px;
+            stroke: #fff;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .password-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .password-subtitle {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 32px;
+        }
+
+        .password-input-wrap {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 18px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            text-align: center;
+            letter-spacing: 8px;
+            transition: all 0.3s;
+            background: var(--bg);
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: #fff;
+        }
+
+        .password-input.error {
+            border-color: var(--danger);
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .password-btn {
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .password-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .password-btn:active {
+            transform: translateY(0);
+        }
+
+        .password-error {
+            color: var(--danger);
+            font-size: 14px;
+            margin-top: 16px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .password-error.show {
+            opacity: 1;
+        }
+
+        .password-hint {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        /* 主内容区域 */
+        .main-content {
+            display: none;
+        }
+
+        .main-content.show {
+            display: block;
+        }
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* SVG图标样式 */
+        .icon {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .icon-lg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .icon-xl {
+            width: 48px;
+            height: 48px;
+        }
+
+        /* 封面 */
+        .cover {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 50%, #0ea5e9 100%);
+            color: #fff;
+            text-align: center;
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.3; }
+        }
+
+        .cover-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cover-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .cover-logo svg {
+            width: 48px;
+            height: 48px;
+            stroke: #fff;
+            stroke-width: 2;
+        }
+
+        .cover-badge {
+            display: inline-block;
+            padding: 8px 24px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50px;
+            font-size: 14px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .cover h1 {
+            font-size: 64px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        .cover-subtitle {
+            font-size: 28px;
+            opacity: 0.9;
+            margin-bottom: 60px;
+            font-weight: 300;
+        }
+
+        .cover-meta {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cover-meta-item {
+            text-align: center;
+        }
+
+        .cover-meta-label {
+            font-size: 12px;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .cover-meta-value {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* 导航 */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 0 40px;
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .nav-menu-btn svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--text);
+        }
+
+        .nav-mobile {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px;
+            z-index: 999;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .nav-mobile.active {
+            display: flex;
+        }
+
+        .nav-mobile a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-mobile a:last-child {
+            border-bottom: none;
+        }
+
+        /* 主容器 */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+
+        /* 章节 */
+        .section {
+            margin-bottom: 100px;
+        }
+
+        .section-header {
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-number {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 16px;
+        }
+
+        .section-line {
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+
+        /* 卡片 */
+        .card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 10px 40px rgba(0,0,0,0.03);
+            border: 1px solid var(--border);
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .card-icon-wrap {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        .card-icon-wrap svg {
+            width: 24px;
+            height: 24px;
+            stroke: #fff;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .card-subtitle {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        /* 网格 */
+        .grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+        /* 表格 */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            padding: 16px 20px;
+            text-align: left;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        tr:hover td {
+            background: var(--bg);
+        }
+
+        /* 高亮 */
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .text-success { color: var(--success); }
+        .text-warning { color: var(--accent); }
+        .text-danger { color: var(--danger); }
+
+        /* 标签 */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 16px 0;
+        }
+
+        .tag {
+            padding: 6px 14px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .tag-primary {
+            background: rgba(37, 99, 235, 0.1);
+            border-color: rgba(37, 99, 235, 0.2);
+            color: var(--primary);
+        }
+
+        /* 统计 */
+        .stats {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 24px 40px;
+            background: var(--card);
+            border-radius: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 12px;
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--primary);
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        /* 流程 */
+        .flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 32px 0;
+            flex-wrap: wrap;
+        }
+
+        .flow-item {
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 24px;
+            text-align: center;
+            min-width: 120px;
+            transition: all 0.3s;
+        }
+
+        .flow-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .flow-arrow {
+            color: var(--primary);
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* 引言 */
+        .quote {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(14, 165, 233, 0.05));
+            border-left: 4px solid var(--primary);
+            padding: 24px 28px;
+            border-radius: 0 12px 12px 0;
+            margin: 24px 0;
+        }
+
+        .quote-text {
+            font-size: 16px;
+            color: var(--text);
+        }
+
+        /* 特性卡片 */
+        .feature-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 28px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .feature-icon-wrap {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .feature-icon-wrap svg {
+            width: 28px;
+            height: 28px;
+            stroke: #fff;
+        }
+
+        .feature-icon-wrap.success {
+            background: linear-gradient(135deg, var(--success), #059669);
+        }
+
+        .feature-icon-wrap.warning {
+            background: linear-gradient(135deg, var(--accent), #ea580c);
+        }
+
+        .feature-icon-wrap.danger {
+            background: linear-gradient(135deg, var(--danger), #dc2626);
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* 页脚 */
+        .footer {
+            background: var(--text);
+            color: #fff;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-logo svg {
+            width: 28px;
+            height: 28px;
+            stroke: #fff;
+        }
+
+        .footer-title {
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            opacity: 0.7;
+            line-height: 1.8;
+        }
+
+        /* 响应式 - 平板 */
+        @media (max-width: 1024px) {
+            .nav {
+                padding: 0 20px;
+            }
+            .nav-inner {
+                height: 60px;
+            }
+            .section {
+                padding: 60px 20px;
+            }
+            .cover {
+                padding: 40px 20px;
+            }
+            .cover h1 {
+                font-size: 48px;
+            }
+            .cover-subtitle {
+                font-size: 22px;
+            }
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* 响应式 - 手机 */
+        @media (max-width: 768px) {
+            .nav {
+                padding: 0 16px;
+            }
+            .nav-inner {
+                height: 56px;
+            }
+            .nav-logo {
+                font-size: 18px;
+            }
+            .nav-logo svg {
+                width: 24px;
+                height: 24px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .nav-menu-btn {
+                display: block;
+            }
+            .nav-mobile {
+                top: 56px;
+            }
+            
+            .cover {
+                padding: 80px 16px;
+                min-height: auto;
+            }
+            .cover-logo {
+                width: 64px;
+                height: 64px;
+                border-radius: 16px;
+            }
+            .cover-logo svg {
+                width: 36px;
+                height: 36px;
+            }
+            .cover h1 {
+                font-size: 36px;
+                letter-spacing: -1px;
+                margin-bottom: 12px;
+            }
+            .cover-subtitle {
+                font-size: 18px;
+                margin-bottom: 40px;
+            }
+            .cover-badge {
+                font-size: 12px;
+                padding: 6px 16px;
+                margin-bottom: 24px;
+            }
+            .cover-meta {
+                gap: 24px;
+            }
+            .cover-meta-label {
+                font-size: 10px;
+            }
+            .cover-meta-value {
+                font-size: 14px;
+            }
+            
+            .section {
+                padding: 48px 16px;
+            }
+            .section-title {
+                font-size: 28px;
+            }
+            .section-line {
+                width: 60px;
+                height: 3px;
+            }
+            
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .card {
+                padding: 20px;
+                border-radius: 12px;
+            }
+            .card-header {
+                margin-bottom: 16px;
+            }
+            .card-icon-wrap {
+                width: 40px;
+                height: 40px;
+                border-radius: 10px;
+            }
+            .card-icon-wrap svg {
+                width: 20px;
+                height: 20px;
+            }
+            .card-title {
+                font-size: 16px;
+            }
+            
+            .feature-card {
+                padding: 20px;
+            }
+            .feature-icon-wrap {
+                width: 48px;
+                height: 48px;
+                border-radius: 12px;
+                margin-bottom: 16px;
+            }
+            .feature-icon-wrap svg {
+                width: 24px;
+                height: 24px;
+            }
+            .feature-title {
+                font-size: 16px;
+            }
+            .feature-desc {
+                font-size: 13px;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .stat {
+                padding: 20px;
+            }
+            .stat-icon {
+                width: 36px;
+                height: 36px;
+            }
+            .stat-value {
+                font-size: 28px;
+            }
+            .stat-label {
+                font-size: 13px;
+            }
+            
+            .flow {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+            .flow-item {
+                min-width: auto;
+                width: 100%;
+                padding: 14px 20px;
+            }
+            
+            .table-wrapper {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            table {
+                min-width: 600px;
+                font-size: 13px;
+            }
+            th, td {
+                padding: 10px 12px;
+            }
+            
+            .highlight {
+                padding: 2px 6px;
+            }
+            
+            .tags {
+                gap: 6px;
+            }
+            .tag {
+                padding: 4px 10px;
+                font-size: 11px;
+            }
+            
+            .quote {
+                padding: 16px 20px;
+                margin: 16px 0;
+            }
+            .quote-text {
+                font-size: 14px;
+            }
+            
+            .footer {
+                padding: 40px 16px;
+            }
+            .footer-logo {
+                width: 48px;
+                height: 48px;
+            }
+            .footer-title {
+                font-size: 16px;
+            }
+            .footer-text {
+                font-size: 13px;
+            }
+            
+            [id] {
+                scroll-margin-top: 70px;
+            }
+        }
+
+        /* 响应式 - 小屏手机 */
+        @media (max-width: 375px) {
+            .cover h1 {
+                font-size: 32px;
+            }
+            .cover-subtitle {
+                font-size: 16px;
+            }
+            .section-title {
+                font-size: 24px;
+            }
+            .stat-value {
+                font-size: 24px;
+            }
+        }
+
+        /* 锚点偏移 */
+        [id] {
+            scroll-margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 密码验证层 -->
+<div class="password-overlay" id="passwordOverlay">
+    <div class="password-box">
+        <div class="password-logo">
+            <svg viewBox="0 0 24 24">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+        </div>
+        <div class="password-title">安电通</div>
+        <div class="password-subtitle">商业计划书 - 内部资料</div>
+        <div class="password-input-wrap">
+            <input type="password" class="password-input" id="passwordInput" placeholder="请输入密码" maxlength="6">
+        </div>
+        <button class="password-btn" onclick="checkPassword()">进入查看</button>
+        <div class="password-error" id="passwordError">密码错误，请重新输入</div>
+        <div class="password-hint">提示：此文档为内部资料，请输入正确密码查看</div>
+    </div>
+</div>
+
+<!-- 主内容区域 -->
+<div class="main-content" id="mainContent">
+
+<!-- SVG图标定义 -->
+<svg style="display:none">
+    <defs>
+        <!-- 闪电图标 -->
+        <symbol id="icon-bolt" viewBox="0 0 24 24">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="none"></polygon>
+        </symbol>
+        <!-- 房屋图标 -->
+        <symbol id="icon-home" viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="none"></path>
+            <polyline points="9 22 9 12 15 12 15 22" fill="none"></polyline>
+        </symbol>
+        <!-- 用户图标 -->
+        <symbol id="icon-user" viewBox="0 0 24 24">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </symbol>
+        <!-- 盾牌图标 -->
+        <symbol id="icon-shield" viewBox="0 0 24 24">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="none"></path>
+        </symbol>
+        <!-- 机器人图标 -->
+        <symbol id="icon-bot" viewBox="0 0 24 24">
+            <rect x="3" y="11" width="18" height="10" rx="2" fill="none"></rect>
+            <circle cx="12" cy="5" r="2" fill="none"></circle>
+            <path d="M12 7v4" fill="none"></path>
+            <line x1="8" y1="16" x2="8" y2="16"></line>
+            <line x1="16" y1="16" x2="16" y2="16"></line>
+        </symbol>
+        <!-- 循环图标 -->
+        <symbol id="icon-refresh" viewBox="0 0 24 24">
+            <polyline points="23 4 23 10 17 10" fill="none"></polyline>
+            <polyline points="1 20 1 14 7 14" fill="none"></polyline>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" fill="none"></path>
+        </symbol>
+        <!-- 手机图标 -->
+        <symbol id="icon-smartphone" viewBox="0 0 24 24">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2" fill="none"></rect>
+            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+        </symbol>
+        <!-- 工具图标 -->
+        <symbol id="icon-tool" viewBox="0 0 24 24">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" fill="none"></path>
+        </symbol>
+        <!-- 齿轮图标 -->
+        <symbol id="icon-settings" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3" fill="none"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" fill="none"></path>
+        </symbol>
+        <!-- 图表图标 -->
+        <symbol id="icon-chart" viewBox="0 0 24 24">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+        </symbol>
+        <!-- 钱包图标 -->
+        <symbol id="icon-wallet" viewBox="0 0 24 24">
+            <path d="M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z" fill="none"></path>
+            <path d="M1 10h22" fill="none"></path>
+        </symbol>
+        <!-- 盒子图标 -->
+        <symbol id="icon-package" viewBox="0 0 24 24">
+            <line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line>
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" fill="none"></path>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96" fill="none"></polyline>
+            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+        </symbol>
+        <!-- 皇冠图标 -->
+        <symbol id="icon-crown" viewBox="0 0 24 24">
+            <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7z" fill="none"></path>
+            <path d="M3 20h18" fill="none"></path>
+        </symbol>
+        <!-- 火箭图标 -->
+        <symbol id="icon-rocket" viewBox="0 0 24 24">
+            <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" fill="none"></path>
+            <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" fill="none"></path>
+            <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" fill="none"></path>
+            <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" fill="none"></path>
+        </symbol>
+        <!-- 地图图标 -->
+        <symbol id="icon-map" viewBox="0 0 24 24">
+            <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6" fill="none"></polygon>
+            <line x1="8" y1="2" x2="8" y2="18"></line>
+            <line x1="16" y1="6" x2="16" y2="22"></line>
+        </symbol>
+        <!-- 目标图标 -->
+        <symbol id="icon-target" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" fill="none"></circle>
+            <circle cx="12" cy="12" r="6" fill="none"></circle>
+            <circle cx="12" cy="12" r="2" fill="none"></circle>
+        </symbol>
+        <!-- 时钟图标 -->
+        <symbol id="icon-clock" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" fill="none"></circle>
+            <polyline points="12 6 12 12 16 14" fill="none"></polyline>
+        </symbol>
+        <!-- 团队图标 -->
+        <symbol id="icon-team" viewBox="0 0 24 24">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" fill="none"></path>
+            <circle cx="9" cy="7" r="4" fill="none"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" fill="none"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" fill="none"></path>
+        </symbol>
+        <!-- 人群/用户组图标 -->
+        <symbol id="icon-users" viewBox="0 0 24 24">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" fill="none"></path>
+            <circle cx="8.5" cy="7" r="4" fill="none"></circle>
+            <path d="M20 8v6" fill="none"></path>
+            <path d="M23 11h-6" fill="none"></path>
+        </symbol>
+        <!-- 老年/关爱图标 -->
+        <symbol id="icon-heart" viewBox="0 0 24 24">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="none"></path>
+        </symbol>
+        <!-- 建筑/房屋图标 -->
+        <symbol id="icon-building" viewBox="0 0 24 24">
+            <rect x="4" y="2" width="16" height="20" rx="2" ry="2" fill="none"></rect>
+            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+        </symbol>
+        <!-- 人民币图标 -->
+        <symbol id="icon-cny" viewBox="0 0 24 24">
+            <line x1="12" y1="1" x2="12" y2="23"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" fill="none"></path>
+        </symbol>
+    </defs>
+</svg>
+
+<!-- 封面 -->
+<div class="cover" id="top">
+    <div class="cover-content">
+        <div class="cover-logo">
+            <svg class="icon-xl"><use href="#icon-bolt"></use></svg>
+        </div>
+        <div class="cover-badge">未来申活（上海）数字科技有限公司</div>
+        <h1>安电通</h1>
+        <div class="cover-subtitle">家庭用电安全O2O服务平台</div>
+        <div class="cover-meta">
+            <div class="cover-meta-item">
+                <div class="cover-meta-label">版本</div>
+                <div class="cover-meta-value">BP v1.0</div>
+            </div>
+            <div class="cover-meta-item">
+                <div class="cover-meta-label">编制日期</div>
+                <div class="cover-meta-value">2026年Q2-Q4</div>
+            </div>
+            <div class="cover-meta-item">
+                <div class="cover-meta-label">核心亮点</div>
+                <div class="cover-meta-value">物业+商城闭环生态</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 导航 -->
+<nav class="nav">
+    <div class="nav-inner">
+        <div class="nav-logo">
+            <svg class="icon"><use href="#icon-bolt"></use></svg>
+            安电通
+        </div>
+        <div class="nav-links">
+            <a href="#s1">公司概况</a>
+            <a href="#s2">产品服务</a>
+            <a href="#s3">市场分析</a>
+            <a href="#s4">商业模式</a>
+            <a href="#s5">营销策略</a>
+            <a href="#s6">运营计划</a>
+            <a href="#s7">团队融资</a>
+        </div>
+        <button class="nav-menu-btn" onclick="toggleMenu()" aria-label="菜单">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+</nav>
+
+<!-- 移动端导航菜单 -->
+<div class="nav-mobile" id="navMobile">
+    <a href="#s1" onclick="closeMenu()">公司概况</a>
+    <a href="#s2" onclick="closeMenu()">产品服务</a>
+    <a href="#s3" onclick="closeMenu()">市场分析</a>
+    <a href="#s4" onclick="closeMenu()">商业模式</a>
+    <a href="#s5" onclick="closeMenu()">营销策略</a>
+    <a href="#s6" onclick="closeMenu()">运营计划</a>
+    <a href="#s7" onclick="closeMenu()">团队融资</a>
+</div>
+
+<div class="container">
+
+    <!-- 一、公司概况 -->
+    <div class="section" id="s1">
+        <div class="section-header">
+            <div class="section-number">Section 01</div>
+            <div class="section-title">公司概况</div>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon-wrap">
+                    <svg class="icon"><use href="#icon-home"></use></svg>
+                </div>
+                <div>
+                    <div class="card-title">公司简介</div>
+                </div>
+            </div>
+            <p>未来申活（上海）数字科技有限公司是一家专注于社区民生服务的数字化平台企业，致力于运用互联网技术赋能传统社区服务业，提升居民生活品质。</p>
+            <p style="margin-top: 16px;">公司旗下核心产品"安电通"是针对家庭用电安全的O2O服务平台，通过连接专业电工与社区居民，解决民生服务"最后一公里"难题，助力<span class="highlight">智慧社区建设</span>。</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon-wrap">
+                    <svg class="icon"><use href="#icon-target"></use></svg>
+                </div>
+                <div>
+                    <div class="card-title">项目简介</div>
+                </div>
+            </div>
+            <p>安电通是一个专注于<span class="highlight">家庭用电安全</span>的O2O服务平台，致力于连接专业电工与社区居民，解决传统电工服务行业"找电工难、价格不透明、服务无保障"的三大民生痛点。</p>
+            <div class="quote">
+                <div class="quote-text">"像打车一样找电工" —— 通过实时地图、智能匹配，透明定价、服务保障四大核心能力，打造专业的家庭用电安全服务平台。</div>
+            </div>
+            <p>本项目积极响应国家"智慧社区"建设号召，以社区民生服务为切入点，推动社区服务业数字化升级，让科技赋能民生，让服务温暖社区。</p>
+        </div>
+
+        <div class="grid grid-3">
+            <div class="feature-card">
+                <div class="feature-icon-wrap">
+                    <svg class="icon"><use href="#icon-shield"></use></svg>
+                </div>
+                <div class="feature-title">社会价值</div>
+                <div class="feature-desc">以民生需求为导向，助力社区安全建设</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-wrap">
+                    <svg class="icon"><use href="#icon-bot"></use></svg>
+                </div>
+                <div class="feature-title">技术创新</div>
+                <div class="feature-desc">互联网平台 + AI诊断 + 微服务架构</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-wrap">
+                    <svg class="icon"><use href="#icon-refresh"></use></svg>
+                </div>
+                <div class="feature-title">模式创新</div>
+                <div class="feature-desc">物业+商城闭环生态，精准服务广大群众</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon-wrap">
+                    <svg class="icon"><use href="#icon-clock"></use></svg>
+                </div>
+                <div>
+                    <div class="card-title">发展历程</div>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <tr><th>阶段</th><th>时间</th><th>里程碑</th></tr>
+                    <tr><td>概念阶段</td><td>2025年Q4</td><td>项目立项，需求调研</td></tr>
+                    <tr><td>Demo开发</td><td>2026年Q1</td><td>前端Demo完成，76个页面，157个源码文件</td></tr>
+                    <tr><td>团队组建</td><td>2026年Q2</td><td>核心团队到位，技术选型完成</td></tr>
+                    <tr><td>开发阶段</td><td>2026年Q3</td><td>后端开发、联调、测试</td></tr>
+                    <tr><td>内测阶段</td><td>2026年Q3</td><td>小范围试运营</td></tr>
+                    <tr><td><span class="highlight">正式上线</span></td><td>2026年Q4</td><td>V1.0版本发布</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 二、产品与服务 -->
+    <div class="section" id="s2">
+        <div class="section-header">
+            <div class="section-number">Section 02</div>
+            <div class="section-title">产品与服务</div>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-icon">
+                    <svg class="icon"><use href="#icon-smartphone"></use></svg>
+                </div>
+                <div class="stat-value">8+4</div>
+                <div class="stat-label">用户端+电工端模块</div>
+            </div>
+            <div class="stat">
+                <div class="stat-icon">
+                    <svg class="icon"><use href="#icon-bot"></use></svg>
+                </div>
+                <div class="stat-value">5</div>
+                <div class="stat-label">大核心技术</div>
+            </div>
+            <div class="stat">
+                <div class="stat-icon">
+                    <svg class="icon"><use href="#icon-shield"></use></svg>
+                </div>
+                <div class="stat-value">6</div>
+                <div class="stat-label">重服务保障</div>
+            </div>
+        </div>
+
+        <div class="grid grid-3">
+            <div class="feature-card">
+                <div class="feature-icon-wrap">
+                    <svg class="icon"><use href="#icon-smartphone"></use></svg>
+                </div>
+                <div class="feature-title">用户端APP</div>
+                <div class="feature-desc">应急维修、免费检测、便民安装、智慧家居、订单管理、积分商城、社区服务、个人中心</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-wrap">
+                    <svg class="icon"><use href="#icon-tool"></use></svg>
+                </div>
+                <div class="feature-title">电工端小程序</div>
+                <div class="feature-desc">任务大厅（抢单模式）、我的任务、收益管理、个人中心</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-wrap">
+                    <svg class="icon"><use href="#icon-settings"></use></svg>
+                </div>
+                <div class="feature-title">运营管理后台</div>
+                <div class="feature-desc">订单管理、电工管理、用户管理、数据分析</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon-wrap">
+                    <svg class="icon"><use href="#icon-chart"></use></svg>
+                </div>
+                <div>
+                    <div class="card-title">核心业务流程</div>
+                </div>
+            </div>
+            <h3 style="font-size: 14px; color: var(--text-light); margin: 20px 0 16px;">应急维修流程</h3>
+            <div class="flow">
+                <div class="flow-item">用户下单</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">系统派单</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">电工抢单</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">上门服务</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">支付评价</div>
+            </div>
+
+            <h3 style="font-size: 14px; color: var(--text-light); margin: 30px 0 16px;">免费检测转化流程</h3>
+            <div class="flow">
+                <div class="flow-item">首次预约</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">上门检测<br><small style="color: var(--text-light);">免费</small></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">发现问题</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">整改方案</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">实施维修</div>
+            </div>
+        </div>
+
+        <div class="grid grid-2">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon-wrap">
+                        <svg class="icon"><use href="#icon-settings"></use></svg>
+                    </div>
+                    <div>
+                        <div class="card-title">技术架构</div>
+                    </div>
+                </div>
+                <div class="tags">
+                    <span class="tag tag-primary">React + Taro</span>
+                    <span class="tag tag-primary">Spring Cloud</span>
+                    <span class="tag tag-primary">高德地图API</span>
+                    <span class="tag tag-primary">Gemini/DeepSeek</span>
+                </div>
+                <p style="font-size: 14px; color: var(--text-light); margin-top: 16px;">一套代码多端复用 · 微服务弹性扩展 · AI辅助诊断</p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon-wrap">
+                        <svg class="icon"><use href="#icon-shield"></use></svg>
+                    </div>
+                    <div>
+                        <div class="card-title">服务保障</div>
+                    </div>
+                </div>
+                <div class="tags">
+                    <span class="tag tag-primary">家庭保障</span>
+                    <span class="tag tag-primary">人身保障</span>
+                    <span class="tag tag-primary">90天质保</span>
+                    <span class="tag tag-primary">先行赔付</span>
+                    <span class="tag tag-primary">信用等级</span>
+                    <span class="tag tag-primary">透明定价</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 三、市场分析 -->
+    <div class="section" id="s3">
+        <div class="section-header">
+            <div class="section-number">Section 03</div>
+            <div class="section-title">市场分析</div>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-icon">
+                    <svg class="icon"><use href="#icon-chart"></use></svg>
+                </div>
+                <div class="stat-value">450亿+</div>
+                <div class="stat-label">年市场容量</div>
+            </div>
+            <div class="stat">
+                <div class="stat-icon">
+                    <svg class="icon"><use href="#icon-heart"></use></svg>
+                </div>
+                <div class="stat-value">3.3亿</div>
+                <div class="stat-label">老年人口</div>
+            </div>
+            <div class="stat">
+                <div class="stat-icon">
+                    <svg class="icon"><use href="#icon-users"></use></svg>
+                </div>
+                <div class="stat-value">1亿+</div>
+                <div class="stat-label">目标用户</div>
+            </div>
+        </div>
+
+        <div class="grid grid-3">
+            <div class="feature-card">
+                <div class="feature-icon-wrap">
+                    <svg class="icon"><use href="#icon-heart"></use></svg>
+                </div>
+                <div class="feature-title">银发用户 55岁+</div>
+                <div class="feature-desc">独居/子女不在身边，用电安全隐患大，核心用户群体</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-wrap">
+                    <svg class="icon"><use href="#icon-building"></use></svg>
+                </div>
+                <div class="feature-title">家庭支柱 35-55岁</div>
+                <div class="feature-desc">上班族，工作忙，需要省时省心的服务</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-wrap">
+                    <svg class="icon"><use href="#icon-smartphone"></use></svg>
+                </div>
+                <div class="feature-title">租房青年 25-35岁</div>
+                <div class="feature-desc">租房为主，便捷维修、合理价格</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon-wrap">
+                    <svg class="icon"><use href="#icon-target"></use></svg>
+                </div>
+                <div>
+                    <div class="card-title">四大民生痛点</div>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <tr><th>痛点</th><th>现状</th><th>安电通解决方案</th></tr>
+                    <tr><td><strong>找电工难</strong></td><td>缺乏可靠渠道</td><td>实时地图+智能匹配+认证体系</td></tr>
+                    <tr><td><strong>价格不透明</strong></td><td>收费标准不统一</td><td>标准化定价+AI辅助报价</td></tr>
+                    <tr><td><strong>服务无保障</strong></td><td>众包模式，责任难追</td><td>认证体系+先行赔付+90天质保</td></tr>
+                    <tr><td><strong>故障判断难</strong></td><td>居民缺乏专业知识</td><td>AI辅助诊断，提升知情权</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon-wrap">
+                    <svg class="icon"><use href="#icon-chart"></use></svg>
+                </div>
+                <div>
+                    <div class="card-title">竞争格局对比</div>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <tr><th>竞品</th><th>抽成比例</th><th>价格透明度</th><th>安电通优势</th></tr>
+                    <tr><td>啄木鸟</td><td class="text-warning">40-50%</td><td>低</td><td rowspan="3">透明定价，专业垂直</td></tr>
+                    <tr><td>天鹅到家</td><td>30-40%</td><td>中</td></tr>
+                    <tr><td>58到家</td><td>综合平台</td><td>低</td></tr>
+                    <tr style="background: rgba(37,99,235,0.05);"><td><strong class="highlight">安电通</strong></td><td class="highlight"><strong>20-25%</strong></td><td class="text-success"><strong>高</strong></td><td><strong>透明定价+AI诊断+服务保障</strong></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 四、商业模式 -->
+    <div class="section" id="s4">
+        <div class="section-header">
+            <div class="section-number">Section 04</div>
+            <div class="section-title">商业模式</div>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="card" style="background: linear-gradient(135deg, rgba(37,99,235,0.05), rgba(14,165,233,0.05)); border-color: rgba(37,99,235,0.2);">
+            <div class="card-header">
+                <div class="card-icon-wrap">
+                    <svg class="icon"><use href="#icon-refresh"></use></svg>
+                </div>
+                <div>
+                    <div class="card-title">核心：物业+商城社区生态闭环</div>
+                </div>
+            </div>
+            <div class="flow" style="margin-top: 24px;">
+                <div class="flow-item" style="background: rgba(37,99,235,0.1); border-color: var(--primary);">
+                    <strong>用户</strong><br>
+                    <small>服务消费 → 积分获取 → 物业费抵扣</small>
+                </div>
+                <div class="flow-arrow">⇄</div>
+                <div class="flow-item" style="background: rgba(245,158,11,0.1); border-color: var(--accent);">
+                    <strong>平台</strong><br>
+                    <small>精准获客 + 服务闭环</small>
+                </div>
+                <div class="flow-arrow">⇄</div>
+                <div class="flow-item" style="background: rgba(16,185,129,0.1); border-color: var(--success);">
+                    <strong>物业</strong><br>
+                    <small>联合推广 → 15%分成</small>
+                </div>
+            </div>
+            <div class="quote">
+                <div class="quote-text"><strong>核心逻辑：</strong>与其花10万砸广告，不如将15%利润给物业，让物业主动推广，实现<span class="highlight">自驱动增长</span>。</div>
+            </div>
+        </div>
+
+        <div class="grid grid-3">
+            <div class="feature-card">
+                <div class="feature-icon-wrap">
+                    <svg class="icon"><use href="#icon-wallet"></use></svg>
+                </div>
+                <div class="feature-title">服务佣金 60%</div>
+                <div class="feature-desc">交易抽成，前期20-25%（竞品40-50%的一半）</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-wrap warning">
+                    <svg class="icon"><use href="#icon-package"></use></svg>
+                </div>
+                <div class="feature-title">材料差价 25%</div>
+                <div class="feature-desc">平台统一供货，批量采购优惠</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon-wrap success">
+                    <svg class="icon"><use href="#icon-crown"></use></svg>
+                </div>
+                <div class="feature-title">会员订阅 15%</div>
+                <div class="feature-desc">月度免费检测次数，优先派单权益</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon-wrap">
+                    <svg class="icon"><use href="#icon-cny"></use></svg>
+                </div>
+                <div>
+                    <div class="card-title">透明定价模式</div>
+                </div>
+            </div>
+            <div class="flow">
+                <div class="flow-item">检查<strong>免费</strong></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">问题修复<br>+材料打包</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item" style="background: rgba(37,99,235,0.15); border-color: var(--primary);">
+                    <span class="highlight"><strong>199/299元</strong></span><br>
+                    <small>一次性收费</small>
+                </div>
+            </div>
+            <p style="text-align: center; color: var(--text-light); font-size: 14px; margin-top: 16px;">包含：检测+维修+后续服务 | 不重复收费 | 透明可信</p>
+        </div>
+    </div>
+
+    <!-- 五、营销策略 -->
+    <div class="section" id="s5">
+        <div class="section-header">
+            <div class="section-number">Section 05</div>
+            <div class="section-title">营销策略</div>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon-wrap">
+                    <svg class="icon"><use href="#icon-map"></use></svg>
+                </div>
+                <div>
+                    <div class="card-title">获客渠道占比</div>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <tr><th>渠道</th><th>占比</th><th>策略</th></tr>
+                    <tr><td><strong class="highlight">物业联动</strong></td><td class="highlight"><strong>40%</strong></td><td>利润分成驱动，替代硬广告</td></tr>
+                    <tr><td>口碑传播</td><td>20%</td><td>群体效应，服务带动</td></tr>
+                    <tr><td>微信生态</td><td>25%</td><td>公众号+小程序+社群</td></tr>
+                    <tr><td>应用商店</td><td>15%</td><td>ASO优化，有限投放</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon-wrap">
+                    <svg class="icon"><use href="#icon-target"></use></svg>
+                </div>
+                <div>
+                    <div class="card-title">用户生命周期</div>
+                </div>
+            </div>
+            <div class="flow">
+                <div class="flow-item">拉新<br><small>首次免费检测</small></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">激活<br><small>整改方案推送</small></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">留存<br><small>积分抵物业费</small></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">推荐<br><small>口碑传播</small></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon-wrap">
+                    <svg class="icon"><use href="#icon-tool"></use></svg>
+                </div>
+                <div>
+                    <div class="card-title">电工端激励</div>
+                </div>
+            </div>
+            <div class="tags">
+                <span class="tag tag-primary">低抽成 20-25%</span>
+                <span class="tag tag-primary">灵活接单</span>
+                <span class="tag tag-primary">信用等级（金/银/铜牌）</span>
+                <span class="tag tag-primary">技能培训</span>
+                <span class="tag tag-primary">收益透明</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 六、运营计划 -->
+    <div class="section" id="s6">
+        <div class="section-header">
+            <div class="section-number">Section 06</div>
+            <div class="section-title">运营计划</div>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-icon">
+                    <svg class="icon"><use href="#icon-clock"></use></svg>
+                </div>
+                <div class="stat-value">17-24周</div>
+                <div class="stat-label">总工期（4-6个月）</div>
+            </div>
+            <div class="stat">
+                <div class="stat-icon">
+                    <svg class="icon"><use href="#icon-users"></use></svg>
+                </div>
+                <div class="stat-value">6人</div>
+                <div class="stat-label">前期团队</div>
+            </div>
+            <div class="stat">
+                <div class="stat-icon">
+                    <svg class="icon"><use href="#icon-rocket"></use></svg>
+                </div>
+                <div class="stat-value">Q4</div>
+                <div class="stat-label">正式上线</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon-wrap">
+                    <svg class="icon"><use href="#icon-clock"></use></svg>
+                </div>
+                <div>
+                    <div class="card-title">开发周期</div>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <tr><th>阶段</th><th>周期</th><th>核心任务</th></tr>
+                    <tr><td>阶段一</td><td>2-3周</td><td>技术选型、架构设计</td></tr>
+                    <tr><td>阶段二</td><td>6-8周</td><td>后端核心模块开发</td></tr>
+                    <tr><td>阶段三</td><td>4-6周</td><td>前后端联调</td></tr>
+                    <tr><td>阶段四</td><td>3-4周</td><td>测试与验收</td></tr>
+                    <tr><td>阶段五</td><td>2-3周</td><td>上线准备</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon-wrap">
+                    <svg class="icon"><use href="#icon-chart"></use></svg>
+                </div>
+                <div>
+                    <div class="card-title">运营指标规划</div>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <tr><th>指标</th><th>2026年Q4</th><th>2027年</th><th>2028年</th></tr>
+                    <tr><td>注册用户</td><td>1万+</td><td>10万+</td><td>50万+</td></tr>
+                    <tr><td>日活用户</td><td>1000+</td><td>1万+</td><td>5万+</td></tr>
+                    <tr><td>月订单量</td><td>3000+</td><td>3万+</td><td>15万+</td></tr>
+                    <tr><td>电工入驻</td><td>500+</td><td>5000+</td><td>2万+</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 七、团队与融资 -->
+    <div class="section" id="s7">
+        <div class="section-header">
+            <div class="section-number">Section 07</div>
+            <div class="section-title">团队与融资</div>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="grid grid-2">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon-wrap">
+                        <svg class="icon"><use href="#icon-users"></use></svg>
+                    </div>
+                    <div>
+                        <div class="card-title">前期团队（6人）</div>
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <tr><th>角色</th><th>人数</th><th>职责</th></tr>
+                        <tr><td>项目负责人</td><td>1</td><td>项目管理、需求把控</td></tr>
+                        <tr><td>前端开发</td><td>1</td><td>APP/小程序开发</td></tr>
+                        <tr><td>后端开发</td><td>1</td><td>微服务、API开发</td></tr>
+                        <tr><td><span class="highlight">运维工程师</span></td><td>1</td><td>服务器安全、数据保护</td></tr>
+                        <tr><td>产品/运营</td><td>1</td><td>PRD、内容运营</td></tr>
+                        <tr><td>UI设计</td><td>外包</td><td>界面设计</td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon-wrap">
+                        <svg class="icon"><use href="#icon-cny"></use></svg>
+                    </div>
+                    <div>
+                        <div class="card-title">成本结构（年度）</div>
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <tr><th>项目</th><th>金额</th><th>占比</th></tr>
+                        <tr><td>人力成本</td><td class="highlight">180万</td><td>67%</td></tr>
+                        <tr><td>市场推广</td><td>50万</td><td>19%</td></tr>
+                        <tr><td>运营支持</td><td>38万</td><td>14%</td></tr>
+                        <tr><td><strong>合计</strong></td><td class="highlight"><strong>268万</strong></td><td>100%</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(14,165,233,0.08)); border-color: rgba(37,99,235,0.2);">
+            <div class="card-header">
+                <div class="card-icon-wrap">
+                    <svg class="icon"><use href="#icon-rocket"></use></svg>
+                </div>
+                <div>
+                    <div class="card-title">融资需求</div>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <tr><th>轮次</th><th>融资金额</th><th>投后估值</th><th>估值倍数</th><th>时间</th><th>用途</th></tr>
+                    <tr><td><strong class="highlight">天使轮</strong></td><td class="highlight"><strong>300万</strong></td><td>600万</td><td>2.0倍</td><td>2026年Q2</td><td>产品开发+团队</td></tr>
+                    <tr><td>A轮</td><td>1500万</td><td>3000万</td><td>2.0倍</td><td>2027年Q1</td><td>市场扩张</td></tr>
+                    <tr><td>B轮</td><td>5000万</td><td>1.5亿</td><td>3.0倍</td><td>2028年Q3</td><td>全国扩张</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon-wrap">
+                    <svg class="icon"><use href="#icon-target"></use></svg>
+                </div>
+                <div>
+                    <div class="card-title">里程碑承诺（天使轮）</div>
+                </div>
+            </div>
+            <div class="flow">
+                <div class="flow-item">M1<br><small>2026年Q2</small><br><small>产品开发完成</small></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">M2<br><small>2026年Q3</small><br><small>内测上线</small></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item" style="background: rgba(37,99,235,0.15); border-color: var(--primary);">
+                    M3<br><small>2026年Q4</small><br><span class="highlight">正式上线</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon-wrap">
+                    <svg class="icon"><use href="#icon-chart"></use></svg>
+                </div>
+                <div>
+                    <div class="card-title">财务预测（万元）</div>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <tr><th>指标</th><th>2026年</th><th>2027年</th><th>2028年</th><th>2029年</th><th>2030年</th></tr>
+                    <tr><td>收入</td><td>75</td><td>600</td><td>1,900</td><td>4,700</td><td>9,500</td></tr>
+                    <tr><td>成本</td><td>223</td><td>320</td><td>450</td><td>600</td><td>800</td></tr>
+                    <tr><td><strong>毛利</strong></td><td class="text-warning">-148</td><td class="text-success">+280</td><td class="text-success">+1,450</td><td class="text-success">+4,100</td><td class="text-success">+8,700</td></tr>
+                </table>
+            </div>
+            <p style="text-align: center; margin-top: 16px;"><span class="highlight">预计2027年下半年实现盈亏平衡</span></p>
+            <p style="text-align: left; color: var(--text-light); font-size: 13px; line-height: 1.8; margin-top: 12px;">
+                <strong>财务假设：</strong><br>
+                • 2026年Q2-Q4为产品开发期，投入研发和运营成本<br>
+                • 2026年Q4为市场验证期，用户增长和品牌建设<br>
+                • 单客单价：199元，毛利率约30%<br>
+                • 用户增长率：Q1达到10万，Q2达到50万，Q3达到1亿<br>
+                • 获客成本（CAC）：约50元/用户
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon-wrap">
+                    <svg class="icon"><use href="#icon-shield"></use></svg>
+                </div>
+                <div>
+                    <div class="card-title">社会价值</div>
+                </div>
+            </div>
+            <div class="grid grid-2" style="margin-bottom: 24px;">
+                <!-- 民生价值 - 温暖红色系 -->
+                <div class="feature-card" style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.03) 0%, rgba(248, 113, 113, 0.08) 100%); border: 1px solid rgba(239, 68, 68, 0.15); box-shadow: 0 4px 20px rgba(239, 68, 68, 0.08);">
+                    <div class="feature-icon-wrap" style="width: 48px; height: 48px; background: linear-gradient(135deg, #ef4444 0%, #f87171 100%); box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);">
+                        <svg class="icon" style="width: 24px; height: 24px;"><use href="#icon-heart"></use></svg>
+                    </div>
+                    <div class="feature-title" style="font-size: 16px; margin-bottom: 8px; color: #dc2626;">民生价值</div>
+                    <div class="feature-desc" style="font-size: 13px; line-height: 1.7; color: #7f1d1d;">
+                        • 服务<span style="color: #dc2626; font-weight: 600;">3.3亿</span>老年人口用电安全需求<br>
+                        • 降低家庭电气火灾事故发生率<br>
+                        • 提升居民生活安全感和幸福感
+                    </div>
+                </div>
+                <!-- 社会价值 - 品牌蓝色系 -->
+                <div class="feature-card" style="background: linear-gradient(135deg, rgba(37, 99, 235, 0.03) 0%, rgba(59, 130, 246, 0.08) 100%); border: 1px solid rgba(37, 99, 235, 0.15); box-shadow: 0 4px 20px rgba(37, 99, 235, 0.08);">
+                    <div class="feature-icon-wrap" style="width: 48px; height: 48px; background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%); box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);">
+                        <svg class="icon" style="width: 24px; height: 24px;"><use href="#icon-users"></use></svg>
+                    </div>
+                    <div class="feature-title" style="font-size: 16px; margin-bottom: 8px; color: #1d4ed8;">社会价值</div>
+                    <div class="feature-desc" style="font-size: 13px; line-height: 1.7; color: #1e3a8a;">
+                        • 推动家庭用电安全<span style="color: #2563eb; font-weight: 600;">标准化</span>建设<br>
+                        • 建立电工行业服务规范体系<br>
+                        • 促进社区安全治理数字化转型
+                    </div>
+                </div>
+                <!-- 治理价值 - 稳重青色系 -->
+                <div class="feature-card" style="background: linear-gradient(135deg, rgba(13, 148, 136, 0.03) 0%, rgba(20, 184, 166, 0.08) 100%); border: 1px solid rgba(13, 148, 136, 0.15); box-shadow: 0 4px 20px rgba(13, 148, 136, 0.08);">
+                    <div class="feature-icon-wrap" style="width: 48px; height: 48px; background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%); box-shadow: 0 8px 20px rgba(13, 148, 136, 0.3);">
+                        <svg class="icon" style="width: 24px; height: 24px;"><use href="#icon-shield"></use></svg>
+                    </div>
+                    <div class="feature-title" style="font-size: 16px; margin-bottom: 8px; color: #0f766e;">治理价值</div>
+                    <div class="feature-desc" style="font-size: 13px; line-height: 1.7; color: #134e4a;">
+                        • 助力<span style="color: #0d9488; font-weight: 600;">智慧社区</span>建设和基层治理<br>
+                        • 为政府提供用电安全数据支撑<br>
+                        • 响应国家老旧小区改造政策
+                    </div>
+                </div>
+                <!-- 就业价值 - 活力橙色系 -->
+                <div class="feature-card" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.03) 0%, rgba(251, 191, 36, 0.08) 100%); border: 1px solid rgba(245, 158, 11, 0.15); box-shadow: 0 4px 20px rgba(245, 158, 11, 0.08);">
+                    <div class="feature-icon-wrap" style="width: 48px; height: 48px; background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);">
+                        <svg class="icon" style="width: 24px; height: 24px;"><use href="#icon-tool"></use></svg>
+                    </div>
+                    <div class="feature-title" style="font-size: 16px; margin-bottom: 8px; color: #b45309;">就业价值</div>
+                    <div class="feature-desc" style="font-size: 13px; line-height: 1.7; color: #92400e;">
+                        • 创造电工师傅灵活就业机会<br>
+                        • 预计3年内带动<span style="color: #f59e0b; font-weight: 600;">10万+</span>就业岗位<br>
+                        • 提升蓝领技术工人收入水平
+                    </div>
+                </div>
+            </div>
+            <div class="tags" style="justify-content: center;">
+                <span class="tag tag-primary">民生价值</span>
+                <span class="tag tag-primary">社会价值</span>
+                <span class="tag tag-primary">治理价值</span>
+                <span class="tag tag-primary">就业价值</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- 页脚 -->
+<div class="footer">
+    <div class="footer-content">
+        <div class="footer-logo">
+            <svg class="icon"><use href="#icon-bolt"></use></svg>
+        </div>
+        <div class="footer-title">未来申活（上海）数字科技有限公司</div>
+        <div class="footer-text">
+            让每一个家庭用电更安全、更便捷<br>
+            声明：本商业计划书仅供投资方参考，不构成任何投资承诺
+        </div>
+    </div>
+</div>
+
+<script>
+    // 移动端菜单切换
+    function toggleMenu() {
+        const navMobile = document.getElementById('navMobile');
+        navMobile.classList.toggle('active');
+    }
+
+    // 关闭移动端菜单
+    function closeMenu() {
+        const navMobile = document.getElementById('navMobile');
+        navMobile.classList.remove('active');
+    }
+
+    // 点击页面其他区域关闭菜单
+    document.addEventListener('click', function(e) {
+        const navMobile = document.getElementById('navMobile');
+        const menuBtn = document.querySelector('.nav-menu-btn');
+        if (!navMobile.contains(e.target) && !menuBtn.contains(e.target)) {
+            navMobile.classList.remove('active');
+        }
+    });
+
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // 密码验证
+    const CORRECT_PASSWORD = '888888';
+
+    function checkPassword() {
+        const input = document.getElementById('passwordInput');
+        const error = document.getElementById('passwordError');
+        const overlay = document.getElementById('passwordOverlay');
+        const mainContent = document.getElementById('mainContent');
+
+        if (input.value === CORRECT_PASSWORD) {
+            // 密码正确，显示主内容
+            overlay.classList.add('hidden');
+            mainContent.classList.add('show');
+            // 保存验证状态到 sessionStorage
+            sessionStorage.setItem('authenticated', 'true');
+        } else {
+            // 密码错误，显示错误提示
+            input.classList.add('error');
+            error.classList.add('show');
+            input.value = '';
+            input.focus();
+
+            // 移除错误动画
+            setTimeout(() => {
+                input.classList.remove('error');
+            }, 500);
+        }
+    }
+
+    // 回车键提交
+    document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            checkPassword();
+        }
+    });
+
+    // 输入时隐藏错误提示
+    document.getElementById('passwordInput').addEventListener('input', function() {
+        document.getElementById('passwordError').classList.remove('show');
+    });
+
+    // 页面加载时检查是否已验证
+    window.addEventListener('load', function() {
+        if (sessionStorage.getItem('authenticated') === 'true') {
+            document.getElementById('passwordOverlay').classList.add('hidden');
+            document.getElementById('mainContent').classList.add('show');
+        }
+    });
+</script>
+
+</div><!-- 主内容区域结束 -->
+
+</body>
+</html>

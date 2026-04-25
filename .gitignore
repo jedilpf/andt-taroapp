@@ -1,0 +1,75 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+build/
+target/
+*.jar
+*.war
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Taro
+.temp/
+.rn_temp/
+.swc/
+
+# Maven
+.mvn/
+.m2/
+
+# Gradle
+.gradle/
+
+# Docker volumes
+mysql_data/
+redis_data/
+nacos_data/
+
+# Misc
+*.iml
+*.class
+
+# Large files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.mp4
+*.mov
+*.avi
+
+# Docs
+安电通-软著申请材料/
+安电通-汇报材料合集.zip
+extracted/
+extracted_text/
+
+# Android
+android/.gradle/
+android/app/build/
+
+# Large images
+*.psd
+*.sketch
